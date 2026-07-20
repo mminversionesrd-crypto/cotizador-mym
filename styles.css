@@ -343,57 +343,76 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 18px;
-  border: 1.5px solid var(--line);
-  border-radius: 14px;
-  background: #fff;
+  padding: 21px;
+  border: 1px solid #cbdced;
+  border-radius: 16px;
+  background:
+    linear-gradient(90deg, rgba(27, 107, 176, .045) 0 5px, transparent 5px),
+    #fff;
+  box-shadow: 0 12px 30px rgba(13, 52, 89, .08);
 }
 .proposal-card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue), #74aee0);
+  height: 5px;
+  background: linear-gradient(90deg, #0a2647 0 18%, var(--blue) 48%, #78b8e6 100%);
 }
-.proposal-header { justify-content: space-between; gap: 15px; padding: 7px 0 13px; border-bottom: 1px solid var(--line); }
-.report-logo-row { gap: 7px; }
+.proposal-header { justify-content: space-between; gap: 15px; padding: 10px 0 15px; border-bottom: 2px solid #d8e5f1; }
+.report-logo-row { gap: 8px; padding-left: 5px; }
 .report-logo { object-fit: contain; border-radius: 8px; }
 .mm-logo { width: 76px; height: 52px; background: #e3edf7; }
 .vega-logo { width: 92px; height: 49px; background: #20242d; }
 .report-title { text-align: right; }
-.report-title h2 { font-size: 1.05rem; }
+.report-title p { color: #527899; letter-spacing: .12em; }
+.report-title h2 { font-size: 1.14rem; letter-spacing: -.025em; }
+.report-title span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  margin-top: 6px;
+  padding: 0 9px;
+  border-radius: 99px;
+  color: #fff;
+  background: var(--navy);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
 .client-block {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin: 13px 0;
-  padding: 10px 12px;
-  border-radius: 11px;
+  margin: 15px 0 12px;
+  padding: 11px 13px;
+  border: 1px solid #d6e4f2;
+  border-radius: 9px;
   color: var(--navy-2);
-  background: #f0f6fe;
+  background: #f5f9fd;
   font-size: .8rem;
   font-weight: 700;
 }
 .proposal-charge-note {
-  margin: -3px 0 12px;
+  margin: 0 0 12px;
   padding: 7px 10px;
-  border-left: 3px solid #75a9d6;
-  border-radius: 0 8px 8px 0;
+  border-left: 3px solid #2d6fb0;
+  border-radius: 0 7px 7px 0;
   color: #41698f;
-  background: #f8faff;
+  background: #f4f8fc;
   font-size: .7rem;
   font-weight: 700;
 }
-.proposal-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.proposal-list { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
 .proposal-list div {
   display: grid;
   gap: 3px;
   padding: 9px 10px;
-  border: 1px solid var(--line);
-  border-radius: 11px;
-  background: #fff;
+  border: 1px solid #dbe6f0;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff, #fbfdff);
 }
-dt { color: var(--muted); font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
+dt { color: #6686a5; font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
 dd { margin: 0; color: var(--navy); font-size: .86rem; font-weight: 800; line-height: 1.2; }
 .highlight-row {
   grid-column: 1 / -1;
@@ -401,20 +420,24 @@ dd { margin: 0; color: var(--navy); font-size: .86rem; font-weight: 800; line-he
   grid-template-columns: 1fr auto;
   align-items: center;
   min-height: 62px;
-  border: 2px solid var(--line) !important;
-  background: var(--blue-soft) !important;
+  border: 1px solid #a9cbe9 !important;
+  background: linear-gradient(100deg, #e9f3fc, #f7fbff) !important;
 }
-.highlight-row dd { color: var(--blue); font-size: 1.3rem; text-align: right; }
+.highlight-row dd { color: var(--blue-2); font-size: 1.32rem; text-align: right; }
 
-.print-plan-table { margin-top: 14px; overflow: auto; }
-.print-table-heading { margin-bottom: 7px; }
+.print-plan-table { margin-top: 16px; overflow: auto; padding-top: 13px; border-top: 2px solid #d8e5f1; }
+.print-table-heading { margin-bottom: 8px; }
+.print-table-heading h3 { font-size: .88rem; }
 .print-table-heading span { color: var(--muted); font-size: .68rem; }
-table { width: 100%; border-collapse: collapse; font-size: .74rem; }
-th, td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: right; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .74rem; }
+th, td { padding: 8px 7px; border-bottom: 1px solid var(--line); text-align: right; }
 th:first-child, td:first-child { text-align: left; }
-th { color: var(--navy-2); background: #f5f8fc; font-size: .66rem; text-transform: uppercase; }
+th { color: #456a8d; background: #edf4fb; font-size: .64rem; text-transform: uppercase; letter-spacing: .05em; }
+th:first-child { border-radius: 7px 0 0 0; }
+th:last-child { border-radius: 0 7px 0 0; }
+.print-plan-table tbody tr:nth-child(even) td { background: #fbfdff; }
 .selected-print-row td { color: var(--blue-2); background: #f0f6fe; font-weight: 800; }
-.fine-print { margin-top: 12px; color: var(--muted); font-size: .68rem; line-height: 1.45; }
+.fine-print { margin-top: 13px; color: var(--muted); font-size: .68rem; line-height: 1.45; }
 
 .plans-section, .history-section { margin-top: 18px; }
 .plans-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
@@ -520,7 +543,7 @@ th { color: var(--navy-2); background: #f5f8fc; font-size: .66rem; text-transfor
 }
 
 @media print {
-  @page { size: A4 portrait; margin: 12mm; }
+  @page { size: A4 portrait; margin: 7mm 8mm; }
 
   body {
     min-width: 0;
@@ -535,8 +558,7 @@ th { color: var(--navy-2); background: #f5f8fc; font-size: .66rem; text-transfor
   #quoteView { display: block !important; }
   #proposalCard, #proposalCard * { visibility: visible; }
   #proposalCard {
-    position: fixed;
-    inset: 0;
+    position: static;
     width: 100%;
     min-height: 0;
     padding: 0;
@@ -546,21 +568,36 @@ th { color: var(--navy-2); background: #f5f8fc; font-size: .66rem; text-transfor
     background: #fff;
   }
 
-  .proposal-card::before { height: 7px; }
-  .proposal-header { padding: 15px 0 18px; }
-  .report-logo-row { gap: 12px; }
-  .mm-logo { width: 100px; height: 65px; }
-  .vega-logo { width: 124px; height: 62px; }
-  .report-title h2 { font-size: 1.38rem; }
-  .report-title p, .proposal-charge-note, .fine-print { font-size: .78rem; }
-  .client-block { margin: 18px 0; padding: 13px 15px; font-size: .9rem; }
-  .proposal-charge-note { margin: -6px 0 16px; padding: 9px 12px; }
-  .proposal-list { gap: 10px; }
-  .proposal-list div { min-height: 60px; padding: 11px 12px; }
-  dt { font-size: .69rem; }
-  dd { font-size: .96rem; }
-  .highlight-row { min-height: 78px; }
-  .highlight-row dd { font-size: 1.65rem; }
-  .print-plan-table { display: none; }
-  .fine-print { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .proposal-card::before { height: 4px; }
+  .proposal-header { padding: 7px 0 8px; border-bottom-width: 1px; }
+  .report-logo-row { gap: 6px; padding-left: 0; }
+  .mm-logo { width: 58px; height: 38px; }
+  .vega-logo { width: 70px; height: 37px; }
+  .report-title p { margin-bottom: 1px; font-size: .49rem; }
+  .report-title h2 { font-size: .88rem; }
+  .report-title span { min-height: 16px; margin-top: 3px; padding: 0 6px; font-size: .48rem; }
+  .client-block { margin: 7px 0 6px; padding: 6px 8px; border-radius: 6px; font-size: .62rem; }
+  .proposal-charge-note { margin: 0 0 6px; padding: 4px 7px; font-size: .53rem; }
+  .proposal-list { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .proposal-list div { min-height: 34px; padding: 5px 6px; border-radius: 5px; }
+  .proposal-list .highlight-row { grid-column: auto; min-height: 34px; grid-template-columns: 1fr; }
+  dt { font-size: .46rem; }
+  dd { font-size: .63rem; }
+  .highlight-row dd { font-size: .81rem; text-align: left; }
+  .print-plan-table {
+    display: block;
+    margin-top: 7px;
+    padding-top: 6px;
+    overflow: visible;
+    border-top-width: 1px;
+    break-inside: avoid;
+  }
+  .print-table-heading { margin-bottom: 4px; }
+  .print-table-heading h3 { font-size: .67rem; }
+  .print-table-heading span { font-size: .48rem; }
+  .print-plan-table table { table-layout: fixed; font-size: .51rem; }
+  .print-plan-table th,
+  .print-plan-table td { padding: 2.5px 4px; line-height: 1.15; }
+  .print-plan-table th { font-size: .47rem; }
+  .fine-print { margin-top: 7px; padding-top: 6px; border-top: 1px solid var(--line); font-size: .5rem; line-height: 1.25; }
 }
