@@ -208,30 +208,38 @@ tbody tr:nth-child(even) td { background: #fbfdff; }
   @page { size: A4 portrait; margin: 9mm; }
   body { color: var(--navy); background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body > * { display: none !important; }
-  .print-report { display: block !important; font-family: Inter, "Segoe UI", Arial, sans-serif; }
+  .print-report { display: flex !important; flex-direction: column; min-height: 279mm; font-family: Inter, "Segoe UI", Arial, sans-serif; }
   .print-report header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 12px; border-bottom: 2px solid #cfe0f1; }
   .print-brand { display: flex; align-items: center; gap: 9px; }
   .print-brand img { width: auto; max-width: 78px; height: 39px; object-fit: contain; }
   .print-report header > div:last-child { text-align: right; }
   .print-report header h1 { margin: 3px 0 5px; font-size: 1.16rem; }
   .print-report header span { color: #52718e; font-family: ui-monospace, monospace; font-size: .58rem; font-weight: 800; }
-  .print-client { display: flex; justify-content: space-between; margin: 10px 0; padding: 8px 10px; color: #405f7e; background: #f4f9ff; font-size: .71rem; font-weight: 700; }
-  .print-hero { padding: 11px 0 14px; border-bottom: 1px solid #dce7f1; text-align: center; }
-  .print-hero p { color: #547797; font-size: .67rem; font-weight: 700; }
-  .print-hero strong { display: block; margin: 4px 0; color: var(--blue); font-size: 2.2rem; line-height: 1; }
-  .print-hero span { color: #24415d; font-size: .78rem; font-weight: 800; }
-  .print-summary { display: grid; grid-template-columns: repeat(4, 1fr); margin: 12px 0; border: 1px solid #dce7f1; }
-  .print-summary div { padding: 8px 10px; border-right: 1px solid #dce7f1; }
+  .print-client { display: flex; justify-content: space-between; margin: 11px 0; padding: 9px 11px; color: #405f7e; background: #f4f9ff; font-size: .78rem; font-weight: 700; }
+  .print-hero { padding: 13px 0 16px; border-bottom: 1px solid #dce7f1; text-align: center; }
+  .print-hero p { color: #547797; font-size: .74rem; font-weight: 700; }
+  .print-hero strong { display: block; margin: 5px 0; color: var(--blue); font-size: 2.45rem; line-height: 1; }
+  .print-hero span { color: #24415d; font-size: .86rem; font-weight: 800; }
+  .print-summary { display: grid; grid-template-columns: repeat(4, 1fr); margin: 14px 0; border: 1px solid #dce7f1; }
+  .print-summary div { padding: 9px 11px; border-right: 1px solid #dce7f1; }
   .print-summary div:last-child { border-right: 0; }
-  .print-summary dt { color: #6f8ba5; font-size: .55rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
-  .print-summary dd { margin-top: 4px; color: var(--navy); font-size: .72rem; font-weight: 850; }
-  .print-table-section { margin-top: 13px; break-inside: avoid; }
-  .print-section-head { margin-bottom: 5px; }
-  .print-section-head h2 { color: var(--navy); font-size: .78rem; }
-  .print-report table { table-layout: fixed; font-size: .56rem; }
-  .print-report th, .print-report td { padding: 3px 4px; line-height: 1.2; }
-  .print-report th { position: static; font-size: .5rem; }
+  .print-summary dt { color: #6f8ba5; font-size: .62rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+  .print-summary dd { margin-top: 4px; color: var(--navy); font-size: .8rem; font-weight: 850; }
+  .print-table-section { margin-top: 15px; break-inside: avoid; }
+  .print-section-head { margin-bottom: 6px; }
+  .print-section-head h2 { color: var(--navy); font-size: .9rem; }
+  .print-section-head span { font-size: .71rem; }
+  .print-report table { table-layout: fixed; font-size: .65rem; }
+  .print-report th, .print-report td { padding: 4px 5px; line-height: 1.25; }
+  .print-report th { position: static; font-size: .59rem; }
   .print-report .selected-row td { color: var(--blue-deep); background: #edf6ff; font-weight: 850; }
   .print-report .recommended-row:not(.selected-row) td:first-child::after { content: " recomendado"; color: #6686a5; font-size: .46rem; }
-  .print-terms { margin-top: 12px; padding-top: 8px; border-top: 1px solid #dce7f1; color: #6e879f; font-size: .53rem; line-height: 1.35; }
+  .print-terms { margin-top: 14px; padding-top: 9px; border-top: 1px solid #dce7f1; color: #6e879f; font-size: .62rem; line-height: 1.4; }
+  .print-signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; margin-top: auto; padding-top: 22px; break-inside: avoid; }
+  .signature-block { min-height: 70px; color: #496a89; text-align: center; }
+  .signature-rule { display: block; width: 100%; border-top: 1.5px solid #4d7094; }
+  .signature-block small, .signature-block strong { display: block; }
+  .signature-block small { margin-top: 8px; color: #6d879f; font-size: .61rem; font-weight: 850; letter-spacing: .055em; text-transform: uppercase; }
+  .signature-block strong { margin-top: 4px; color: var(--navy); font-size: .72rem; letter-spacing: .015em; }
+  .company-signature strong { color: var(--blue-deep); }
 }
