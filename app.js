@@ -64,6 +64,7 @@ const PRODUCT_FORMS = {
 const els = {
   form: $("#quoteForm"),
   productName: $("#productName"),
+  productPicker: $("#productPicker"),
   productDetails: $("#productDetails"),
   productAmount: $("#productAmount"),
   downPayment: $("#downPayment"),
@@ -103,6 +104,10 @@ const els = {
   printModes: $$("input[name=printMode]"),
   printRangePicker: $("#printRangePicker"),
   printRangeSummary: $("#printRangeSummary"),
+  printPageEstimate: $("#printPageEstimate"),
+  printReviewProduct: $("#printReviewProduct"),
+  printReviewCustomer: $("#printReviewCustomer"),
+  printReviewPayment: $("#printReviewPayment"),
   cancelPrintBtn: $("#cancelPrintBtn"),
   confirmPrintBtn: $("#confirmPrintBtn"),
   printHeading: $("#printHeading"),
@@ -208,6 +213,14 @@ function renderFrequencyState() {
   $$('[data-frequency]').forEach((button) => button.classList.toggle("active", button.dataset.frequency === state.frequency));
 }
 
+function renderProductState() {
+  $$('[data-product]').forEach((button) => {
+    const active = button.dataset.product === els.productName.value;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
 function renderAmortization(quote, target, caption) {
   const installments = quote.term * quote.frequency.divisor;
   const principalPart = installments ? quote.base / installments : 0;
@@ -228,9 +241,12 @@ function renderAmortization(quote, target, caption) {
 function renderRecommendedPlans(quote) {
   els.recommendedPlans.innerHTML = FEATURED_TERMS.map((term) => {
     const selected = term === quote.term;
-    return `<article class="plan-card ${selected ? "selected" : ""}" data-term="${term}" tabindex="0" role="button" aria-label="Elegir plan de ${term} meses">
+    const highlight = term === 15 ? "recommended" : "";
+    const total = quote.base * (1 + quote.monthlyRate * term);
+    const benefit = term === 12 ? "Pago más rápido" : term === 15 ? "Mejor equilibrio" : "Cuota más baja";
+    return `<article class="plan-card ${selected ? "selected" : ""} ${highlight}" data-term="${term}" tabindex="0" role="button" aria-label="Elegir plan de ${term} meses">
       <span class="plan-select"><i class="fa-solid fa-check"></i></span>
-      <div><h3>${term} meses</h3><p>${quote.frequency.label}</p></div>
+      <div><span class="plan-badge">${term === 15 ? "Recomendado" : benefit}</span><h3>${term} meses</h3><p>Total: ${money(total)}</p></div>
       <div class="plan-payment"><span>Cuota ${quote.frequency.sentence}</span><strong>${money(paymentForTerm(quote, term, state.frequency))}</strong></div>
     </article>`;
   }).join("");
@@ -256,6 +272,7 @@ function renderScreen() {
   els.summaryFinanced.textContent = money(quote.financed);
   els.summaryDownPercent.textContent = `${downPercent}% del precio`;
   els.summaryFinancedPercent.textContent = `${financedPercent}% del precio`;
+  renderProductState();
   renderTermState();
   renderFrequencyState();
   renderRecommendedPlans(quote);
@@ -287,6 +304,9 @@ function renderPrintReport(quote) {
   els.printDown.textContent = money(quote.down);
   els.printFinanced.textContent = money(quote.financed);
   els.printTotal.textContent = money(quote.total);
+  els.printReviewProduct.textContent = quote.product;
+  els.printReviewCustomer.textContent = `Cliente: ${customer}`;
+  els.printReviewPayment.textContent = `${money(quote.payment)} ${quote.frequency.sentence}`;
   els.printRangeLabel.textContent = `${start} a ${end} meses`;
   els.printPlansBody.innerHTML = TERMS.filter((term) => term >= start && term <= end).map((term) => {
     const classes = [term === quote.term ? "selected-row" : "", FEATURED_TERMS.includes(term) ? "recommended-row" : ""].filter(Boolean).join(" ");
@@ -298,6 +318,12 @@ function renderPrintReport(quote) {
   els.printAmortizationSection.hidden = mode !== "amortization";
 }
 
+function printPageEstimate(mode, start, end, quote) {
+  const rows = mode === "plans" ? TERMS.filter((term) => term >= start && term <= end).length : quote.term * quote.frequency.divisor;
+  const capacity = mode === "plans" ? 23 : 25;
+  return Math.max(1, Math.ceil((rows + 6) / capacity));
+}
+
 function updateRangeSummary() {
   const { start, end } = rangeValues();
   const mode = printMode();
@@ -306,6 +332,8 @@ function updateRangeSummary() {
   els.printRangeSummary.textContent = mode === "plans"
     ? `Se imprimirán los planes de ${start} a ${end} meses.`
     : `Se imprimirá la amortización de ${quote.term} meses (${quote.term * quote.frequency.divisor} cuotas ${quote.frequency.plural}).`;
+  const pages = printPageEstimate(mode, start, end, quote);
+  els.printPageEstimate.textContent = `Aproximadamente ${pages} ${pages === 1 ? "página" : "páginas"}`;
   els.printModes.forEach((input) => input.closest(".print-option").classList.toggle("active", input.checked));
 }
 
@@ -366,6 +394,14 @@ els.form.addEventListener("input", renderScreen);
 els.form.addEventListener("change", renderScreen);
 els.productName.addEventListener("change", () => {
   saveProductDetails();
+  renderProductDetails();
+  renderScreen();
+});
+els.productPicker.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-product]");
+  if (!button) return;
+  saveProductDetails();
+  els.productName.value = button.dataset.product;
   renderProductDetails();
   renderScreen();
 });

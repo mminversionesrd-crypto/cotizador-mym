@@ -32,17 +32,25 @@
             </div>
           </div>
 
-          <label>
-            Producto a financiar
-            <select id="productName">
+          <select class="visually-hidden" id="productName" aria-label="Producto a financiar">
               <option value="Préstamo personal">Préstamo personal</option>
               <option value="Préstamo comercial">Préstamo comercial</option>
               <option value="Préstamo prendario">Préstamo prendario</option>
               <option value="Smartphone">Smartphone</option>
               <option value="Electrodoméstico">Electrodoméstico</option>
               <option value="Motocicleta" selected>Motocicleta</option>
-            </select>
-          </label>
+          </select>
+          <fieldset class="product-selector">
+            <legend>Producto a financiar</legend>
+            <div class="product-picker" id="productPicker" role="group" aria-label="Selecciona el producto a financiar">
+              <button class="product-tile" type="button" data-product="Préstamo personal"><i class="fa-solid fa-hand-holding-dollar"></i><span>Préstamo<small>Personal</small></span></button>
+              <button class="product-tile" type="button" data-product="Préstamo comercial"><i class="fa-solid fa-briefcase"></i><span>Préstamo<small>Comercial</small></span></button>
+              <button class="product-tile" type="button" data-product="Préstamo prendario"><i class="fa-solid fa-shield-halved"></i><span>Préstamo<small>Prendario</small></span></button>
+              <button class="product-tile" type="button" data-product="Smartphone"><i class="fa-solid fa-mobile-screen-button"></i><span>Smartphone<small>Equipo móvil</small></span></button>
+              <button class="product-tile" type="button" data-product="Electrodoméstico"><i class="fa-solid fa-plug-circle-bolt"></i><span>Electrodoméstico<small>Hogar</small></span></button>
+              <button class="product-tile active" type="button" data-product="Motocicleta"><i class="fa-solid fa-motorcycle"></i><span>Motocicleta<small>Vehículo</small></span></button>
+            </div>
+          </fieldset>
           <section class="product-details" id="productDetails" aria-live="polite"></section>
 
           <div class="currency-row">
@@ -121,7 +129,7 @@
             <article><span class="metric-icon"><i class="fa-regular fa-calendar"></i></span><p>Monto a financiar<strong id="summaryFinanced">RD$0.00</strong><small id="summaryFinancedPercent">0% del precio</small></p></article>
           </div>
 
-          <p class="validity-note"><i class="fa-solid fa-circle-check"></i> Esta cotización es válida por 15 días calendario.</p>
+          <p class="validity-note"><i class="fa-solid fa-circle-check"></i> Vista previa lista para imprimir · válida por 15 días.</p>
 
         </section>
       </section>
@@ -175,7 +183,12 @@
           <label class="print-option"><input type="radio" name="printMode" value="amortization"><span><strong>Tabla de amortización</strong><small>Capital, interés y balance.</small></span></label>
         </div>
         <div class="range-picker" id="printRangePicker"><label>Desde<select id="printPlanStart"></select></label><b>→</b><label>Hasta<select id="printPlanEnd"></select></label></div>
-        <p class="range-summary" id="printRangeSummary">Se imprimirán los planes de 3 a 18 meses.</p>
+        <section class="print-review" aria-label="Resumen para revisar antes de imprimir">
+          <span>Revisión antes de imprimir</span>
+          <strong id="printReviewProduct">Motocicleta</strong>
+          <div><small id="printReviewCustomer">Cliente: No especificado</small><b id="printReviewPayment">RD$0.00</b></div>
+        </section>
+        <p class="range-summary"><span id="printRangeSummary">Se imprimirán los planes de 3 a 18 meses.</span><b id="printPageEstimate">Aproximadamente 1 página</b></p>
         <div class="dialog-actions"><button class="quiet-btn" id="cancelPrintBtn" type="button">Volver</button><button class="primary-btn" id="confirmPrintBtn" type="button">Imprimir propuesta</button></div>
       </section>
     </div>
