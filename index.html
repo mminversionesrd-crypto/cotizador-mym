@@ -9,405 +9,164 @@
   </head>
   <body>
     <main class="app-shell">
-      <aside class="sidebar">
-        <div class="sidebar-brand">
+      <header class="app-header">
+        <div class="brand-lockup" aria-label="M&M Inversiones y VegaMotors">
           <img src="LOGO%20M%26M.png" alt="M&M Inversiones">
-          <div>
-            <strong>M&amp;M <em>Inversiones</em></strong>
-            <span>Cotizador comercial</span>
-          </div>
-        </div>
-        <nav class="module-nav" aria-label="Modulos">
-          <button class="nav-link active" type="button" data-view="dashboard">Panel</button>
-          <button class="nav-link" type="button" data-view="quote">Cotizar</button>
-          <button class="nav-link" type="button" data-view="quotes">Cotizaciones</button>
-          <button class="nav-link" type="button" data-view="clients">Clientes</button>
-          <button class="nav-link" type="button" data-view="reports">Reportes</button>
-          <button class="nav-link" type="button" data-view="settings">Configuracion</button>
-        </nav>
-        <div class="sidebar-footer">
-          <i class="fas fa-shield-halved" aria-hidden="true"></i>
-          <span>Datos seguros</span>
+          <span class="brand-divider"></span>
           <img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors">
         </div>
-      </aside>
+        <h1>Calculadora de financiamiento</h1>
+        <div class="header-actions">
+          <button class="quiet-btn" id="newQuoteBtn" type="button"><i class="fa-solid fa-rotate-left"></i> Nueva</button>
+          <button class="primary-btn" id="printBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir propuesta</button>
+        </div>
+      </header>
 
-      <section class="workspace">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow" id="viewKicker">Sistema empresarial de cotizaciones</p>
-            <h1 id="viewTitle">Panel general</h1>
+      <section class="workbench" aria-label="Cotizador de financiamiento">
+        <form class="calculator-card" id="quoteForm">
+          <div class="panel-title">
+            <span class="panel-icon"><i class="fa-regular fa-clipboard"></i></span>
+            <div>
+              <p>1 · Datos de la compra</p>
+              <h2>Calcula tu financiamiento</h2>
+            </div>
           </div>
-          <div class="quote-actions">
-            <button class="secondary-btn" id="backupBtn" type="button">Exportar datos</button>
-            <label class="import-btn">
-              Importar datos
-              <input id="importInput" type="file" accept="application/json">
+
+          <label>
+            Producto a financiar
+            <select id="productName">
+              <option value="Préstamo personal">Préstamo personal</option>
+              <option value="Préstamo comercial">Préstamo comercial</option>
+              <option value="Préstamo prendario">Préstamo prendario</option>
+              <option value="Smartphone">Smartphone</option>
+              <option value="Electrodoméstico">Electrodoméstico</option>
+              <option value="Motocicleta" selected>Motocicleta</option>
+            </select>
+          </label>
+          <section class="product-details" id="productDetails" aria-live="polite"></section>
+
+          <div class="currency-row">
+            <label>
+              Precio del artículo
+              <span class="currency-input"><b>RD$</b><input id="productAmount" type="number" min="0" step="500" value="60000"></span>
             </label>
-            <button class="primary-btn" id="printBtn" type="button">Imprimir propuesta</button>
+            <label>
+              Inicial
+              <span class="currency-input"><b>RD$</b><input id="downPayment" type="number" min="0" step="500" value="10000"></span>
+            </label>
           </div>
-        </header>
+          <div class="initial-note"><span id="downPercent">17%</span> del precio <em>Opcional</em></div>
 
-        <section class="view active" id="dashboardView">
-          <div class="metric-grid">
-            <article class="metric-card">
-              <span>Cotizaciones</span>
-              <strong id="metricQuotes">0</strong>
-            </article>
-            <article class="metric-card">
-              <span>Clientes</span>
-              <strong id="metricClients">0</strong>
-            </article>
-            <article class="metric-card">
-              <span>Total cotizado</span>
-              <strong id="metricAmount">RD$0.00</strong>
-            </article>
-            <article class="metric-card">
-              <span>Aprobadas</span>
-              <strong id="metricApproved">0</strong>
-            </article>
+          <fieldset class="choice-field">
+            <legend>Plazo (meses)</legend>
+            <div class="term-picker" id="termPicker">
+              <button class="choice-chip active" type="button" data-term="12">12</button>
+              <button class="choice-chip" type="button" data-term="15">15</button>
+              <button class="choice-chip" type="button" data-term="18">18</button>
+            </div>
+            <button class="text-action" id="toggleAllTerms" type="button">Ver todos hasta 36 meses <i class="fa-solid fa-chevron-right"></i></button>
+            <div class="all-terms" id="allTerms" hidden></div>
+          </fieldset>
+
+          <fieldset class="choice-field compact-choice">
+            <legend>Frecuencia de pago</legend>
+            <div class="frequency-picker">
+              <button class="frequency-chip active" type="button" data-frequency="monthly">Mensual</button>
+              <button class="frequency-chip" type="button" data-frequency="biweekly">Quincenal</button>
+              <button class="frequency-chip" type="button" data-frequency="weekly">Semanal</button>
+            </div>
+          </fieldset>
+
+          <details class="disclosure" id="clientDisclosure">
+            <summary><span><i class="fa-regular fa-user"></i> Cliente <small>(opcional)</small></span><i class="fa-solid fa-chevron-down"></i></summary>
+            <div class="disclosure-content">
+              <label>Nombre <input id="customerName" type="text" placeholder="Nombre del cliente"></label>
+              <label>Teléfono <input id="customerPhone" type="tel" placeholder="809-000-0000"></label>
+            </div>
+          </details>
+
+          <details class="disclosure">
+            <summary><span><i class="fa-solid fa-sliders"></i> Ajustes del cálculo</span><i class="fa-solid fa-chevron-down"></i></summary>
+            <div class="disclosure-content advanced-grid">
+              <label>Tasa mensual % <input id="monthlyRate" type="number" min="0" step="0.01" value="3"></label>
+              <label>Legalización % <input id="legalRate" type="number" min="0" step="0.01" value="0"></label>
+              <label>Adicional RD$ <input id="extraFee" type="number" min="0" step="100" value="0"></label>
+            </div>
+          </details>
+        </form>
+
+        <section class="proposal-preview" aria-label="Propuesta en vivo">
+          <div class="proposal-topline">
+            <div>
+              <p>Propuesta comercial</p>
+              <h2 id="quoteHeading">Cotización de motocicleta 150cc</h2>
+            </div>
+            <span class="quote-ref" id="quoteReference">BORRADOR</span>
           </div>
 
-          <section class="panel-card">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Actividad</p>
-                <h2>Ultimas cotizaciones</h2>
-              </div>
-              <button class="secondary-btn" type="button" data-go="quote">Nueva cotizacion</button>
-            </div>
-            <div class="records-table" id="dashboardQuotes"></div>
-          </section>
-        </section>
-
-        <section class="view" id="quoteView">
-          <section class="tool-grid">
-            <form class="quote-form" id="quoteForm">
-              <div class="panel-heading">
-                <div>
-                  <p class="section-kicker">Entrada interna</p>
-                  <h2>Datos de la cotizacion</h2>
-                </div>
-                <span class="status-pill" id="quoteStatus">Lista</span>
-              </div>
-
-              <input id="editingQuoteId" type="hidden">
-
-              <div class="field-row">
-                <label>
-                  Cliente
-                  <input id="customerName" name="customerName" type="text" placeholder="Nombre del cliente">
-                </label>
-                <label>
-                  Telefono
-                  <input id="customerPhone" name="customerPhone" type="tel" placeholder="809-000-0000">
-                </label>
-              </div>
-
-              <div class="field-row">
-                <label>
-                  Cedula / RNC
-                  <input id="customerDocument" name="customerDocument" type="text" placeholder="Opcional">
-                </label>
-                <label>
-                  Vendedor
-                  <input id="sellerName" name="sellerName" type="text" placeholder="Nombre del vendedor">
-                </label>
-              </div>
-
-              <div class="field-row">
-                <label>
-                  Tipo de articulo
-                  <select id="productType" name="productType"></select>
-                </label>
-                <label>
-                  Frecuencia a destacar
-                  <select id="frequency" name="frequency">
-                    <option value="monthly">Mensual</option>
-                    <option value="biweekly">Quincenal</option>
-                    <option value="weekly">Semanal</option>
-                  </select>
-                </label>
-              </div>
-
-              <label>
-                Articulo o modelo
-                <input id="productName" name="productName" type="text" value="Motocicleta 150cc">
-              </label>
-
-              <div class="field-row">
-                <label>
-                  Monto del articulo
-                  <input id="productAmount" name="productAmount" type="number" min="0" step="500" value="60000">
-                </label>
-                <label>
-                  Inicial
-                  <input id="downPayment" name="downPayment" type="number" min="0" step="500" value="10000">
-                </label>
-              </div>
-
-              <div class="field-row internal-fields">
-                <label>
-                  Plazo destacado
-                  <select id="term" name="term"></select>
-                </label>
-                <label>
-                  Tasa mensual %
-                  <input id="monthlyFactor" name="monthlyFactor" type="number" min="0" step="0.01" value="3.00">
-                </label>
-              </div>
-
-              <div class="field-row internal-fields">
-                <div class="charge-field">
-                  <div class="charge-heading">
-                    <label for="legalRate">Legalizacion %</label>
-                    <label class="charge-toggle" for="includeLegalization">
-                      <input id="includeLegalization" name="includeLegalization" type="checkbox" checked>
-                      <span>Incluir</span>
-                    </label>
-                  </div>
-                  <input id="legalRate" name="legalRate" type="number" min="0" step="0.01" value="0">
-                </div>
-                <div class="charge-field">
-                  <div class="charge-heading">
-                    <label for="extraFee">Adicional</label>
-                    <label class="charge-toggle" for="includeExtraFee">
-                      <input id="includeExtraFee" name="includeExtraFee" type="checkbox" checked>
-                      <span>Incluir</span>
-                    </label>
-                  </div>
-                  <input id="extraFee" name="extraFee" type="number" min="0" step="100" value="0">
-                </div>
-              </div>
-
-              <div class="summary-strip" aria-label="Resumen interno">
-                <div>
-                  <span>Importe a financiar</span>
-                  <strong id="financedAmount">RD$0.00</strong>
-                </div>
-                <div>
-                  <span>Legalizacion + adicional</span>
-                  <strong id="internalCharges">RD$0.00</strong>
-                </div>
-                <div>
-                  <span>Base para el plan</span>
-                  <strong id="baseAmount">RD$0.00</strong>
-                </div>
-                <div>
-                  <span>Total del plazo elegido</span>
-                  <strong id="internalTotal">RD$0.00</strong>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="primary-btn" id="saveQuoteBtn" type="button">Guardar cotizacion</button>
-                <button class="secondary-btn" id="resetBtn" type="button">Nueva</button>
-              </div>
-            </form>
-
-            <aside class="client-preview" aria-label="Propuesta para cliente">
-              <div class="proposal-card" id="proposalCard">
-                <div class="proposal-header">
-                  <div class="report-logo-row">
-                    <img class="report-logo mm-logo" src="LOGO%20M%26M.png" alt="M&M Inversiones">
-                    <img class="report-logo vega-logo" src="LOGO%20VEGAMOTORS.png" alt="VegaMotors">
-                  </div>
-                  <div class="report-title">
-                    <p>Propuesta comercial</p>
-                    <h2>Financiamiento de articulo</h2>
-                    <span id="proposalNumber">BORRADOR</span>
-                  </div>
-                </div>
-
-                <div class="client-block">
-                  <p id="proposalCustomer">Cliente: Sin nombre</p>
-                  <span id="proposalDate">Fecha</span>
-                </div>
-
-                <p class="proposal-charge-note" id="proposalCharges">Sin cargos adicionales incluidos</p>
-
-                <dl class="proposal-list">
-                  <div>
-                    <dt>Articulo</dt>
-                    <dd id="proposalProduct">Motocicleta 150cc</dd>
-                  </div>
-                  <div>
-                    <dt>Monto del articulo</dt>
-                    <dd id="proposalAmount">RD$60,000.00</dd>
-                  </div>
-                  <div>
-                    <dt>Inicial</dt>
-                    <dd id="proposalDown">RD$10,000.00</dd>
-                  </div>
-                  <div>
-                    <dt>Importe a financiar</dt>
-                    <dd id="proposalFinanced">RD$50,000.00</dd>
-                  </div>
-                  <div>
-                    <dt>Plazo destacado</dt>
-                    <dd id="proposalTerm">12 meses</dd>
-                  </div>
-                  <div>
-                    <dt>Forma destacada</dt>
-                    <dd id="proposalFrequency">Mensual</dd>
-                  </div>
-                  <div class="highlight-row">
-                    <dt>Cuota destacada</dt>
-                    <dd id="proposalPayment">RD$0.00</dd>
-                  </div>
-                </dl>
-
-                <section class="print-plan-table" aria-label="Tabla de plazos">
-                  <div class="print-table-heading">
-                    <h3>Tabla de plazos disponibles</h3>
-                    <span>Mensual, quincenal y semanal</span>
-                  </div>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Meses</th>
-                        <th>Mensual</th>
-                        <th>Quincenal</th>
-                        <th>Semanal</th>
-                      </tr>
-                    </thead>
-                    <tbody id="printPlansBody"></tbody>
-                  </table>
-                </section>
-
-                <p class="fine-print" id="reportTerms">Cotizacion sujeta a validacion y aprobacion. Propuesta preparada para fines comerciales.</p>
-              </div>
-            </aside>
-          </section>
-
-          <section class="plans-section" aria-label="Planes disponibles">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Comparador</p>
-                <h2>Opciones de pago</h2>
-              </div>
-            </div>
-            <div class="plans-grid" id="plansGrid"></div>
-          </section>
-        </section>
-
-        <section class="view" id="quotesView">
-          <section class="panel-card">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Gestion</p>
-                <h2>Cotizaciones guardadas</h2>
-              </div>
-              <div class="filter-row">
-                <input id="quoteSearch" type="search" placeholder="Buscar cliente, articulo o numero">
-                <select id="statusFilter">
-                  <option value="all">Todos</option>
-                  <option value="pendiente">Pendiente</option>
-                  <option value="enviada">Enviada</option>
-                  <option value="aprobada">Aprobada</option>
-                  <option value="rechazada">Rechazada</option>
-                  <option value="vencida">Vencida</option>
-                </select>
-              </div>
-            </div>
-            <div class="records-table" id="quotesTable"></div>
-          </section>
-        </section>
-
-        <section class="view" id="clientsView">
-          <section class="panel-card">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">CRM basico</p>
-                <h2>Clientes</h2>
-              </div>
-              <button class="secondary-btn" id="newClientBtn" type="button">Nuevo cliente</button>
-            </div>
-            <form class="client-form" id="clientForm">
-              <input id="clientId" type="hidden">
-              <input id="clientName" type="text" placeholder="Nombre">
-              <input id="clientPhone" type="tel" placeholder="Telefono">
-              <input id="clientDocument" type="text" placeholder="Cedula / RNC">
-              <input id="clientAddress" type="text" placeholder="Direccion">
-              <button class="primary-btn" id="saveClientBtn" type="button">Guardar cliente</button>
-            </form>
-            <div class="records-table" id="clientsTable"></div>
-          </section>
-        </section>
-
-        <section class="view" id="reportsView">
-          <div class="metric-grid">
-            <article class="metric-card">
-              <span>Financiado</span>
-              <strong id="reportFinanced">RD$0.00</strong>
-            </article>
-            <article class="metric-card">
-              <span>Iniciales</span>
-              <strong id="reportDown">RD$0.00</strong>
-            </article>
-            <article class="metric-card">
-              <span>Ticket promedio</span>
-              <strong id="reportAverage">RD$0.00</strong>
-            </article>
-            <article class="metric-card">
-              <span>Tasa de aprobacion</span>
-              <strong id="reportApproval">0%</strong>
-            </article>
+          <div class="proposal-clientline">
+            <span id="quoteCustomer">Cliente: No especificado</span>
+            <span id="quoteDate">Fecha de hoy</span>
           </div>
-          <section class="panel-card">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Analisis</p>
-                <h2>Resumen por estado</h2>
-              </div>
-            </div>
-            <div class="records-table" id="statusReport"></div>
-          </section>
-        </section>
 
-        <section class="view" id="settingsView">
-          <section class="panel-card">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Reglas internas</p>
-                <h2>Configuracion</h2>
-              </div>
-              <button class="primary-btn" id="saveSettingsBtn" type="button">Guardar configuracion</button>
-            </div>
-            <form class="settings-grid" id="settingsForm">
-              <label>
-                Tasa mensual por defecto %
-                <input id="defaultRate" type="number" min="0" step="0.01">
-              </label>
-              <label>
-                Legalizacion por defecto %
-                <input id="defaultLegal" type="number" min="0" step="0.01">
-              </label>
-              <label>
-                Adicional por defecto
-                <input id="defaultExtra" type="number" min="0" step="100">
-              </label>
-              <label>
-                Inicial minima %
-                <input id="minDownPercent" type="number" min="0" max="100" step="1">
-              </label>
-              <label>
-                Vendedor por defecto
-                <input id="defaultSeller" type="text">
-              </label>
-              <label>
-                Tipos de articulo
-                <input id="productTypesSetting" type="text" placeholder="Motocicleta, Celular, Electrodomestico">
-              </label>
-              <label class="wide-field">
-                Texto legal del reporte
-                <textarea id="termsText" rows="4"></textarea>
-              </label>
-            </form>
-          </section>
+          <div class="hero-payment">
+            <span>Cuota <span id="heroFrequencyLabel">mensual</span> estimada</span>
+            <strong id="heroPayment">RD$0.00</strong>
+            <p><span id="heroFrequency">mensual</span> · <b id="heroTerm">12 meses</b></p>
+          </div>
+
+          <div class="summary-metrics">
+            <article><span class="metric-icon"><i class="fa-solid fa-tag"></i></span><p>Precio del artículo<strong id="summaryPrice">RD$0.00</strong><small>100% del precio</small></p></article>
+            <article><span class="metric-icon"><i class="fa-regular fa-credit-card"></i></span><p>Inicial<strong id="summaryDown">RD$0.00</strong><small id="summaryDownPercent">0% del precio</small></p></article>
+            <article><span class="metric-icon"><i class="fa-regular fa-calendar"></i></span><p>Monto a financiar<strong id="summaryFinanced">RD$0.00</strong><small id="summaryFinancedPercent">0% del precio</small></p></article>
+          </div>
+
+          <p class="validity-note"><i class="fa-solid fa-circle-check"></i> Esta cotización es válida por 15 días calendario.</p>
+
+        </section>
+      </section>
+
+      <section class="comparison-section" aria-label="Planes y amortización">
+        <div class="comparison-header">
+          <div><p>Información del financiamiento</p><h2>Opciones del plan</h2></div>
+          <div class="comparison-tabs" role="tablist" aria-label="Opciones del financiamiento">
+            <button class="comparison-tab active" id="plansTab" type="button" role="tab" aria-selected="true" data-panel="plansPanel"><i class="fa-regular fa-credit-card"></i> Planes de pago</button>
+            <button class="comparison-tab" id="amortizationTab" type="button" role="tab" aria-selected="false" data-panel="amortizationPanel"><i class="fa-solid fa-table-list"></i> Tabla de amortización</button>
+          </div>
+        </div>
+        <section class="comparison-panel active" id="plansPanel" role="tabpanel" aria-labelledby="plansTab">
+          <div class="panel-explainer"><div><h3>Planes recomendados</h3><p>Selecciona el que mejor se ajuste al cliente.</p></div><span>Disponibles hasta 36 meses</span></div>
+          <div class="recommended-plans" id="recommendedPlans"></div>
+        </section>
+        <section class="comparison-panel" id="amortizationPanel" role="tabpanel" aria-labelledby="amortizationTab" hidden>
+          <div class="panel-explainer"><div><h3>Amortización del plan elegido</h3><p>Desglose de capital, cargo financiero y balance pendiente.</p></div><span id="amortizationLabel">12 cuotas mensuales</span></div>
+          <div class="table-wrap amortization-table"><table><thead><tr><th>#</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="amortizationBody"></tbody></table></div>
         </section>
       </section>
     </main>
+
+    <section class="print-report" id="printReport" aria-label="Propuesta imprimible">
+      <header><div class="print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div><div><p>Propuesta comercial</p><h1 id="printHeading">Cotización</h1><span id="printReference">BORRADOR</span></div></header>
+      <div class="print-client"><span id="printCustomer">Cliente: No especificado</span><span id="printDate">Fecha</span></div>
+      <section class="print-hero"><p id="printProduct">Estás cotizando</p><strong id="printPayment">RD$0.00</strong><span id="printFrequency">Mensual · 12 meses</span></section>
+      <dl class="print-summary"><div><dt>Precio</dt><dd id="printPrice">RD$0.00</dd></div><div><dt>Inicial</dt><dd id="printDown">RD$0.00</dd></div><div><dt>Financiado</dt><dd id="printFinanced">RD$0.00</dd></div><div><dt>Total del plan</dt><dd id="printTotal">RD$0.00</dd></div></dl>
+      <section class="print-table-section" id="printPlansSection"><div class="print-section-head"><h2>Planes de pago</h2><span id="printRangeLabel">3 a 18 meses</span></div><table><thead><tr><th>Meses</th><th>Mensual</th><th>Quincenal</th><th>Semanal</th></tr></thead><tbody id="printPlansBody"></tbody></table></section>
+      <section class="print-table-section" id="printAmortizationSection"><div class="print-section-head"><h2>Tabla de amortización</h2><span id="printAmortizationLabel"></span></div><table><thead><tr><th>Cuota</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="printAmortizationBody"></tbody></table></section>
+      <p class="print-terms">Cotización sujeta a validación y aprobación. Propuesta preparada con fines comerciales.</p>
+    </section>
+
+    <div class="print-modal" id="printModal" aria-hidden="true">
+      <section class="print-dialog" role="dialog" aria-modal="true" aria-labelledby="printDialogTitle">
+        <p>Propuesta comercial</p><h2 id="printDialogTitle">Preparar impresión</h2><span>Elige los plazos que deseas incluir antes de imprimir la propuesta.</span>
+        <div class="print-mode-picker" role="radiogroup" aria-label="Contenido a imprimir">
+          <label class="print-option active"><input type="radio" name="printMode" value="plans" checked><span><strong>Planes de pago</strong><small>Compara cuotas por plazo.</small></span></label>
+          <label class="print-option"><input type="radio" name="printMode" value="amortization"><span><strong>Tabla de amortización</strong><small>Capital, interés y balance.</small></span></label>
+        </div>
+        <div class="range-picker" id="printRangePicker"><label>Desde<select id="printPlanStart"></select></label><b>→</b><label>Hasta<select id="printPlanEnd"></select></label></div>
+        <p class="range-summary" id="printRangeSummary">Se imprimirán los planes de 3 a 18 meses.</p>
+        <div class="dialog-actions"><button class="quiet-btn" id="cancelPrintBtn" type="button">Volver</button><button class="primary-btn" id="confirmPrintBtn" type="button">Imprimir propuesta</button></div>
+      </section>
+    </div>
 
     <script src="app.js"></script>
   </body>

@@ -1,689 +1,423 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
+const TERMS = Array.from({ length: 34 }, (_, index) => index + 3);
+const FEATURED_TERMS = [12, 15, 18];
+const FREQUENCIES = {
+  monthly: { label: "Mensual", sentence: "mensual", plural: "mensuales", divisor: 1 },
+  biweekly: { label: "Quincenal", sentence: "quincenal", plural: "quincenales", divisor: 2 },
+  weekly: { label: "Semanal", sentence: "semanal", plural: "semanales", divisor: 4 }
+};
+
+const PRODUCT_FORMS = {
+  "Préstamo personal": {
+    title: "Descripción del préstamo",
+    fields: [
+      { key: "purpose", label: "Destino del préstamo", placeholder: "Ej. Gastos médicos" },
+      { key: "description", label: "Descripción", placeholder: "Detalle opcional" }
+    ]
+  },
+  "Préstamo comercial": {
+    title: "Datos del negocio",
+    fields: [
+      { key: "business", label: "Negocio o empresa", placeholder: "Nombre comercial" },
+      { key: "purpose", label: "Destino del préstamo", placeholder: "Capital de trabajo" }
+    ]
+  },
+  "Préstamo prendario": {
+    title: "Bien en garantía",
+    fields: [
+      { key: "asset", label: "Bien a dejar en garantía", placeholder: "Ej. Vehículo" },
+      { key: "description", label: "Marca, modelo o descripción", placeholder: "Detalle del bien" },
+      { key: "year", label: "Año", placeholder: "Ej. 2023" }
+    ]
+  },
+  Smartphone: {
+    title: "Descripción del smartphone",
+    fields: [
+      { key: "brand", label: "Marca", placeholder: "Ej. Samsung" },
+      { key: "model", label: "Modelo", placeholder: "Ej. Galaxy S24" },
+      { key: "capacity", label: "Capacidad", placeholder: "Ej. 256 GB" },
+      { key: "color", label: "Color", placeholder: "Ej. Negro" }
+    ]
+  },
+  Electrodoméstico: {
+    title: "Descripción del electrodoméstico",
+    fields: [
+      { key: "type", label: "Tipo", placeholder: "Ej. Nevera" },
+      { key: "brand", label: "Marca", placeholder: "Ej. Samsung" },
+      { key: "model", label: "Modelo", placeholder: "Ej. RT38" },
+      { key: "color", label: "Color", placeholder: "Ej. Inoxidable" }
+    ]
+  },
+  Motocicleta: {
+    title: "Descripción de la motocicleta",
+    fields: [
+      { key: "brand", label: "Marca", placeholder: "Ej. Yamaha" },
+      { key: "model", label: "Modelo", placeholder: "Ej. FZ 2.0" },
+      { key: "color", label: "Color", placeholder: "Ej. Azul" },
+      { key: "cc", label: "Cilindrada (cc)", placeholder: "Ej. 150" }
+    ]
+  }
+};
+
 const els = {
-  views: $$(".view"),
-  navLinks: $$(".nav-link"),
-  viewTitle: $("#viewTitle"),
-  viewKicker: $("#viewKicker"),
   form: $("#quoteForm"),
-  editingQuoteId: $("#editingQuoteId"),
-  customerName: $("#customerName"),
-  customerPhone: $("#customerPhone"),
-  customerDocument: $("#customerDocument"),
-  sellerName: $("#sellerName"),
-  productType: $("#productType"),
   productName: $("#productName"),
+  productDetails: $("#productDetails"),
   productAmount: $("#productAmount"),
   downPayment: $("#downPayment"),
-  term: $("#term"),
-  frequency: $("#frequency"),
-  monthlyFactor: $("#monthlyFactor"),
+  monthlyRate: $("#monthlyRate"),
   legalRate: $("#legalRate"),
   extraFee: $("#extraFee"),
-  includeLegalization: $("#includeLegalization"),
-  includeExtraFee: $("#includeExtraFee"),
-  quoteStatus: $("#quoteStatus"),
-  financedAmount: $("#financedAmount"),
-  internalCharges: $("#internalCharges"),
-  baseAmount: $("#baseAmount"),
-  internalTotal: $("#internalTotal"),
-  proposalCustomer: $("#proposalCustomer"),
-  proposalDate: $("#proposalDate"),
-  proposalNumber: $("#proposalNumber"),
-  proposalProduct: $("#proposalProduct"),
-  proposalAmount: $("#proposalAmount"),
-  proposalDown: $("#proposalDown"),
-  proposalFinanced: $("#proposalFinanced"),
-  proposalTerm: $("#proposalTerm"),
-  proposalFrequency: $("#proposalFrequency"),
-  proposalPayment: $("#proposalPayment"),
-  proposalCharges: $("#proposalCharges"),
-  reportTerms: $("#reportTerms"),
-  printPlansBody: $("#printPlansBody"),
-  plansGrid: $("#plansGrid"),
-  saveQuoteBtn: $("#saveQuoteBtn"),
-  resetBtn: $("#resetBtn"),
+  customerName: $("#customerName"),
+  customerPhone: $("#customerPhone"),
+  downPercent: $("#downPercent"),
+  termPicker: $("#termPicker"),
+  toggleAllTerms: $("#toggleAllTerms"),
+  allTerms: $("#allTerms"),
+  frequencyPicker: $(".frequency-picker"),
+  quoteHeading: $("#quoteHeading"),
+  quoteReference: $("#quoteReference"),
+  quoteCustomer: $("#quoteCustomer"),
+  quoteDate: $("#quoteDate"),
+  heroFrequencyLabel: $("#heroFrequencyLabel"),
+  heroPayment: $("#heroPayment"),
+  heroFrequency: $("#heroFrequency"),
+  heroTerm: $("#heroTerm"),
+  summaryPrice: $("#summaryPrice"),
+  summaryDown: $("#summaryDown"),
+  summaryFinanced: $("#summaryFinanced"),
+  summaryDownPercent: $("#summaryDownPercent"),
+  summaryFinancedPercent: $("#summaryFinancedPercent"),
+  recommendedPlans: $("#recommendedPlans"),
+  comparisonTabs: $$(".comparison-tab"),
+  comparisonPanels: $$(".comparison-panel"),
+  amortizationLabel: $("#amortizationLabel"),
+  amortizationBody: $("#amortizationBody"),
+  newQuoteBtn: $("#newQuoteBtn"),
   printBtn: $("#printBtn"),
-  backupBtn: $("#backupBtn"),
-  importInput: $("#importInput"),
-  dashboardQuotes: $("#dashboardQuotes"),
-  quotesTable: $("#quotesTable"),
-  quoteSearch: $("#quoteSearch"),
-  statusFilter: $("#statusFilter"),
-  clientForm: $("#clientForm"),
-  clientId: $("#clientId"),
-  clientName: $("#clientName"),
-  clientPhone: $("#clientPhone"),
-  clientDocument: $("#clientDocument"),
-  clientAddress: $("#clientAddress"),
-  saveClientBtn: $("#saveClientBtn"),
-  newClientBtn: $("#newClientBtn"),
-  clientsTable: $("#clientsTable"),
-  saveSettingsBtn: $("#saveSettingsBtn"),
-  defaultRate: $("#defaultRate"),
-  defaultLegal: $("#defaultLegal"),
-  defaultExtra: $("#defaultExtra"),
-  minDownPercent: $("#minDownPercent"),
-  defaultSeller: $("#defaultSeller"),
-  productTypesSetting: $("#productTypesSetting"),
-  termsText: $("#termsText")
+  printModal: $("#printModal"),
+  printPlanStart: $("#printPlanStart"),
+  printPlanEnd: $("#printPlanEnd"),
+  printModes: $$("input[name=printMode]"),
+  printRangePicker: $("#printRangePicker"),
+  printRangeSummary: $("#printRangeSummary"),
+  cancelPrintBtn: $("#cancelPrintBtn"),
+  confirmPrintBtn: $("#confirmPrintBtn"),
+  printHeading: $("#printHeading"),
+  printReference: $("#printReference"),
+  printCustomer: $("#printCustomer"),
+  printDate: $("#printDate"),
+  printProduct: $("#printProduct"),
+  printPayment: $("#printPayment"),
+  printFrequency: $("#printFrequency"),
+  printPrice: $("#printPrice"),
+  printDown: $("#printDown"),
+  printFinanced: $("#printFinanced"),
+  printTotal: $("#printTotal"),
+  printRangeLabel: $("#printRangeLabel"),
+  printPlansBody: $("#printPlansBody"),
+  printPlansSection: $("#printPlansSection"),
+  printAmortizationSection: $("#printAmortizationSection"),
+  printAmortizationLabel: $("#printAmortizationLabel"),
+  printAmortizationBody: $("#printAmortizationBody")
 };
 
-const planTerms = Array.from({ length: 22 }, (_, index) => index + 3);
-const storage = {
-  quotes: "mm_system_quotes",
-  clients: "mm_system_clients",
-  settings: "mm_system_settings",
-  counter: "mm_quote_counter"
-};
-
-const defaultSettings = {
-  defaultRate: 3,
-  defaultLegal: 0,
-  defaultExtra: 0,
-  minDownPercent: 0,
-  defaultSeller: "",
-  productTypes: ["Motocicleta", "Celular", "Electrodomestico", "Mueble", "Otro"],
-  termsText: "Cotizacion sujeta a validacion y aprobacion. Propuesta preparada para fines comerciales."
-};
-
-const frequencyLabels = {
-  monthly: "Mensual",
-  biweekly: "Quincenal",
-  weekly: "Semanal"
-};
-
-const frequencyDivisors = {
-  monthly: 1,
-  biweekly: 2,
-  weekly: 4
-};
-
-const viewCopy = {
-  dashboard: ["Sistema empresarial de cotizaciones", "Panel general"],
-  quote: ["Entrada interna", "Nueva cotizacion"],
-  quotes: ["Gestion comercial", "Cotizaciones"],
-  clients: ["CRM basico", "Clientes"],
-  reports: ["Analisis", "Reportes"],
-  settings: ["Reglas internas", "Configuracion"]
-};
-
-function readJson(key, fallback) {
-  try {
-    return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
-  } catch {
-    return fallback;
-  }
-}
-
-function writeJson(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-function getSettings() {
-  return { ...defaultSettings, ...readJson(storage.settings, {}) };
-}
-
-function getQuotes() {
-  return readJson(storage.quotes, []);
-}
-
-function setQuotes(quotes) {
-  writeJson(storage.quotes, quotes);
-}
-
-function getClients() {
-  return readJson(storage.clients, []);
-}
-
-function setClients(clients) {
-  writeJson(storage.clients, clients);
-}
+const state = { term: 12, frequency: "monthly", reference: "BORRADOR", product: "Motocicleta", productDetails: {} };
 
 function numberValue(input) {
-  return Number(input.value || 0);
+  return Math.max(0, Number(input.value) || 0);
 }
 
 function money(value) {
-  return new Intl.NumberFormat("es-DO", {
-    style: "currency",
-    currency: "DOP",
-    minimumFractionDigits: 2
-  }).format(Number.isFinite(value) ? value : 0);
+  return new Intl.NumberFormat("es-DO", { style: "currency", currency: "DOP", minimumFractionDigits: 2 }).format(value || 0);
 }
 
-function dateText(iso) {
-  return new Date(iso || Date.now()).toLocaleDateString("es-DO");
+function dateText() {
+  return new Intl.DateTimeFormat("es-DO", { dateStyle: "medium" }).format(new Date());
 }
 
-function uid(prefix) {
-  return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+function escapeHtml(value) {
+  return String(value || "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 }
 
-function nextQuoteNumber() {
-  const next = Number(localStorage.getItem(storage.counter) || 0) + 1;
-  localStorage.setItem(storage.counter, String(next));
-  return `MM-${String(next).padStart(5, "0")}`;
-}
-
-function initTermOptions() {
-  els.term.innerHTML = "";
-  planTerms.forEach((term) => {
-    const option = document.createElement("option");
-    option.value = String(term);
-    option.textContent = `${term} meses`;
-    option.selected = term === 12;
-    els.term.appendChild(option);
+function saveProductDetails() {
+  const values = {};
+  els.productDetails.querySelectorAll("[data-product-field]").forEach((input) => {
+    values[input.dataset.productField] = input.value.trim();
   });
+  state.productDetails[state.product] = values;
 }
 
-function initProductTypes() {
-  const settings = getSettings();
-  els.productType.innerHTML = "";
-  settings.productTypes.forEach((type) => {
-    const option = document.createElement("option");
-    option.textContent = type;
-    els.productType.appendChild(option);
-  });
+function renderProductDetails() {
+  const product = els.productName.value;
+  const definition = PRODUCT_FORMS[product];
+  const values = state.productDetails[product] || {};
+  els.productDetails.innerHTML = `<div class="product-details-title"><i class="fa-solid fa-pen-ruler"></i><span>${definition.title}</span></div>${definition.fields.map((field) => `<label>${field.label}<input data-product-field="${field.key}" type="text" value="${escapeHtml(values[field.key])}" placeholder="${field.placeholder}"></label>`).join("")}`;
+  state.product = product;
 }
 
-function applySettingsToForm() {
-  const settings = getSettings();
-  els.monthlyFactor.value = settings.defaultRate;
-  els.legalRate.value = settings.defaultLegal;
-  els.extraFee.value = settings.defaultExtra;
-  els.sellerName.value = settings.defaultSeller || "";
-  els.reportTerms.textContent = settings.termsText;
+function productDescription() {
+  const definition = PRODUCT_FORMS[els.productName.value];
+  const details = definition.fields.map((field) => els.productDetails.querySelector(`[data-product-field="${field.key}"]`)?.value.trim()).filter(Boolean);
+  return [els.productName.value, ...details].join(" · ");
 }
 
-function currentQuote() {
-  const settings = getSettings();
-  const productAmount = numberValue(els.productAmount);
-  const rawDown = numberValue(els.downPayment);
-  const minDown = productAmount * (Number(settings.minDownPercent || 0) / 100);
-  const downPayment = Math.min(Math.max(rawDown, 0), productAmount);
-  const financed = Math.max(productAmount - downPayment, 0);
-  const legalRate = numberValue(els.legalRate);
-  const configuredExtraFee = numberValue(els.extraFee);
-  const includeLegalization = els.includeLegalization.checked;
-  const includeExtraFee = els.includeExtraFee.checked;
-  const legal = includeLegalization ? financed * (legalRate / 100) : 0;
-  const appliedExtraFee = includeExtraFee ? configuredExtraFee : 0;
-  const internalCharges = legal + appliedExtraFee;
-  const base = financed + internalCharges;
-  const term = Number(els.term.value);
-  const factor = numberValue(els.monthlyFactor) / 100;
-  const internalTotal = base * (1 + factor * term);
-  const monthlyPayment = term > 0 ? internalTotal / term : 0;
-  const payment = monthlyPayment / frequencyDivisors[els.frequency.value];
+function quoteValues() {
+  const price = numberValue(els.productAmount);
+  const down = Math.min(numberValue(els.downPayment), price);
+  const financed = Math.max(0, price - down);
+  const monthlyRate = numberValue(els.monthlyRate) / 100;
+  const legal = financed * (numberValue(els.legalRate) / 100);
+  const extra = numberValue(els.extraFee);
+  const base = financed + legal + extra;
+  const total = base * (1 + monthlyRate * state.term);
+  const frequency = FREQUENCIES[state.frequency];
+  const monthlyPayment = state.term ? total / state.term : 0;
 
   return {
-    id: els.editingQuoteId.value || uid("quote"),
-    number: els.proposalNumber.textContent === "BORRADOR" ? "" : els.proposalNumber.textContent,
-    status: "pendiente",
-    customerName: els.customerName.value.trim(),
-    customerPhone: els.customerPhone.value.trim(),
-    customerDocument: els.customerDocument.value.trim(),
-    sellerName: els.sellerName.value.trim(),
-    productType: els.productType.value,
-    productName: els.productName.value.trim() || els.productType.value,
-    productAmount,
-    downPayment,
-    minDown,
+    product: productDescription(),
+    customer: els.customerName.value.trim(),
+    price,
+    down,
     financed,
-    legalRate,
-    includeLegalization,
-    legal,
-    extraFee: configuredExtraFee,
-    includeExtraFee,
-    appliedExtraFee,
-    internalCharges,
     base,
-    term,
-    monthlyRate: numberValue(els.monthlyFactor),
-    factor,
-    internalTotal,
-    frequency: els.frequency.value,
-    payment,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    total,
+    term: state.term,
+    frequency,
+    monthlyRate,
+    payment: monthlyPayment / frequency.divisor
   };
 }
 
-function calculatePaymentByFrequency(quote, term, frequency) {
-  const total = quote.base * (1 + quote.factor * term);
-  const monthly = term > 0 ? total / term : 0;
-  return monthly / frequencyDivisors[frequency];
+function paymentForTerm(quote, term, frequencyKey) {
+  const total = quote.base * (1 + quote.monthlyRate * term);
+  return (total / term) / FREQUENCIES[frequencyKey].divisor;
 }
 
-function renderProposal(quote) {
-  els.financedAmount.textContent = money(quote.financed);
-  els.internalCharges.textContent = money(quote.internalCharges);
-  els.baseAmount.textContent = money(quote.base);
-  els.internalTotal.textContent = money(quote.internalTotal);
-  els.proposalCustomer.textContent = `Cliente: ${quote.customerName || "Sin nombre"}`;
-  els.proposalDate.textContent = dateText(quote.createdAt);
-  els.proposalNumber.textContent = quote.number || "BORRADOR";
-  els.proposalProduct.textContent = quote.productName;
-  els.proposalAmount.textContent = money(quote.productAmount);
-  els.proposalDown.textContent = money(quote.downPayment);
-  els.proposalFinanced.textContent = money(quote.financed);
-  els.proposalTerm.textContent = `${quote.term} meses`;
-  els.proposalFrequency.textContent = frequencyLabels[quote.frequency];
-  els.proposalPayment.textContent = money(quote.payment);
-  const charges = [];
-  if (quote.includeLegalization && quote.legalRate > 0) charges.push(`Legalizacion ${quote.legalRate}%`);
-  if (quote.includeExtraFee && quote.extraFee > 0) charges.push(`Adicional ${money(quote.extraFee)}`);
-  els.proposalCharges.textContent = charges.length ? `Cargos incluidos: ${charges.join(" · ")}` : "Sin cargos adicionales incluidos";
-  els.quoteStatus.textContent = quote.downPayment < quote.minDown ? "Inicial baja" : "Calculada";
+function renderAllTermButtons() {
+  els.allTerms.innerHTML = TERMS.map((term) => `<button type="button" data-term="${term}" class="${term === state.term ? "active" : ""}">${term}</button>`).join("");
 }
 
-function renderPrintPlans(quote) {
-  els.printPlansBody.innerHTML = "";
-  planTerms.forEach((term) => {
+function renderTermState() {
+  $$('[data-term]').forEach((button) => button.classList.toggle("active", Number(button.dataset.term) === state.term));
+}
+
+function renderFrequencyState() {
+  $$('[data-frequency]').forEach((button) => button.classList.toggle("active", button.dataset.frequency === state.frequency));
+}
+
+function renderAmortization(quote, target, caption) {
+  const installments = quote.term * quote.frequency.divisor;
+  const principalPart = installments ? quote.base / installments : 0;
+  const chargePart = installments ? (quote.total - quote.base) / installments : 0;
+  let balance = quote.base;
+  target.innerHTML = "";
+
+  for (let index = 1; index <= installments; index += 1) {
+    const principal = index === installments ? balance : principalPart;
+    balance = Math.max(0, balance - principal);
     const row = document.createElement("tr");
-    if (term === quote.term) row.className = "selected-print-row";
-    row.innerHTML = `
-      <td>${term} meses</td>
-      <td>${money(calculatePaymentByFrequency(quote, term, "monthly"))}</td>
-      <td>${money(calculatePaymentByFrequency(quote, term, "biweekly"))}</td>
-      <td>${money(calculatePaymentByFrequency(quote, term, "weekly"))}</td>
-    `;
-    els.printPlansBody.appendChild(row);
-  });
-}
-
-function renderPlans(quote) {
-  els.plansGrid.innerHTML = "";
-  planTerms.forEach((term) => {
-    const card = document.createElement("article");
-    card.className = `plan-card${term === quote.term ? " selected" : ""}`;
-    card.innerHTML = `
-      <h3>${term} meses</h3>
-      <p>${frequencyLabels[quote.frequency]}</p>
-      <strong>${money(calculatePaymentByFrequency(quote, term, quote.frequency))}</strong>
-      <button type="button" data-term="${term}">Usar plazo</button>
-    `;
-    card.querySelector("button").addEventListener("click", () => {
-      els.term.value = String(term);
-      updateQuotePreview();
-    });
-    els.plansGrid.appendChild(card);
-  });
-}
-
-function updateQuotePreview() {
-  const quote = currentQuote();
-  renderProposal(quote);
-  renderPlans(quote);
-  renderPrintPlans(quote);
-}
-
-function upsertClientFromQuote(quote) {
-  if (!quote.customerName && !quote.customerPhone) return;
-  const clients = getClients();
-  const existing = clients.find((client) =>
-    (quote.customerPhone && client.phone === quote.customerPhone) ||
-    (quote.customerDocument && client.document === quote.customerDocument)
-  );
-  if (existing) {
-    existing.name = quote.customerName || existing.name;
-    existing.phone = quote.customerPhone || existing.phone;
-    existing.document = quote.customerDocument || existing.document;
-    existing.updatedAt = new Date().toISOString();
-  } else {
-    clients.unshift({
-      id: uid("client"),
-      name: quote.customerName || "Cliente sin nombre",
-      phone: quote.customerPhone,
-      document: quote.customerDocument,
-      address: "",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    });
+    row.innerHTML = `<td>${index}</td><td>${money(quote.payment)}</td><td>${money(principal)}</td><td>${money(chargePart)}</td><td>${money(balance)}</td>`;
+    target.appendChild(row);
   }
-  setClients(clients);
+  caption.textContent = `${installments} cuotas ${quote.frequency.plural}`;
 }
 
-function saveQuote() {
-  const quote = currentQuote();
-  const quotes = getQuotes();
-  const existingIndex = quotes.findIndex((item) => item.id === quote.id);
-  if (existingIndex >= 0) {
-    quote.number = quotes[existingIndex].number;
-    quote.status = quotes[existingIndex].status;
-    quote.createdAt = quotes[existingIndex].createdAt;
-    quotes[existingIndex] = quote;
-  } else {
-    quote.number = nextQuoteNumber();
-    quotes.unshift(quote);
-    els.editingQuoteId.value = quote.id;
-  }
-  setQuotes(quotes);
-  upsertClientFromQuote(quote);
-  els.proposalNumber.textContent = quote.number;
-  els.quoteStatus.textContent = "Guardada";
-  renderAll();
-}
-
-function loadQuote(quote) {
-  els.editingQuoteId.value = quote.id;
-  els.proposalNumber.textContent = quote.number || "BORRADOR";
-  els.customerName.value = quote.customerName || "";
-  els.customerPhone.value = quote.customerPhone || "";
-  els.customerDocument.value = quote.customerDocument || "";
-  els.sellerName.value = quote.sellerName || "";
-  els.productType.value = quote.productType || getSettings().productTypes[0];
-  els.productName.value = quote.productName || "";
-  els.productAmount.value = quote.productAmount || 0;
-  els.downPayment.value = quote.downPayment || 0;
-  els.term.value = quote.term || 12;
-  els.frequency.value = quote.frequency || "monthly";
-  els.monthlyFactor.value = quote.monthlyRate ?? 3;
-  els.legalRate.value = quote.legalRate ?? 0;
-  els.extraFee.value = quote.extraFee || 0;
-  els.includeLegalization.checked = quote.includeLegalization !== false;
-  els.includeExtraFee.checked = quote.includeExtraFee !== false;
-  syncChargeControls();
-  showView("quote");
-  updateQuotePreview();
-}
-
-function resetQuoteForm() {
-  els.form.reset();
-  els.editingQuoteId.value = "";
-  els.proposalNumber.textContent = "BORRADOR";
-  els.productName.value = "Motocicleta 150cc";
-  els.productAmount.value = 60000;
-  els.downPayment.value = 10000;
-  els.term.value = 12;
-  els.includeLegalization.checked = true;
-  els.includeExtraFee.checked = true;
-  applySettingsToForm();
-  syncChargeControls();
-  updateQuotePreview();
-}
-
-function syncChargeControls() {
-  [
-    [els.includeLegalization, els.legalRate],
-    [els.includeExtraFee, els.extraFee]
-  ].forEach(([checkbox, input]) => {
-    input.closest(".charge-field")?.classList.toggle("is-excluded", !checkbox.checked);
-  });
-}
-
-function statusBadge(status) {
-  return `<span class="status-badge ${status}">${status}</span>`;
-}
-
-function quoteRow(quote) {
-  return `
-    <article class="record-row">
-      <div>
-        <strong>${quote.number} - ${quote.customerName || "Cliente sin nombre"}</strong>
-        <p>${quote.productName} | ${money(quote.productAmount)} | ${quote.term} meses | ${money(quote.payment)}</p>
-      </div>
-      <div class="record-meta">
-        ${statusBadge(quote.status)}
-        <span>${dateText(quote.createdAt)}</span>
-      </div>
-      <div class="row-actions">
-        <button type="button" data-action="load" data-id="${quote.id}">Editar</button>
-        <button type="button" data-action="duplicate" data-id="${quote.id}">Duplicar</button>
-        <select data-action="status" data-id="${quote.id}">
-          <option value="pendiente"${quote.status === "pendiente" ? " selected" : ""}>Pendiente</option>
-          <option value="enviada"${quote.status === "enviada" ? " selected" : ""}>Enviada</option>
-          <option value="aprobada"${quote.status === "aprobada" ? " selected" : ""}>Aprobada</option>
-          <option value="rechazada"${quote.status === "rechazada" ? " selected" : ""}>Rechazada</option>
-          <option value="vencida"${quote.status === "vencida" ? " selected" : ""}>Vencida</option>
-        </select>
-      </div>
-    </article>
-  `;
-}
-
-function renderQuotes() {
-  const search = (els.quoteSearch.value || "").toLowerCase();
-  const status = els.statusFilter.value;
-  const quotes = getQuotes().filter((quote) => {
-    const text = `${quote.number} ${quote.customerName} ${quote.productName} ${quote.customerPhone}`.toLowerCase();
-    return (status === "all" || quote.status === status) && text.includes(search);
-  });
-  els.quotesTable.innerHTML = quotes.length ? quotes.map(quoteRow).join("") : '<div class="empty-state">No hay cotizaciones para mostrar.</div>';
-  els.dashboardQuotes.innerHTML = getQuotes().slice(0, 6).map(quoteRow).join("") || '<div class="empty-state">Todavia no hay cotizaciones.</div>';
-}
-
-function handleQuoteTable(event) {
-  const target = event.target;
-  const id = target.dataset.id;
-  if (!id) return;
-  const quotes = getQuotes();
-  const quote = quotes.find((item) => item.id === id);
-  if (!quote) return;
-
-  if (target.dataset.action === "load") loadQuote(quote);
-  if (target.dataset.action === "duplicate") {
-    const copy = { ...quote, id: uid("quote"), number: nextQuoteNumber(), status: "pendiente", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
-    quotes.unshift(copy);
-    setQuotes(quotes);
-    renderAll();
-  }
-  if (target.dataset.action === "status") {
-    quote.status = target.value;
-    quote.updatedAt = new Date().toISOString();
-    setQuotes(quotes);
-    renderAll();
-  }
-}
-
-function saveClient() {
-  const clients = getClients();
-  const id = els.clientId.value || uid("client");
-  const existing = clients.findIndex((client) => client.id === id);
-  const client = {
-    id,
-    name: els.clientName.value.trim() || "Cliente sin nombre",
-    phone: els.clientPhone.value.trim(),
-    document: els.clientDocument.value.trim(),
-    address: els.clientAddress.value.trim(),
-    createdAt: existing >= 0 ? clients[existing].createdAt : new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  };
-  if (existing >= 0) clients[existing] = client;
-  else clients.unshift(client);
-  setClients(clients);
-  resetClientForm();
-  renderAll();
-}
-
-function resetClientForm() {
-  els.clientForm.reset();
-  els.clientId.value = "";
-}
-
-function renderClients() {
-  const clients = getClients();
-  els.clientsTable.innerHTML = clients.length ? clients.map((client) => `
-    <article class="record-row">
-      <div>
-        <strong>${client.name}</strong>
-        <p>${client.phone || "Sin telefono"} | ${client.document || "Sin documento"} | ${client.address || "Sin direccion"}</p>
-      </div>
-      <div class="row-actions">
-        <button type="button" data-client-action="quote" data-id="${client.id}">Cotizar</button>
-        <button type="button" data-client-action="edit" data-id="${client.id}">Editar</button>
-      </div>
-    </article>
-  `).join("") : '<div class="empty-state">No hay clientes guardados.</div>';
-}
-
-function handleClientTable(event) {
-  const target = event.target;
-  const id = target.dataset.id;
-  if (!id) return;
-  const client = getClients().find((item) => item.id === id);
-  if (!client) return;
-  if (target.dataset.clientAction === "edit") {
-    els.clientId.value = client.id;
-    els.clientName.value = client.name;
-    els.clientPhone.value = client.phone || "";
-    els.clientDocument.value = client.document || "";
-    els.clientAddress.value = client.address || "";
-  }
-  if (target.dataset.clientAction === "quote") {
-    resetQuoteForm();
-    els.customerName.value = client.name;
-    els.customerPhone.value = client.phone || "";
-    els.customerDocument.value = client.document || "";
-    showView("quote");
-    updateQuotePreview();
-  }
-}
-
-function renderMetrics() {
-  const quotes = getQuotes();
-  const clients = getClients();
-  const total = quotes.reduce((sum, quote) => sum + quote.productAmount, 0);
-  const approved = quotes.filter((quote) => quote.status === "aprobada").length;
-  $("#metricQuotes").textContent = quotes.length;
-  $("#metricClients").textContent = clients.length;
-  $("#metricAmount").textContent = money(total);
-  $("#metricApproved").textContent = approved;
-
-  const financed = quotes.reduce((sum, quote) => sum + quote.financed, 0);
-  const down = quotes.reduce((sum, quote) => sum + quote.downPayment, 0);
-  $("#reportFinanced").textContent = money(financed);
-  $("#reportDown").textContent = money(down);
-  $("#reportAverage").textContent = money(quotes.length ? total / quotes.length : 0);
-  $("#reportApproval").textContent = `${quotes.length ? Math.round((approved / quotes.length) * 100) : 0}%`;
-}
-
-function renderReports() {
-  const quotes = getQuotes();
-  const statuses = ["pendiente", "enviada", "aprobada", "rechazada", "vencida"];
-  $("#statusReport").innerHTML = statuses.map((status) => {
-    const list = quotes.filter((quote) => quote.status === status);
-    const total = list.reduce((sum, quote) => sum + quote.productAmount, 0);
-    return `
-      <article class="record-row">
-        <div>
-          <strong>${status}</strong>
-          <p>${list.length} cotizaciones</p>
-        </div>
-        <div class="record-meta"><strong>${money(total)}</strong></div>
-      </article>
-    `;
+function renderRecommendedPlans(quote) {
+  els.recommendedPlans.innerHTML = FEATURED_TERMS.map((term) => {
+    const selected = term === quote.term;
+    return `<article class="plan-card ${selected ? "selected" : ""}" data-term="${term}" tabindex="0" role="button" aria-label="Elegir plan de ${term} meses">
+      <span class="plan-select"><i class="fa-solid fa-check"></i></span>
+      <div><h3>${term} meses</h3><p>${quote.frequency.label}</p></div>
+      <div class="plan-payment"><span>Cuota ${quote.frequency.sentence}</span><strong>${money(paymentForTerm(quote, term, state.frequency))}</strong></div>
+    </article>`;
   }).join("");
 }
 
-function renderSettingsForm() {
-  const settings = getSettings();
-  els.defaultRate.value = settings.defaultRate;
-  els.defaultLegal.value = settings.defaultLegal;
-  els.defaultExtra.value = settings.defaultExtra;
-  els.minDownPercent.value = settings.minDownPercent;
-  els.defaultSeller.value = settings.defaultSeller;
-  els.productTypesSetting.value = settings.productTypes.join(", ");
-  els.termsText.value = settings.termsText;
-  els.reportTerms.textContent = settings.termsText;
+function renderScreen() {
+  const quote = quoteValues();
+  const downPercent = quote.price ? Math.round((quote.down / quote.price) * 100) : 0;
+  const financedPercent = quote.price ? Math.round((quote.financed / quote.price) * 100) : 0;
+  const customer = quote.customer || "No especificado";
+
+  els.downPercent.textContent = `${downPercent}%`;
+  els.quoteHeading.textContent = `Cotización de ${quote.product}`;
+  els.quoteReference.textContent = state.reference;
+  els.quoteCustomer.textContent = `Cliente: ${customer}`;
+  els.quoteDate.textContent = dateText();
+  els.heroFrequencyLabel.textContent = quote.frequency.sentence;
+  els.heroPayment.textContent = money(quote.payment);
+  els.heroFrequency.textContent = quote.frequency.sentence;
+  els.heroTerm.textContent = `${quote.term} meses`;
+  els.summaryPrice.textContent = money(quote.price);
+  els.summaryDown.textContent = money(quote.down);
+  els.summaryFinanced.textContent = money(quote.financed);
+  els.summaryDownPercent.textContent = `${downPercent}% del precio`;
+  els.summaryFinancedPercent.textContent = `${financedPercent}% del precio`;
+  renderTermState();
+  renderFrequencyState();
+  renderRecommendedPlans(quote);
+  renderAmortization(quote, els.amortizationBody, els.amortizationLabel);
+  renderPrintReport(quote);
 }
 
-function saveSettings() {
-  const settings = {
-    defaultRate: Number(els.defaultRate.value || 0),
-    defaultLegal: Number(els.defaultLegal.value || 0),
-    defaultExtra: Number(els.defaultExtra.value || 0),
-    minDownPercent: Number(els.minDownPercent.value || 0),
-    defaultSeller: els.defaultSeller.value.trim(),
-    productTypes: els.productTypesSetting.value.split(",").map((item) => item.trim()).filter(Boolean),
-    termsText: els.termsText.value.trim() || defaultSettings.termsText
-  };
-  writeJson(storage.settings, settings);
-  initProductTypes();
-  applySettingsToForm();
-  updateQuotePreview();
-  renderAll();
+function rangeValues() {
+  const start = Number(els.printPlanStart.value || 3);
+  const end = Number(els.printPlanEnd.value || 18);
+  return { start: Math.min(start, end), end: Math.max(start, end) };
 }
 
-function exportData() {
-  const data = {
-    exportedAt: new Date().toISOString(),
-    settings: getSettings(),
-    quotes: getQuotes(),
-    clients: getClients(),
-    counter: Number(localStorage.getItem(storage.counter) || 0)
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `cotizador-mm-respaldo-${new Date().toISOString().slice(0, 10)}.json`;
-  link.click();
-  URL.revokeObjectURL(link.href);
+function printMode() {
+  return $("input[name=printMode]:checked").value;
 }
 
-function importData(file) {
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const data = JSON.parse(reader.result);
-      if (data.settings) writeJson(storage.settings, data.settings);
-      if (Array.isArray(data.quotes)) setQuotes(data.quotes);
-      if (Array.isArray(data.clients)) setClients(data.clients);
-      if (data.counter != null) localStorage.setItem(storage.counter, String(data.counter));
-      initProductTypes();
-      renderSettingsForm();
-      resetQuoteForm();
-      renderAll();
-    } catch {
-      alert("El archivo no parece ser un respaldo valido.");
-    }
-  };
-  reader.readAsText(file);
+function renderPrintReport(quote) {
+  const { start, end } = rangeValues();
+  const customer = quote.customer || "No especificado";
+  els.printHeading.textContent = `Cotización de ${quote.product}`;
+  els.printReference.textContent = state.reference;
+  els.printCustomer.textContent = `Cliente: ${customer}`;
+  els.printDate.textContent = dateText();
+  els.printProduct.textContent = `Estás cotizando: ${quote.product}`;
+  els.printPayment.textContent = money(quote.payment);
+  els.printFrequency.textContent = `${quote.frequency.label} · ${quote.term} meses`;
+  els.printPrice.textContent = money(quote.price);
+  els.printDown.textContent = money(quote.down);
+  els.printFinanced.textContent = money(quote.financed);
+  els.printTotal.textContent = money(quote.total);
+  els.printRangeLabel.textContent = `${start} a ${end} meses`;
+  els.printPlansBody.innerHTML = TERMS.filter((term) => term >= start && term <= end).map((term) => {
+    const classes = [term === quote.term ? "selected-row" : "", FEATURED_TERMS.includes(term) ? "recommended-row" : ""].filter(Boolean).join(" ");
+    return `<tr class="${classes}"><td>${term} meses</td><td>${money(paymentForTerm(quote, term, "monthly"))}</td><td>${money(paymentForTerm(quote, term, "biweekly"))}</td><td>${money(paymentForTerm(quote, term, "weekly"))}</td></tr>`;
+  }).join("");
+  renderAmortization(quote, els.printAmortizationBody, els.printAmortizationLabel);
+  const mode = printMode();
+  els.printPlansSection.hidden = mode !== "plans";
+  els.printAmortizationSection.hidden = mode !== "amortization";
 }
 
-function showView(view) {
-  els.views.forEach((item) => item.classList.toggle("active", item.id === `${view}View`));
-  els.navLinks.forEach((item) => item.classList.toggle("active", item.dataset.view === view));
-  const [kicker, title] = viewCopy[view] || viewCopy.dashboard;
-  els.viewKicker.textContent = kicker;
-  els.viewTitle.textContent = title;
+function updateRangeSummary() {
+  const { start, end } = rangeValues();
+  const mode = printMode();
+  const quote = quoteValues();
+  els.printRangePicker.hidden = mode !== "plans";
+  els.printRangeSummary.textContent = mode === "plans"
+    ? `Se imprimirán los planes de ${start} a ${end} meses.`
+    : `Se imprimirá la amortización de ${quote.term} meses (${quote.term * quote.frequency.divisor} cuotas ${quote.frequency.plural}).`;
+  els.printModes.forEach((input) => input.closest(".print-option").classList.toggle("active", input.checked));
 }
 
-function renderAll() {
-  renderQuotes();
-  renderClients();
-  renderMetrics();
-  renderReports();
+function createReference() {
+  const now = new Date();
+  const stamp = [now.getFullYear().toString().slice(-2), String(now.getMonth() + 1).padStart(2, "0"), String(now.getDate()).padStart(2, "0"), String(now.getHours()).padStart(2, "0"), String(now.getMinutes()).padStart(2, "0")].join("");
+  state.reference = `MM-${stamp}`;
 }
 
-initTermOptions();
-initProductTypes();
-renderSettingsForm();
-applySettingsToForm();
-updateQuotePreview();
-renderAll();
+function openPrintDialog() {
+  createReference();
+  updateRangeSummary();
+  renderScreen();
+  els.printModal.classList.add("is-open");
+  els.printModal.setAttribute("aria-hidden", "false");
+  els.printPlanStart.focus();
+}
 
-els.navLinks.forEach((button) => button.addEventListener("click", () => showView(button.dataset.view)));
-$$("[data-go]").forEach((button) => button.addEventListener("click", () => showView(button.dataset.go)));
-els.form.addEventListener("input", updateQuotePreview);
-els.form.addEventListener("change", updateQuotePreview);
-els.includeLegalization.addEventListener("change", syncChargeControls);
-els.includeExtraFee.addEventListener("change", syncChargeControls);
-els.saveQuoteBtn.addEventListener("click", saveQuote);
-els.resetBtn.addEventListener("click", resetQuoteForm);
-els.printBtn.addEventListener("click", () => window.print());
-els.backupBtn.addEventListener("click", exportData);
-els.importInput.addEventListener("change", (event) => importData(event.target.files[0]));
-els.quoteSearch.addEventListener("input", renderQuotes);
-els.statusFilter.addEventListener("change", renderQuotes);
-els.quotesTable.addEventListener("click", handleQuoteTable);
-els.quotesTable.addEventListener("change", handleQuoteTable);
-els.dashboardQuotes.addEventListener("click", handleQuoteTable);
-els.dashboardQuotes.addEventListener("change", handleQuoteTable);
-els.saveClientBtn.addEventListener("click", saveClient);
-els.newClientBtn.addEventListener("click", resetClientForm);
-els.clientsTable.addEventListener("click", handleClientTable);
-els.saveSettingsBtn.addEventListener("click", saveSettings);
+function closePrintDialog() {
+  els.printModal.classList.remove("is-open");
+  els.printModal.setAttribute("aria-hidden", "true");
+  els.printBtn.focus();
+}
+
+function resetQuote() {
+  els.form.reset();
+  state.term = 12;
+  state.frequency = "monthly";
+  state.reference = "BORRADOR";
+  state.productDetails = {};
+  state.product = els.productName.value;
+  renderProductDetails();
+  els.allTerms.hidden = true;
+  els.toggleAllTerms.classList.remove("is-open");
+  els.toggleAllTerms.innerHTML = 'Ver todos hasta 36 meses <i class="fa-solid fa-chevron-right"></i>';
+  renderScreen();
+}
+
+function selectTerm(term) {
+  state.term = term;
+  renderScreen();
+}
+
+function initializePrintRange() {
+  [els.printPlanStart, els.printPlanEnd].forEach((select) => {
+    select.innerHTML = TERMS.map((term) => `<option value="${term}">${term} meses</option>`).join("");
+  });
+  els.printPlanStart.value = "3";
+  els.printPlanEnd.value = "18";
+}
+
+renderAllTermButtons();
+initializePrintRange();
+renderProductDetails();
+renderScreen();
+
+els.form.addEventListener("input", renderScreen);
+els.form.addEventListener("change", renderScreen);
+els.productName.addEventListener("change", () => {
+  saveProductDetails();
+  renderProductDetails();
+  renderScreen();
+});
+els.termPicker.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-term]");
+  if (button) selectTerm(Number(button.dataset.term));
+});
+els.allTerms.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-term]");
+  if (button) selectTerm(Number(button.dataset.term));
+});
+els.toggleAllTerms.addEventListener("click", () => {
+  const open = els.allTerms.hidden;
+  els.allTerms.hidden = !open;
+  els.toggleAllTerms.classList.toggle("is-open", open);
+  els.toggleAllTerms.innerHTML = `${open ? "Ocultar plazos" : "Ver todos hasta 36 meses"} <i class="fa-solid fa-chevron-right"></i>`;
+});
+els.frequencyPicker.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-frequency]");
+  if (!button) return;
+  state.frequency = button.dataset.frequency;
+  renderScreen();
+});
+els.recommendedPlans.addEventListener("click", (event) => {
+  const card = event.target.closest("[data-term]");
+  if (card) selectTerm(Number(card.dataset.term));
+});
+els.recommendedPlans.addEventListener("keydown", (event) => {
+  if ((event.key === "Enter" || event.key === " ") && event.target.matches("[data-term]")) {
+    event.preventDefault();
+    selectTerm(Number(event.target.dataset.term));
+  }
+});
+els.comparisonTabs.forEach((tab) => tab.addEventListener("click", () => {
+  const panelId = tab.dataset.panel;
+  els.comparisonTabs.forEach((item) => {
+    const active = item === tab;
+    item.classList.toggle("active", active);
+    item.setAttribute("aria-selected", String(active));
+  });
+  els.comparisonPanels.forEach((panel) => {
+    const active = panel.id === panelId;
+    panel.hidden = !active;
+    panel.classList.toggle("active", active);
+  });
+}));
+els.newQuoteBtn.addEventListener("click", resetQuote);
+els.printBtn.addEventListener("click", openPrintDialog);
+els.printPlanStart.addEventListener("change", () => { updateRangeSummary(); renderScreen(); });
+els.printPlanEnd.addEventListener("change", () => { updateRangeSummary(); renderScreen(); });
+els.printModes.forEach((input) => input.addEventListener("change", () => { updateRangeSummary(); renderScreen(); }));
+els.cancelPrintBtn.addEventListener("click", closePrintDialog);
+els.confirmPrintBtn.addEventListener("click", () => { renderScreen(); closePrintDialog(); window.print(); });
+els.printModal.addEventListener("click", (event) => { if (event.target === els.printModal) closePrintDialog(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape" && els.printModal.classList.contains("is-open")) closePrintDialog(); });
