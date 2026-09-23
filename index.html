@@ -6,6 +6,8 @@
     <title>Cotizador M&M</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="menu-empresarial.css">
+    <link rel="stylesheet" href="calculadora-express.css">
   </head>
   <body>
     <main class="app-shell">
@@ -15,13 +17,66 @@
           <span class="brand-divider"></span>
           <img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors">
         </div>
-        <h1>Calculadora de financiamiento</h1>
+        <h1>Centro de financiamiento</h1>
         <div class="header-actions">
-          <button class="quiet-btn" id="newQuoteBtn" type="button"><i class="fa-solid fa-rotate-left"></i> Nueva</button>
-          <button class="primary-btn" id="printBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir propuesta</button>
+          <button class="quiet-btn" id="workspaceHomeBtn" type="button" hidden><i class="fa-solid fa-house"></i> Inicio</button>
+          <a class="application-btn" id="applicationEntryBtn" href="#creditApplication" hidden><i class="fa-solid fa-file-circle-plus"></i><span>Nueva solicitud</span></a>
+          <button class="quiet-btn" id="newQuoteBtn" type="button" hidden><i class="fa-solid fa-rotate-left"></i> Nueva</button>
+          <button class="primary-btn" id="printBtn" type="button" hidden><i class="fa-solid fa-file-pdf"></i> PDF / imprimir</button>
         </div>
       </header>
 
+      <section class="express-calculator" aria-labelledby="expressCalculatorTitle">
+        <div class="express-calculator__intro">
+          <span class="express-calculator__eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Cálculo rápido</span>
+          <h2 id="expressCalculatorTitle">Cuota exprés</h2>
+          <p>Obtén una cuota aproximada con interés simple fijo, sin preparar una cotización completa.</p>
+        </div>
+
+        <form class="express-calculator__form" id="expressCalculatorForm">
+          <label class="express-field express-field--amount">
+            <span>Monto a financiar</span>
+            <span class="express-money-input"><b>RD$</b><input id="expressAmount" type="number" min="0" step="500" value="50000" required inputmode="decimal"></span>
+          </label>
+          <label class="express-field">
+            <span>Plazo en meses</span>
+            <input id="expressTerm" type="number" min="1" max="60" step="1" value="12" required inputmode="numeric">
+          </label>
+          <label class="express-field">
+            <span>Tasa mensual</span>
+            <span class="express-rate-input"><input id="expressRate" type="number" min="0" step="0.01" value="3" required inputmode="decimal"><b>%</b></span>
+          </label>
+          <fieldset class="express-frequency">
+            <legend>Frecuencia de pago</legend>
+            <div class="express-frequency__options">
+              <label><input type="radio" name="expressFrequency" value="weekly"><span>Semanal</span></label>
+              <label><input type="radio" name="expressFrequency" value="biweekly"><span>Quincenal</span></label>
+              <label><input type="radio" name="expressFrequency" value="monthly" checked><span>Mensual</span></label>
+            </div>
+          </fieldset>
+          <button class="express-calculator__submit" type="submit"><i class="fa-solid fa-calculator" aria-hidden="true"></i> Calcular cuota</button>
+        </form>
+
+        <output class="express-result" id="expressResult" aria-live="polite">
+          <span class="express-result__label">Cuota mensual aproximada</span>
+          <strong id="expressPayment">RD$0.00</strong>
+          <span class="express-result__meta" id="expressPaymentMeta">12 pagos · Total RD$0.00</span>
+          <small id="expressInterest">Interés total: RD$0.00</small>
+        </output>
+        <p class="express-calculator__note" id="expressCalculatorNote"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Estimación con tasa simple mensual. No incluye cargos, seguros ni gastos legales.</p>
+      </section>
+
+      <section class="workspace-menu" id="workspaceMenu" aria-label="Menú principal">
+        <div class="workspace-menu-intro"><span>Herramientas M&M · VegaMotors</span><h2>Centro de operaciones</h2><p>Selecciona la tarea que vas a realizar. Cada área agrupa las herramientas de una misma etapa.</p></div>
+        <nav class="workspace-menu-nav" aria-label="Áreas de trabajo"><a href="#commercialToolsTitle"><i class="fa-solid fa-chart-line"></i> Comercial</a><a href="#fieldToolsTitle"><i class="fa-solid fa-briefcase"></i> Campo</a><a href="#formalToolsTitle"><i class="fa-solid fa-file-signature"></i> Formalización</a><a href="#controlToolsTitle"><i class="fa-solid fa-money-bill-transfer"></i> Control</a></nav>
+        <div class="workspace-menu-tools"><label class="workspace-menu-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="workspaceMenuSearch" type="search" autocomplete="off" placeholder="Buscar herramienta o formulario" aria-label="Buscar herramienta o formulario"></label><span id="workspaceMenuSearchStatus" aria-live="polite">Selecciona un área o busca una herramienta.</span></div>
+        <div class="workspace-menu-sections">
+          <section class="workspace-menu-section workspace-menu-section--commercial" aria-labelledby="commercialToolsTitle"><header><span><i class="fa-solid fa-chart-line"></i> Negocio y crédito</span><h3 id="commercialToolsTitle">Preparación comercial</h3><p>Desde la primera consulta hasta la solicitud de crédito.</p></header><div class="workspace-menu-cards" id="commercialMenuCards"><button class="workspace-choice" type="button" data-workspace-target="quote"><span><i class="fa-solid fa-calculator"></i></span><b>Cotizador de pagos</b><small>Calcula cuotas, intereses, plazos y planes de pago.</small><em>Entrar al cotizador <i class="fa-solid fa-arrow-right"></i></em></button><a class="workspace-choice workspace-choice--motorcycle-quote" href="cotizacion-motocicletas.html"><span><i class="fa-solid fa-motorcycle"></i></span><b>Cotización de motocicletas</b><small>Prepara una propuesta de contado o financiada para imprimir.</small><em>Crear cotización <i class="fa-solid fa-arrow-right"></i></em></a><button class="workspace-choice" type="button" data-workspace-target="application"><span><i class="fa-solid fa-file-signature"></i></span><b>Solicitudes</b><small>Completa, verifica, imprime o exporta una solicitud de crédito.</small><em>Nueva solicitud <i class="fa-solid fa-arrow-right"></i></em></button></div></section>
+          <section class="workspace-menu-section workspace-menu-section--field" aria-labelledby="fieldToolsTitle"><header><span><i class="fa-solid fa-briefcase"></i> Gestión operativa</span><h3 id="fieldToolsTitle">Campo, control y documentación</h3><p>Fichas y comprobantes para dar seguimiento a cada gestión.</p></header><div class="workspace-menu-cards" id="fieldMenuCards"><button class="workspace-choice workspace-choice--evaluation" type="button" data-workspace-target="evaluation"><span><i class="fa-solid fa-clipboard-check"></i></span><b>Visita de evaluación</b><small>Verifica vivienda, trabajo y referencias antes de decidir.</small><em>Abrir ficha <i class="fa-solid fa-arrow-right"></i></em></button><button class="workspace-choice workspace-choice--delivery" type="button" data-workspace-target="delivery"><span><i class="fa-solid fa-file-circle-check"></i></span><b>Entrega de documentos</b><small>Genera constancia de entrega de placa, matrícula o ambos.</small><em>Generar constancia <i class="fa-solid fa-arrow-right"></i></em></button></div></section>
+        </div>
+      </section>
+
+      <div class="workspace workspace--quote" id="quoteWorkspace" hidden>
       <section class="workbench" aria-label="Cotizador de financiamiento">
         <form class="calculator-card" id="quoteForm">
           <div class="panel-title">
@@ -42,16 +97,22 @@
           </select>
           <fieldset class="product-selector">
             <legend>Producto a financiar</legend>
-            <div class="product-picker" id="productPicker" role="group" aria-label="Selecciona el producto a financiar">
-              <button class="product-tile" type="button" data-product="Préstamo personal"><i class="fa-solid fa-hand-holding-dollar"></i><span>Préstamo<small>Personal</small></span></button>
-              <button class="product-tile" type="button" data-product="Préstamo comercial"><i class="fa-solid fa-briefcase"></i><span>Préstamo<small>Comercial</small></span></button>
-              <button class="product-tile" type="button" data-product="Préstamo prendario"><i class="fa-solid fa-shield-halved"></i><span>Préstamo<small>Prendario</small></span></button>
-              <button class="product-tile" type="button" data-product="Smartphone"><i class="fa-solid fa-mobile-screen-button"></i><span>Smartphone<small>Equipo móvil</small></span></button>
-              <button class="product-tile" type="button" data-product="Electrodoméstico"><i class="fa-solid fa-plug-circle-bolt"></i><span>Electrodoméstico<small>Hogar</small></span></button>
-              <button class="product-tile active" type="button" data-product="Motocicleta"><i class="fa-solid fa-motorcycle"></i><span>Motocicleta<small>Vehículo</small></span></button>
-            </div>
+            <details class="product-menu" id="productMenu">
+              <summary><span class="selected-product"><i class="fa-solid fa-motorcycle" id="selectedProductIcon"></i><span><b id="selectedProductName">Motocicleta</b><small id="selectedProductMeta">Vehículo</small></span></span><i class="fa-solid fa-chevron-down"></i></summary>
+              <div class="product-picker" id="productPicker" role="group" aria-label="Selecciona el producto a financiar">
+                <button class="product-tile" type="button" data-product="Préstamo personal"><i class="fa-solid fa-hand-holding-dollar"></i><span>Préstamo<small>Personal</small></span></button>
+                <button class="product-tile" type="button" data-product="Préstamo comercial"><i class="fa-solid fa-briefcase"></i><span>Préstamo<small>Comercial</small></span></button>
+                <button class="product-tile" type="button" data-product="Préstamo prendario"><i class="fa-solid fa-shield-halved"></i><span>Préstamo<small>Prendario</small></span></button>
+                <button class="product-tile" type="button" data-product="Smartphone"><i class="fa-solid fa-mobile-screen-button"></i><span>Smartphone<small>Equipo móvil</small></span></button>
+                <button class="product-tile" type="button" data-product="Electrodoméstico"><i class="fa-solid fa-plug-circle-bolt"></i><span>Electrodoméstico<small>Hogar</small></span></button>
+                <button class="product-tile active" type="button" data-product="Motocicleta"><i class="fa-solid fa-motorcycle"></i><span>Motocicleta<small>Vehículo</small></span></button>
+              </div>
+            </details>
           </fieldset>
-          <section class="product-details" id="productDetails" aria-live="polite"></section>
+          <details class="compact-disclosure product-details-disclosure" id="productDetailsDisclosure">
+            <summary><span><i class="fa-solid fa-pen-ruler"></i> Detalles del producto</span><small id="productDetailSummary">Agregar detalles</small><i class="fa-solid fa-chevron-down"></i></summary>
+            <section class="product-details" id="productDetails" aria-live="polite"></section>
+          </details>
 
           <div class="currency-row">
             <label>
@@ -63,43 +124,26 @@
               <span class="currency-input"><b>RD$</b><input id="downPayment" type="number" min="0" step="500" value="10000"></span>
             </label>
           </div>
-          <div class="initial-note"><span id="downPercent">17%</span> del precio <em>Opcional</em></div>
-
-          <fieldset class="choice-field">
-            <legend>Plazo (meses)</legend>
-            <div class="term-picker" id="termPicker">
-              <button class="choice-chip active" type="button" data-term="12">12</button>
-              <button class="choice-chip" type="button" data-term="15">15</button>
-              <button class="choice-chip" type="button" data-term="18">18</button>
-            </div>
-            <button class="text-action" id="toggleAllTerms" type="button">Ver todos hasta 36 meses <i class="fa-solid fa-chevron-right"></i></button>
-            <div class="all-terms" id="allTerms" hidden></div>
-          </fieldset>
+          <div class="initial-note"><span id="downPercent">17%</span> del precio <em id="minimumDownNote">Inicial mínimo según producto</em></div>
 
           <fieldset class="choice-field compact-choice">
-            <legend>Frecuencia de pago</legend>
-            <div class="frequency-picker">
-              <button class="frequency-chip active" type="button" data-frequency="monthly">Mensual</button>
-              <button class="frequency-chip" type="button" data-frequency="biweekly">Quincenal</button>
-              <button class="frequency-chip" type="button" data-frequency="weekly">Semanal</button>
+            <legend>Condiciones del financiamiento</legend>
+            <div class="conditions-grid">
+              <label>Plazo <select id="termSelect" aria-label="Plazo en meses"></select></label>
+              <label>Primera cuota <input id="firstPaymentDate" type="date"></label>
+              <div class="frequency-control"><span>Frecuencia</span><div class="frequency-picker"><button class="frequency-chip active" type="button" data-frequency="monthly">Mensual</button><button class="frequency-chip" type="button" data-frequency="biweekly">Quincenal</button><button class="frequency-chip" type="button" data-frequency="weekly">Semanal</button></div></div>
             </div>
+            <div class="quick-terms"><span>Atajos</span><div class="term-picker" id="termPicker"></div></div>
+            <p class="calendar-note" id="calendarNote">Las fechas se generan automáticamente según la frecuencia elegida.</p>
           </fieldset>
 
-          <details class="disclosure" id="clientDisclosure">
-            <summary><span><i class="fa-regular fa-user"></i> Cliente <small>(opcional)</small></span><i class="fa-solid fa-chevron-down"></i></summary>
-            <div class="disclosure-content">
-              <label>Nombre <input id="customerName" type="text" placeholder="Nombre del cliente"></label>
-              <label>Teléfono <input id="customerPhone" type="tel" placeholder="809-000-0000"></label>
-            </div>
-          </details>
+          <section class="validation-summary" id="validationSummary" aria-live="polite"></section>
 
-          <details class="disclosure">
-            <summary><span><i class="fa-solid fa-sliders"></i> Ajustes del cálculo</span><i class="fa-solid fa-chevron-down"></i></summary>
-            <div class="disclosure-content advanced-grid">
-              <label>Tasa mensual % <input id="monthlyRate" type="number" min="0" step="0.01" value="3"></label>
-              <label>Legalización % <input id="legalRate" type="number" min="0" step="0.01" value="0"></label>
-              <label>Adicional RD$ <input id="extraFee" type="number" min="0" step="100" value="0"></label>
-            </div>
+          <details class="disclosure" id="clientDisclosure">
+            <summary><span><i class="fa-solid fa-sliders"></i> Opciones de la cotización <small>Cliente, tasa y cargos</small></span><i class="fa-solid fa-chevron-down"></i></summary>
+            <div class="options-block"><p class="option-heading"><i class="fa-regular fa-user"></i> Cliente <small>(opcional)</small></p><div class="disclosure-content"><label>Nombre <input id="customerName" type="text" placeholder="Nombre del cliente"></label><label>Teléfono <input id="customerPhone" type="tel" placeholder="809-000-0000"></label></div></div>
+            <div class="options-block"><p class="option-heading"><i class="fa-solid fa-percent"></i> Cálculo</p><div class="disclosure-content advanced-grid"><label>Tipo de tasa<select id="rateType"><option value="simple" selected>Interés simple</option><option value="monthly">Mensual</option><option value="effectiveAnnual">Efectiva anual</option><option value="nominalAnnual">Nominal anual</option></select></label><label><span id="rateLabel">Tasa simple mensual %</span><input id="monthlyRate" type="number" min="0" step="0.01" value="3"></label><label>Legalización %<input id="legalRate" type="number" min="0" step="0.01" value="0"></label><label>Adicional RD$<input id="extraFee" type="number" min="0" step="100" value="0"></label></div><p class="rate-help" id="rateHelp">Se aplica una tasa simple mensual durante el plazo seleccionado.</p></div>
+            <button class="text-action rule-action" id="openRulesBtn" type="button"><i class="fa-solid fa-gear"></i> Configurar reglas de <span id="ruleActionProduct">Motocicleta</span></button>
           </details>
         </form>
 
@@ -127,6 +171,7 @@
             <article><span class="metric-icon"><i class="fa-solid fa-tag"></i></span><p>Precio del artículo<strong id="summaryPrice">RD$0.00</strong><small>100% del precio</small></p></article>
             <article><span class="metric-icon"><i class="fa-regular fa-credit-card"></i></span><p>Inicial<strong id="summaryDown">RD$0.00</strong><small id="summaryDownPercent">0% del precio</small></p></article>
             <article><span class="metric-icon"><i class="fa-regular fa-calendar"></i></span><p>Monto a financiar<strong id="summaryFinanced">RD$0.00</strong><small id="summaryFinancedPercent">0% del precio</small></p></article>
+            <article><span class="metric-icon"><i class="fa-solid fa-percent"></i></span><p>Interés estimado<strong id="summaryInterest">RD$0.00</strong><small id="summaryInterestDetail">Según la tasa seleccionada</small></p></article>
           </div>
 
           <p class="validity-note"><i class="fa-solid fa-circle-check"></i> Vista previa lista para imprimir · válida por 15 días.</p>
@@ -143,24 +188,289 @@
           </div>
         </div>
         <section class="comparison-panel active" id="plansPanel" role="tabpanel" aria-labelledby="plansTab">
-          <div class="panel-explainer"><div><h3>Planes recomendados</h3><p>Selecciona el que mejor se ajuste al cliente.</p></div><span>Disponibles hasta 36 meses</span></div>
+          <div class="panel-explainer"><div><h3>Planes recomendados</h3><p id="planComparisonInfo">Compara cuota, interés y ahorro por liquidar antes.</p></div><span id="availableTermsLabel">Disponibles hasta 36 meses</span></div>
           <div class="recommended-plans" id="recommendedPlans"></div>
         </section>
         <section class="comparison-panel" id="amortizationPanel" role="tabpanel" aria-labelledby="amortizationTab" hidden>
-          <div class="panel-explainer"><div><h3>Amortización del plan elegido</h3><p>Desglose de capital, cargo financiero y balance pendiente.</p></div><span id="amortizationLabel">12 cuotas mensuales</span></div>
-          <div class="table-wrap amortization-table"><table><thead><tr><th>#</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="amortizationBody"></tbody></table></div>
+          <div class="panel-explainer"><div><h3>Amortización del plan elegido</h3><p>Desglose de fechas, capital, interés y balance pendiente.</p></div><span id="amortizationLabel">12 cuotas mensuales</span></div>
+          <div class="table-wrap amortization-table"><table><thead><tr><th>#</th><th>Vence</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="amortizationBody"></tbody></table></div>
         </section>
       </section>
+
+      </div>
+
+      <section class="workspace workspace--application credit-application" id="creditApplication" aria-labelledby="creditApplicationTitle" hidden>
+        <header class="application-hero">
+          <div class="application-brand" aria-label="M&M Inversiones y VegaMotors">
+            <img src="LOGO%20M%26M.png" alt="M&M Inversiones">
+            <span></span>
+            <img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors">
+          </div>
+          <div>
+            <p>Formulario de evaluación</p>
+            <h2 id="creditApplicationTitle">Solicitud de crédito</h2>
+            <span>Completa la información para preparar una solicitud lista para revisión.</span>
+          </div>
+          <div class="application-hero-state"><i class="fa-solid fa-shield-halved"></i><span>Información confidencial<br><b>Uso interno</b></span></div>
+        </header>
+
+        <form class="credit-application-form" id="creditApplicationForm" novalidate autocomplete="off">
+          <div class="application-context" id="applicationContext" aria-live="polite"><div><span class="application-context-icon"><i class="fa-solid fa-file-circle-plus"></i></span><span><b id="applicationContextTitle">Nueva solicitud</b><small id="applicationContextCopy">Completa los datos del solicitante para iniciar la evaluación.</small></span></div><button class="quiet-btn" id="applicationContextAction" type="button"><i class="fa-solid fa-rotate-left"></i> Limpiar y comenzar</button></div>
+          <nav class="application-progress" aria-label="Etapas de la solicitud"><a href="#appOperation"><i>1</i> Operación</a><a href="#appProfile"><i>2</i> Personal</a><a href="#appEmployment"><i>3</i> Laboral</a><a href="#appFinancial"><i>4</i> Finanzas</a><a href="#appReferences"><i>5</i> Referencias</a><a href="#appDeclaration"><i>6</i> Confirmar</a></nav>
+          <aside class="application-evaluation-bar" aria-label="Resumen de evaluación en vivo"><div><span><i class="fa-solid fa-wallet"></i> Disponible mensual</span><strong id="evaluationAvailable">RD$0.00</strong></div><div><span><i class="fa-solid fa-money-bill-wave"></i> Cuota estimada</span><strong id="evaluationPayment">RD$0.00</strong></div><div><span><i class="fa-solid fa-scale-balanced"></i> Cuota / ingreso</span><strong id="evaluationRatio">—</strong></div><div class="evaluation-status" id="evaluationStatus"><span><i class="fa-solid fa-circle-info"></i> Estado informativo</span><strong>Pendiente de cálculo</strong></div></aside>
+          <section class="application-section application-type-section" id="appOperation" aria-labelledby="applicationTypeTitle">
+            <div class="application-section-heading"><span>01</span><div><p>Tipo de operación</p><h3 id="applicationTypeTitle">¿Qué crédito solicita?</h3></div></div>
+            <input type="hidden" id="applicationType" name="applicationType" value="personal">
+            <div class="application-type-grid" id="applicationTypeGrid" role="radiogroup" aria-label="Tipo de crédito solicitado">
+              <button class="application-type-card is-selected" type="button" role="radio" aria-checked="true" data-application-type="personal"><i class="fa-solid fa-user"></i><span><b>Préstamo personal</b><small>Necesidades personales</small></span></button>
+              <button class="application-type-card" type="button" role="radio" aria-checked="false" data-application-type="commercial"><i class="fa-solid fa-briefcase"></i><span><b>Préstamo comercial</b><small>Negocio o empresa</small></span></button>
+              <button class="application-type-card" type="button" role="radio" aria-checked="false" data-application-type="vehicle"><i class="fa-solid fa-car-side"></i><span><b>Garantía de vehículo</b><small>Préstamo prendario</small></span></button>
+              <button class="application-type-card" type="button" role="radio" aria-checked="false" data-application-type="mortgage"><i class="fa-solid fa-house"></i><span><b>Garantía hipotecaria</b><small>Inmueble en respaldo</small></span></button>
+              <button class="application-type-card" type="button" role="radio" aria-checked="false" data-application-type="smartphone"><i class="fa-solid fa-mobile-screen-button"></i><span><b>Financiar smartphone</b><small>Equipo móvil</small></span></button>
+              <button class="application-type-card" type="button" role="radio" aria-checked="false" data-application-type="motorcycle"><i class="fa-solid fa-motorcycle"></i><span><b>Financiar motocicleta</b><small>Unidad nueva o usada</small></span></button>
+            </div>
+            <div class="application-operation-details" aria-labelledby="appSpecificTitle">
+              <div class="application-section-heading application-section-heading--subsection"><span><i class="fa-solid fa-file-invoice-dollar"></i></span><div><p>Condiciones de la solicitud</p><h3 id="appSpecificTitle">Información del préstamo personal</h3></div></div>
+              <div class="application-fields four-columns" id="applicationSpecificFields"></div>
+              <aside class="loan-estimate" id="applicationLoanEstimate" aria-live="polite"><div class="loan-estimate-title"><span><i class="fa-solid fa-calculator"></i></span><div><p>Estimación con interés simple</p><h4>Resumen de la solicitud</h4></div><small>Tasa mensual × plazo</small></div><div class="loan-estimate-values"><div><span>Monto financiado</span><strong id="loanEstimatePrincipal">RD$0.00</strong></div><div><span>Interés estimado</span><strong id="loanEstimateInterest">RD$0.00</strong></div><div><span>Total a pagar</span><strong id="loanEstimateTotal">RD$0.00</strong></div><div class="loan-estimate-payment"><span>Cuota mensual estimada</span><strong id="loanEstimatePayment">RD$0.00</strong><small id="loanEstimateDetail">Ingresa monto, tasa y plazo.</small></div></div></aside>
+            </div>
+          </section>
+
+          <section class="application-section" id="appProfile" aria-labelledby="appPersonalTitle">
+            <div class="application-section-heading"><span>02</span><div><p>Identificación</p><h3 id="appPersonalTitle">Datos personales del solicitante</h3></div></div>
+            <div class="application-fields four-columns">
+              <label>Nombres <input name="firstNames" autocomplete="given-name" required placeholder="Nombres completos"></label>
+              <label>Apellidos <input name="lastNames" autocomplete="family-name" required placeholder="Apellidos completos"></label>
+              <label>Cédula o pasaporte <input name="identityNumber" required placeholder="000-0000000-0"></label>
+              <label>Fecha de nacimiento <input name="birthDate" type="date" required></label>
+              <label>Nacionalidad <input name="nationality" required value="Dominicana"></label>
+              <label>Estado civil <select name="maritalStatus" required><option value="">Selecciona</option><option>Soltero/a</option><option>Casado/a</option><option>Unión libre</option><option>Divorciado/a</option><option>Viudo/a</option></select></label>
+              <label>Teléfono principal <input name="phone" type="tel" autocomplete="tel" required placeholder="809-000-0000"></label>
+              <label>Correo electrónico <input name="email" type="email" autocomplete="email" placeholder="nombre@correo.com"></label>
+              <label class="span-two">Calle <input name="street" autocomplete="street-address" required placeholder="Ej. Calle Duarte"></label>
+              <label>No. de casa / apartamento <input name="houseNumber" required placeholder="Ej. 24, Apto. 3B"></label>
+              <label>Sector <input name="sector" required placeholder="Ej. Villa Lora"></label>
+              <label class="span-two">Ciudad o municipio <input name="city" required placeholder="Ej. La Vega"></label>
+              <label class="span-two">Provincia <select name="province" required><option value="">Selecciona la provincia</option><option>Azua</option><option>Bahoruco</option><option>Barahona</option><option>Dajabón</option><option>Distrito Nacional</option><option>Duarte</option><option>Elías Piña</option><option>El Seibo</option><option>Espaillat</option><option>Hato Mayor</option><option>Hermanas Mirabal</option><option>Independencia</option><option>La Altagracia</option><option>La Romana</option><option>La Vega</option><option>María Trinidad Sánchez</option><option>Monseñor Nouel</option><option>Monte Cristi</option><option>Monte Plata</option><option>Pedernales</option><option>Peravia</option><option>Puerto Plata</option><option>Samaná</option><option>Sánchez Ramírez</option><option>San Cristóbal</option><option>San José de Ocoa</option><option>San Juan</option><option>San Pedro de Macorís</option><option>Santiago</option><option>Santiago Rodríguez</option><option>Santo Domingo</option><option>Valverde</option></select></label>
+              <label class="span-two">Referencia de ubicación 1 <input name="residenceReference1" required placeholder="Ej. frente a la iglesia, cerca del colmado"></label>
+              <label class="span-two">Referencia de ubicación 2 <input name="residenceReference2" required placeholder="Ej. casa color azul, próximo a la escuela"></label>
+              <label>Tiempo en residencia <span class="duration-field"><input name="residenceTime" type="number" min="0" step="1" required placeholder="0"><select name="residenceTimeUnit" aria-label="Unidad de tiempo en residencia"><option value="años">años</option><option value="meses">meses</option></select></span></label>
+              <label>Tipo de vivienda <select name="housingType" required><option value="">Selecciona</option><option>Propia</option><option>Alquilada</option><option>Familiar</option><option>Hipotecada</option></select></label>
+              <label>Personas dependientes <input name="dependents" type="number" min="0" value="0"></label>
+            </div>
+          </section>
+
+          <section class="application-section" id="appEmployment" aria-labelledby="appEmploymentTitle">
+            <div class="application-section-heading"><span>03</span><div><p>Actividad económica</p><h3 id="appEmploymentTitle">Información laboral</h3></div></div>
+            <div class="application-fields four-columns">
+              <label>Situación laboral <select name="employmentStatus" required><option value="">Selecciona</option><option>Empleado/a fijo/a</option><option>Empleado/a temporal</option><option>Independiente</option><option>Propietario/a de negocio</option><option>Jubilado/a</option></select></label>
+              <label>Empresa o negocio <input name="employer" required placeholder="Nombre de la empresa"></label>
+              <label>Cargo u ocupación <input name="jobTitle" required placeholder="Puesto que desempeña"></label>
+              <label>Tiempo laborando <span class="duration-field"><input name="employmentTime" type="number" min="0" step="1" required placeholder="0"><select name="employmentTimeUnit" aria-label="Unidad de tiempo laborando"><option value="años">años</option><option value="meses">meses</option></select></span></label>
+              <label class="span-two">Dirección laboral <input name="workAddress" placeholder="Calle, número, sector"></label>
+              <label class="span-two">Referencia del negocio <input name="businessNearby" placeholder="¿Cerca de qué queda el negocio o empresa?"></label>
+              <label>Teléfono laboral <input name="workPhone" type="tel" placeholder="809-000-0000"></label>
+              <label>Supervisor / contacto <input name="supervisor" placeholder="Nombre y apellido"></label>
+            </div>
+          </section>
+
+          <section class="application-section" id="appFinancial" aria-labelledby="appFinancialTitle">
+            <div class="application-section-heading"><span>04</span><div><p>Capacidad de pago</p><h3 id="appFinancialTitle">Ingresos y gastos mensuales</h3></div></div>
+            <div class="financial-layout">
+              <div class="financial-block"><h4><i class="fa-solid fa-arrow-trend-up"></i> Ingresos</h4><div class="application-fields two-columns"><label>Ingreso salarial <span class="money-field"><b>RD$</b><input data-income data-money-input name="monthlyIncome" type="text" inputmode="decimal" required placeholder="0.00"></span></label><label>Otros ingresos <span class="money-field"><b>RD$</b><input data-income data-money-input name="additionalIncome" type="text" inputmode="decimal" placeholder="0.00"></span></label><label class="span-two">¿De qué provienen los otros ingresos? <input name="additionalIncomeSource" data-additional-income-source placeholder="Ej. comisiones, alquiler, trabajo independiente"></label></div></div>
+              <div class="financial-block"><h4><i class="fa-solid fa-arrow-trend-down"></i> Gastos</h4><div class="application-fields two-columns"><label>Vivienda / alquiler <span class="money-field"><b>RD$</b><input data-expense data-money-input name="housingExpense" type="text" inputmode="decimal" placeholder="0.00"></span></label><label>Préstamos actuales <span class="money-field"><b>RD$</b><input data-expense data-money-input name="loanExpense" type="text" inputmode="decimal" placeholder="0.00"></span></label><label>Servicios básicos <span class="money-field"><b>RD$</b><input data-expense data-money-input name="utilitiesExpense" type="text" inputmode="decimal" placeholder="0.00"></span></label><label>Alimentación <span class="money-field"><b>RD$</b><input data-expense data-money-input name="foodExpense" type="text" inputmode="decimal" placeholder="0.00"></span></label><label>Otros gastos <span class="money-field"><b>RD$</b><input data-expense data-money-input name="otherExpense" type="text" inputmode="decimal" placeholder="0.00"></span></label></div></div>
+              <aside class="financial-summary" aria-live="polite"><span>Disponible estimado</span><strong id="availableIncome">RD$0.00</strong><dl><div><dt>Ingresos</dt><dd id="totalIncome">RD$0.00</dd></div><div><dt>Gastos</dt><dd id="totalExpenses">RD$0.00</dd></div></dl><small>Este cálculo es informativo y será validado durante la evaluación.</small></aside>
+            </div>
+          </section>
+
+          <section class="application-section" id="appReferences" aria-labelledby="appReferencesTitle">
+            <div class="application-section-heading"><span>05</span><div><p>Validación de referencias</p><h3 id="appReferencesTitle">Personales, comerciales y familiares</h3></div></div>
+            <p class="application-note"><i class="fa-solid fa-circle-info"></i> Registra dos referencias de cada categoría. No deben ser las mismas personas entre sí.</p>
+            <div class="reference-groups">
+              <fieldset class="reference-group"><legend><i class="fa-regular fa-user"></i> 2 referencias personales</legend><div class="reference-grid"><label>Nombre completo <input name="personalReference1Name" required placeholder="Referencia 1"></label><label>Relación <input name="personalReference1Relation" required placeholder="Ej. vecino/a"></label><label>Teléfono <input name="personalReference1Phone" type="tel" required placeholder="809-000-0000"></label><label>Nombre completo <input name="personalReference2Name" required placeholder="Referencia 2"></label><label>Relación <input name="personalReference2Relation" required placeholder="Ej. amistad"></label><label>Teléfono <input name="personalReference2Phone" type="tel" required placeholder="809-000-0000"></label></div></fieldset>
+              <fieldset class="reference-group"><legend><i class="fa-solid fa-store"></i> 2 referencias comerciales</legend><div class="reference-grid"><label>Empresa o comercio <input name="commercialReference1Name" required placeholder="Comercio 1"></label><label>Contacto <input name="commercialReference1Contact" required placeholder="Nombre de contacto"></label><label>Teléfono <input name="commercialReference1Phone" type="tel" required placeholder="809-000-0000"></label><label>Empresa o comercio <input name="commercialReference2Name" required placeholder="Comercio 2"></label><label>Contacto <input name="commercialReference2Contact" required placeholder="Nombre de contacto"></label><label>Teléfono <input name="commercialReference2Phone" type="tel" required placeholder="809-000-0000"></label></div></fieldset>
+              <fieldset class="reference-group"><legend><i class="fa-solid fa-people-roof"></i> 2 referencias familiares</legend><div class="reference-grid"><label>Nombre completo <input name="familyReference1Name" required placeholder="Familiar 1"></label><label>Parentesco <input name="familyReference1Relation" required placeholder="Ej. hermano/a"></label><label>Teléfono <input name="familyReference1Phone" type="tel" required placeholder="809-000-0000"></label><label>Nombre completo <input name="familyReference2Name" required placeholder="Familiar 2"></label><label>Parentesco <input name="familyReference2Relation" required placeholder="Ej. madre/padre"></label><label>Teléfono <input name="familyReference2Phone" type="tel" required placeholder="809-000-0000"></label></div></fieldset>
+            </div>
+          </section>
+
+          <section class="application-section application-declaration" id="appDeclaration" aria-labelledby="appDeclarationTitle">
+            <div class="application-section-heading"><span>06</span><div><p>Autorización</p><h3 id="appDeclarationTitle">Declaración del solicitante</h3></div></div>
+            <label class="consent-check"><input name="informationConsent" type="checkbox" required><span>Declaro que la información suministrada es correcta y autorizo a M&M Inversiones / Vegamotors a verificarla para evaluar esta solicitud de crédito.</span></label>
+            <div class="application-actions"><button class="quiet-btn" id="clearApplicationBtn" type="button"><i class="fa-solid fa-eraser"></i> Limpiar formulario</button><button class="quiet-btn" id="printApplicationBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir solicitud</button><button class="quiet-btn" id="exportApplicationWordBtn" type="button"><i class="fa-solid fa-file-word"></i> Exportar Word (.docx)</button><button class="quiet-btn" id="exportApplicationExcelBtn" type="button" title="Libro editable con evaluación y panel"><i class="fa-solid fa-file-excel"></i> Exportar Excel (.xlsx)</button><button class="primary-btn" type="submit"><i class="fa-solid fa-circle-check"></i> Verificar datos</button></div>
+            <p class="application-privacy-note"><i class="fa-solid fa-shield-halved"></i> Modo temporal: esta página no guarda datos. Al limpiar, recargar o cerrar la pestaña, la información desaparece.</p>
+            <p class="application-status" id="applicationStatus" aria-live="polite">Completa los campos requeridos para verificar la solicitud.</p>
+          </section>
+          <div class="application-flow-actions" id="applicationFlowActions"><button class="quiet-btn" id="applicationPrevStepBtn" type="button"><i class="fa-solid fa-arrow-left"></i> Anterior</button><p id="applicationStepLabel">Paso 1 de 7 · Operación</p><button class="primary-btn" id="applicationNextStepBtn" type="button">Siguiente <i class="fa-solid fa-arrow-right"></i></button></div>
+        </form>
+      </section>
+
+      <section class="workspace delivery-documents" id="deliveryDocuments" aria-labelledby="deliveryDocumentsTitle" hidden>
+        <header class="delivery-hero">
+          <div class="delivery-brand" aria-label="M&M Inversiones y VegaMotors"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><span></span><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div>
+          <div><p>Control de documentos</p><h2 id="deliveryDocumentsTitle">Constancia de entrega</h2><span>Registra la entrega de documentos de una motocicleta y prepara un comprobante para firma.</span></div>
+          <div class="delivery-hero-state"><i class="fa-solid fa-shield-check"></i><span>Modo temporal<br><b>No guarda datos</b></span></div>
+        </header>
+        <form class="delivery-form delivery-form--refined" id="deliveryForm" novalidate autocomplete="off">
+          <div class="delivery-context delivery-context--refined"><span><i class="fa-solid fa-file-circle-check"></i></span><div><b>Entrega verificada</b><small>Identifica la unidad, confirma quién recibe y genera una constancia lista para firma.</small></div><em><i class="fa-solid fa-lock"></i> Registro temporal</em></div>
+          <section class="delivery-section" aria-labelledby="deliveryItemsTitle">
+            <div class="delivery-section-heading"><span>01</span><div><p>Documentos entregados</p><h3 id="deliveryItemsTitle">¿Qué se está entregando?</h3></div></div>
+            <div class="delivery-document-options" id="deliveryDocumentOptions" role="group" aria-label="Documentos a entregar">
+              <label><input name="deliveryPlate" type="checkbox"><span><i class="fa-solid fa-rectangle-list"></i><b>Placa</b><small>Placa física del vehículo</small></span></label>
+              <label><input name="deliveryRegistration" type="checkbox"><span><i class="fa-solid fa-id-card"></i><b>Matrícula</b><small>Documento de matrícula</small></span></label>
+            </div>
+            <p class="delivery-selection-note" id="deliverySelectionNote" aria-live="polite">Selecciona placa, matrícula o ambos.</p>
+          </section>
+          <section class="delivery-section" aria-labelledby="deliveryClientTitle">
+            <div class="delivery-section-heading"><span>02</span><div><p>Cliente y receptor</p><h3 id="deliveryClientTitle">¿Quién recibe la entrega?</h3></div></div>
+            <div class="application-fields four-columns">
+              <label class="span-two">Nombre completo <input name="deliveryClientName" required placeholder="Nombre y apellidos del cliente"></label>
+              <label>Cédula o pasaporte <input name="deliveryClientId" required placeholder="000-0000000-0"></label>
+              <label>Teléfono <input name="deliveryClientPhone" type="tel" required placeholder="809-000-0000"></label>
+              <label class="span-two">Dirección o sector <input name="deliveryClientAddress" required placeholder="Ej. La Vega, Villa Lora"></label>
+            </div>
+            <label class="delivery-third-party-toggle"><input name="deliveryThirdParty" type="checkbox"><span><i class="fa-solid fa-user-shield"></i><b>Recibe una tercera persona autorizada</b><small>Si no se marca, la entrega se registra a nombre del cliente.</small></span></label>
+            <div class="application-fields four-columns delivery-third-party-fields" id="deliveryThirdPartyFields" hidden>
+              <label class="span-two">Nombre de quien recibe <input name="deliveryReceiverName" placeholder="Nombre y apellidos"></label>
+              <label>Cédula o pasaporte <input name="deliveryReceiverId" placeholder="000-0000000-0"></label>
+              <label>Teléfono <input name="deliveryReceiverPhone" type="tel" placeholder="809-000-0000"></label>
+              <label class="span-two">Relación con el cliente <input name="deliveryReceiverRelation" placeholder="Ej. hermano, representante autorizado"></label>
+            </div>
+          </section>
+          <section class="delivery-section" aria-labelledby="deliveryVehicleTitle">
+            <div class="delivery-section-heading"><span>03</span><div><p>Unidad vinculada</p><h3 id="deliveryVehicleTitle">Datos de la motocicleta</h3></div></div>
+            <div class="application-fields four-columns">
+              <label>Marca <input name="deliveryMotorcycleBrand" required placeholder="Ej. Yamaha"></label>
+              <label>Modelo <input name="deliveryMotorcycleModel" required placeholder="Ej. FZ 2.0"></label>
+              <label>Año <input name="deliveryMotorcycleYear" type="number" min="1900" max="2100" required placeholder="2026"></label>
+              <label>Color <input name="deliveryMotorcycleColor" required placeholder="Ej. azul"></label>
+              <label class="span-two">No. de placa <input name="deliveryPlateNumber" required placeholder="Ej. K123456"></label>
+              <label class="span-two">No. de matrícula <input name="deliveryRegistrationNumber" required placeholder="Número de matrícula"></label>
+            </div>
+          </section>
+          <section class="delivery-section" aria-labelledby="deliveryControlTitle">
+            <div class="delivery-section-heading"><span>04</span><div><p>Trazabilidad</p><h3 id="deliveryControlTitle">Identificación de la entrega</h3></div></div>
+            <div class="application-fields four-columns">
+              <label>Fecha de entrega <input name="deliveryDate" type="date" required></label>
+              <label>Entregado por <input name="deliveryStaffName" required placeholder="Nombre del colaborador"></label>
+              <label class="span-two">Sucursal <select name="deliveryBranch" required><option value="">Selecciona la sucursal</option><option value="VegaMotors">VegaMotors</option><option value="Otro">Otro lugar</option></select></label>
+              <label class="span-two" id="deliveryOtherLocationField" hidden>Indica dónde se realizó la entrega <input name="deliveryOtherLocation" placeholder="Ej. domicilio del cliente, otra sucursal"></label>
+              <label class="span-two">Observaciones <input name="deliveryNotes" placeholder="Ej. Entrega personal; cliente verifica los datos"></label>
+            </div>
+          </section>
+          <section class="delivery-section delivery-declaration" aria-labelledby="deliveryDeclarationTitle">
+            <div class="delivery-section-heading"><span>05</span><div><p>Confirmación</p><h3 id="deliveryDeclarationTitle">Constancia y firma</h3></div></div>
+            <label class="consent-check"><input name="deliveryConfirmation" type="checkbox" required><span>Confirmo que los documentos indicados fueron entregados y recibidos conforme, asociados a la motocicleta descrita.</span></label>
+            <div class="delivery-actions"><button class="quiet-btn" id="clearDeliveryBtn" type="button"><i class="fa-solid fa-eraser"></i> Limpiar</button><button class="primary-btn" id="printDeliveryBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir constancia</button></div>
+            <p class="application-privacy-note"><i class="fa-solid fa-shield-halved"></i> Modo temporal: al limpiar, recargar o cerrar esta pestaña, los datos desaparecen.</p>
+            <p class="application-status" id="deliveryStatus" aria-live="polite">Completa los campos para preparar la constancia.</p>
+          </section>
+        </form>
+      </section>
+      <section class="workspace evaluation-workspace" id="evaluationWorkspace" aria-labelledby="evaluationTitle" hidden>
+        <header class="evaluation-hero">
+          <div class="evaluation-brand" aria-label="M&M Inversiones y VegaMotors"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><span></span><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div>
+          <div><p>Verificación presencial</p><h2 id="evaluationTitle">Ficha de visita y evaluación</h2><span>Registra lo verificado en vivienda, trabajo y referencias antes de emitir una recomendación.</span></div>
+          <div class="evaluation-hero-state"><i class="fa-solid fa-clipboard-check"></i><span>Uso interno<br><b>Información temporal</b></span></div>
+        </header>
+        <form class="evaluation-form" id="evaluationForm" novalidate autocomplete="off">
+          <div class="evaluation-layout">
+            <div class="evaluation-main">
+              <section class="evaluation-section" aria-labelledby="evaluationControlTitle">
+                <div class="evaluation-section-heading"><span>01</span><div><p>Control de visita</p><h3 id="evaluationControlTitle">Datos de la evaluación</h3></div></div>
+                <div class="application-fields four-columns"><label>Fecha de visita <input name="evaluationDate" type="date" required></label><label>Evaluador <input name="evaluatorName" required placeholder="Nombre del analista"></label><label>Sucursal <select name="evaluationBranch" required><option value="">Selecciona</option><option>VegaMotors</option><option>M&M Inversiones</option><option>Otra</option></select></label><label>Referencia / solicitud <input name="evaluationReference" readonly aria-label="Referencia generada automáticamente"></label><label>Tipo de préstamo <select name="evaluationProduct" required><option value="">Selecciona</option><option>Préstamo personal</option><option>Préstamo comercial</option><option>Préstamo con garantía de vehículo</option><option>Compra de motocicleta</option><option>Compra de smartphone</option><option>Compra de electrodoméstico</option></select></label><label class="span-two">Descripción del producto <input name="evaluationProductDetail" required placeholder="Ej. iPhone 15 Plus"></label><label>Precio RD$ <span class="currency-input"><b>RD$</b><input name="evaluationAmount" type="number" min="0" required placeholder="0"></span></label><label>Inicial RD$ <span class="currency-input"><b>RD$</b><input name="evaluationInitial" type="number" min="0" placeholder="0"></span></label><label>Plazo solicitado <input name="evaluationTerm" type="number" min="1" required placeholder="Meses"></label></div>
+              </section>
+              <section class="evaluation-section" aria-labelledby="evaluationPeopleTitle">
+                <div class="evaluation-section-heading"><span>02</span><div><p>Personas verificadas</p><h3 id="evaluationPeopleTitle">Datos del deudor y codeudor</h3></div></div>
+                <div class="evaluation-people-grid"><fieldset><legend>Solicitante / deudor</legend><div class="application-fields two-columns"><label class="span-two">Nombre completo <input name="debtorName" required placeholder="Nombre y apellidos"></label><label>Cédula <input name="debtorId" required placeholder="000-0000000-0"></label><label>Teléfono <input name="debtorPhone" type="tel" required placeholder="809-000-0000"></label><label class="span-two">Dirección residencial completa <input name="debtorHomeAddress" required placeholder="Calle, número, sector, ciudad o paraje"></label><label>Cerca de qué 1 <input name="debtorNearbyReference1" required placeholder="Ej. colmado, iglesia o escuela"></label><label>Cerca de qué 2 <input name="debtorNearbyReference2" required placeholder="Ej. parada, ferretería o negocio"></label><label class="span-two">Lugar de trabajo / actividad <input name="debtorWorkCompany" required placeholder="Empresa, negocio o actividad que realiza"></label><label>Tiempo laborando <input name="debtorWorkTime" required placeholder="Ej. 2 años"></label><label>Ingresos mensuales RD$ <span class="currency-input"><b>RD$</b><input name="debtorWorkIncome" type="number" min="0" required placeholder="0"></span></label><label class="span-two evaluation-credit-label">DataCrédito: estado / calificación <select name="debtorCreditStatus" required><option value="">Selecciona</option><option>Sin consulta</option><option>Sin historial</option><option>Buen comportamiento</option><option>Comportamiento regular</option><option>Riesgo alto / atrasos</option></select></label><label>Score o calificación <input name="debtorCreditScore" required placeholder="Ej. 720 o Buena"></label><label>Cuota / deudas mensuales RD$ <span class="currency-input"><b>RD$</b><input name="debtorCreditDebt" type="number" min="0" required placeholder="0"></span></label><label class="span-two">Detalle de DataCrédito <textarea name="debtorCreditNotes" required placeholder="Préstamos vigentes, tarjetas, atrasos, fecha de consulta u otras observaciones"></textarea></label><label class="span-two">Observaciones de campo <textarea name="debtorFieldReport" required placeholder="Referencias obtenidas, historial, préstamos actuales u otras observaciones"></textarea></label></div></fieldset><fieldset><legend>Co-solicitante / codeudor <label class="evaluation-switch"><input name="hasCoDebtor" type="checkbox"><span></span> Tiene codeudor</label></legend><div class="application-fields two-columns" id="coDebtorFields" hidden><label class="span-two">Nombre completo <input name="coDebtorName" placeholder="Nombre y apellidos"></label><label>Cédula <input name="coDebtorId" placeholder="000-0000000-0"></label><label>Teléfono <input name="coDebtorPhone" type="tel" placeholder="809-000-0000"></label><label class="span-two">Dirección residencial completa <input name="coDebtorHomeAddress" placeholder="Calle, número, sector, ciudad o paraje"></label><label>Cerca de qué 1 <input name="coDebtorNearbyReference1" placeholder="Ej. colmado, iglesia o escuela"></label><label>Cerca de qué 2 <input name="coDebtorNearbyReference2" placeholder="Ej. parada, ferretería o negocio"></label><label class="span-two">Lugar de trabajo / actividad <input name="coDebtorWorkCompany" placeholder="Empresa, negocio o actividad que realiza"></label><label>Tiempo laborando <input name="coDebtorWorkTime" placeholder="Ej. 2 años"></label><label>Ingresos mensuales RD$ <span class="currency-input"><b>RD$</b><input name="coDebtorWorkIncome" type="number" min="0" placeholder="0"></span></label><label class="span-two evaluation-credit-label">DataCrédito: estado / calificación <select name="coDebtorCreditStatus"><option value="">Selecciona</option><option>Sin consulta</option><option>Sin historial</option><option>Buen comportamiento</option><option>Comportamiento regular</option><option>Riesgo alto / atrasos</option></select></label><label>Score o calificación <input name="coDebtorCreditScore" placeholder="Ej. 720 o Buena"></label><label>Cuota / deudas mensuales RD$ <span class="currency-input"><b>RD$</b><input name="coDebtorCreditDebt" type="number" min="0" placeholder="0"></span></label><label class="span-two">Detalle de DataCrédito <textarea name="coDebtorCreditNotes" placeholder="Préstamos vigentes, tarjetas, atrasos, fecha de consulta u otras observaciones"></textarea></label><label class="span-two">Observaciones de campo <textarea name="coDebtorFieldReport" placeholder="Referencias obtenidas, historial, préstamos actuales u otras observaciones"></textarea></label></div><p class="evaluation-empty-note" id="coDebtorEmptyNote">Actívalo solo si el caso tiene co-solicitante / codeudor.</p></fieldset></div>
+              </section>
+              <section class="evaluation-section evaluation-bureau-section" aria-labelledby="evaluationBureauTitle">
+                <div class="evaluation-section-heading"><span>03</span><div><p>Consulta de buró</p><h3 id="evaluationBureauTitle">Deudas y comportamiento de pago</h3></div></div>
+                <div class="bureau-status-grid"><label>Historial DataCrédito · deudor <select name="debtorBureauStatus"><option value="con-historial">Con historial</option><option value="sin-historial">Sin historial</option></select></label><p class="bureau-no-history" id="debtorNoHistory" hidden><i class="fa-solid fa-triangle-exclamation"></i> SIN HISTORIAL</p><label id="coDebtorBureauStatusWrap">Historial DataCrédito · codeudor <select name="coDebtorBureauStatus"><option value="con-historial">Con historial</option><option value="sin-historial">Sin historial</option></select></label><p class="bureau-no-history" id="coDebtorNoHistory" hidden><i class="fa-solid fa-triangle-exclamation"></i> SIN HISTORIAL</p></div>
+                <div class="evaluation-people-grid"><fieldset><legend>Buró del solicitante / deudor</legend><div class="application-fields two-columns"><label>Deuda actual de préstamo RD$ <span class="currency-input"><b>RD$</b><input name="debtorBureauLoanDebt" type="number" min="0" placeholder="0"></span></label><label>Cuota mensual que paga RD$ <span class="currency-input"><b>RD$</b><input name="debtorBureauMonthlyPayment" type="number" min="0" placeholder="0"></span></label><label class="span-two">Deuda actual de tarjeta de crédito RD$ <span class="currency-input"><b>RD$</b><input name="debtorBureauCardDebt" type="number" min="0" placeholder="0"></span></label><label>Mora 30 días <input name="debtorBureauLate30" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 60 días <input name="debtorBureauLate60" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 90 días <input name="debtorBureauLate90" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 120 días <input name="debtorBureauLate120" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 150 días <input name="debtorBureauLate150" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Castigos <input name="debtorBureauWriteOff" type="number" min="0" placeholder="Cantidad"></label><label class="span-two">Observaciones del buró <textarea name="debtorBureauNotes" placeholder="Entidad, fecha de consulta u observaciones relevantes"></textarea></label></div></fieldset><fieldset id="coDebtorBureauFields"><legend>Buró del co-solicitante / codeudor</legend><div class="application-fields two-columns"><label>Deuda actual de préstamo RD$ <span class="currency-input"><b>RD$</b><input name="coDebtorBureauLoanDebt" type="number" min="0" placeholder="0"></span></label><label>Cuota mensual que paga RD$ <span class="currency-input"><b>RD$</b><input name="coDebtorBureauMonthlyPayment" type="number" min="0" placeholder="0"></span></label><label class="span-two">Deuda actual de tarjeta de crédito RD$ <span class="currency-input"><b>RD$</b><input name="coDebtorBureauCardDebt" type="number" min="0" placeholder="0"></span></label><label>Mora 30 días <input name="coDebtorBureauLate30" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 60 días <input name="coDebtorBureauLate60" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 90 días <input name="coDebtorBureauLate90" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 120 días <input name="coDebtorBureauLate120" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Mora 150 días <input name="coDebtorBureauLate150" type="number" min="0" placeholder="Cantidad de atrasos"></label><label>Castigos <input name="coDebtorBureauWriteOff" type="number" min="0" placeholder="Cantidad"></label><label class="span-two">Observaciones del buró <textarea name="coDebtorBureauNotes" placeholder="Entidad, fecha de consulta u observaciones relevantes"></textarea></label></div></fieldset></div>
+              </section>
+            </div>
+            <aside class="evaluation-side">
+              <section class="evaluation-outcome"><div class="evaluation-outcome-title"><i class="fa-solid fa-clipboard-check"></i><h3>Resultado de evaluación</h3></div><label>Nivel de riesgo <select name="evaluationRisk" required><option value="">Selecciona</option><option>Bajo</option><option>Medio</option><option>Alto</option></select></label><label>Recomendación <select name="evaluationRecommendation" required><option value="">Selecciona</option><option>Favorable</option><option>Requiere revisión</option><option>Desfavorable</option></select></label><label>Comentarios finales <textarea name="evaluationNotes" required placeholder="Resume hallazgos y recomendación del evaluador"></textarea></label></section>
+              <section class="evaluation-upload" aria-labelledby="debtorIdPhotoTitle"><div><i class="fa-regular fa-id-card"></i><h3 id="debtorIdPhotoTitle">Cédula frontal del deudor</h3></div><label class="upload-drop"><input name="debtorIdPhoto" type="file" accept="image/*" required><img id="debtorIdPreview" alt="Vista previa de cédula del deudor" hidden><span><i class="fa-solid fa-cloud-arrow-up"></i><b>Subir foto frontal</b><small>JPG, PNG o WEBP</small></span></label></section>
+              <section class="evaluation-upload" id="coDebtorPhotoSection" aria-labelledby="coDebtorIdPhotoTitle" hidden><div><i class="fa-regular fa-id-card"></i><h3 id="coDebtorIdPhotoTitle">Cédula frontal del codeudor</h3></div><label class="upload-drop"><input name="coDebtorIdPhoto" type="file" accept="image/*"><img id="coDebtorIdPreview" alt="Vista previa de cédula del codeudor" hidden><span><i class="fa-solid fa-cloud-arrow-up"></i><b>Subir foto frontal</b><small>JPG, PNG o WEBP</small></span></label></section>
+            </aside>
+          </div>
+          <section class="evaluation-actions"><label class="consent-check"><input name="evaluationConsent" type="checkbox" required><span>Confirmo que esta información fue levantada durante la visita presencial de evaluación.</span></label><div><button class="quiet-btn" id="clearEvaluationBtn" type="button"><i class="fa-solid fa-eraser"></i> Limpiar</button><button class="primary-btn" id="printEvaluationBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir ficha</button></div><p class="application-status" id="evaluationStatus" aria-live="polite">Completa la ficha para preparar la evaluación.</p></section>
+        </form>
+      </section>
     </main>
+
+    <section class="delivery-print-report" id="deliveryPrintReport" aria-label="Constancia de entrega imprimible">
+      <article class="delivery-print-sheet delivery-print-letter">
+        <header class="delivery-letter-header"><div class="delivery-letter-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div><span id="deliveryPrintReference"></span></header>
+        <h1>ACTA DE ENTREGA DE DOCUMENTOS</h1>
+        <p class="delivery-letter-intro" id="deliveryPrintIntro"></p>
+        <section class="delivery-letter-documents"><h2>Documentos recibidos:</h2><ol id="deliveryPrintItems"></ol></section>
+        <p class="delivery-letter-unit" id="deliveryPrintVehicle"></p>
+        <p class="delivery-letter-declaration" id="deliveryPrintDeclaration"></p>
+        <p class="delivery-letter-closing">Sin más que tratar, firmamos la presente acta en dos (2) ejemplares del mismo tenor y efecto legal, quedando una en poder de cada parte.</p>
+        <p class="delivery-letter-date" id="deliveryPrintClosing"></p>
+        <section class="delivery-letter-signatures"><div><span></span><small>Recibido por</small><b id="deliveryPrintReceiver">Nombre del receptor</b><em id="deliveryPrintReceiverId">Cédula / pasaporte</em></div><div><span></span><small>Entregado por M&M Inversiones / VegaMotors</small><b id="deliveryPrintStaff">Nombre del colaborador</b><em id="deliveryPrintLocation">Sucursal</em></div></section>
+      </article>
+    </section>
+
+    <section class="evaluation-print-report" id="evaluationPrintReport" aria-label="Ficha de evaluación imprimible">
+      <article class="evaluation-print-sheet evaluation-print-sheet--field">
+        <header><div class="evaluation-print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div><span id="evaluationPrintReference"></span></header>
+        <div class="evaluation-print-title"><span>Informe de verificación presencial</span><h1>FICHA DE EVALUACIÓN DE CAMPO</h1><p>Resumen estructurado para análisis y decisión de crédito</p></div>
+        <ul class="evaluation-print-credit" id="evaluationPrintCredit"></ul>
+        <section class="evaluation-person-print"><h2>01 · SOLICITANTE / DEUDOR</h2><div class="evaluation-person-body"><figure id="evaluationPrintDebtorPhotoFigure"><img id="evaluationPrintDebtorPhoto" alt="Cédula frontal del deudor"><figcaption>Cédula frontal del deudor</figcaption></figure><div class="evaluation-person-information"><p class="evaluation-person-location" id="evaluationPrintDebtorLocation"></p><dl class="evaluation-person-details" id="evaluationPrintDebtorDetails"></dl><section class="evaluation-credit-print"><h3>DataCrédito y capacidad de pago</h3><dl id="evaluationPrintDebtorCredit"></dl></section><p class="evaluation-person-observations" id="evaluationPrintDebtorReport"></p></div></div></section>
+        <section class="evaluation-person-print" id="evaluationPrintCoDebtorSection" hidden><h2>02 · CO-SOLICITANTE / CODEUDOR</h2><div class="evaluation-person-body"><figure id="evaluationPrintCoDebtorPhotoFigure"><img id="evaluationPrintCoDebtorPhoto" alt="Cédula frontal del codeudor"><figcaption>Cédula frontal del codeudor</figcaption></figure><div class="evaluation-person-information"><p class="evaluation-person-location" id="evaluationPrintCoDebtorLocation"></p><dl class="evaluation-person-details" id="evaluationPrintCoDebtorDetails"></dl><section class="evaluation-credit-print"><h3>DataCrédito y capacidad de pago</h3><dl id="evaluationPrintCoDebtorCredit"></dl></section><p class="evaluation-person-observations" id="evaluationPrintCoDebtorReport"></p></div></div></section>
+        <section class="evaluation-print-result"><h2>CONCLUSIÓN DEL EVALUADOR</h2><p id="evaluationPrintOutcome"></p></section><section class="evaluation-print-handwritten"><b>Notas y anexos levantados en campo:</b><span></span><span></span><span></span></section>
+        <section class="evaluation-print-signatures"><div><span></span><small>Firma del evaluador</small><b id="evaluationPrintEvaluator">Evaluador</b></div><div><span></span><small>Firma del solicitante</small><b id="evaluationPrintDebtor">Solicitante</b></div><div id="evaluationPrintCoDebtorSignature"><span></span><small>Firma del co-solicitante</small><b id="evaluationPrintCoDebtor">Co-solicitante</b></div></section>
+      </article>
+    </section>
+
+    <section class="credit-print-report" id="creditPrintReport" aria-label="Solicitud de crédito imprimible">
+      <article class="credit-print-sheet credit-print-sheet--front">
+        <header class="credit-print-header"><div class="credit-print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div><div><p>Uso interno · Confidencial</p><h1>SOLICITUD DE CRÉDITO</h1><span id="creditPrintDate"></span></div></header>
+        <div class="credit-print-banner"><strong id="creditPrintType">Préstamo personal</strong><span>Solicitud preparada para evaluación</span></div>
+        <section class="credit-print-section"><h2>1. Datos personales</h2><dl class="credit-print-grid" id="creditPrintPersonal"></dl></section>
+        <section class="credit-print-section"><h2>2. Información laboral</h2><dl class="credit-print-grid" id="creditPrintEmployment"></dl></section>
+        <section class="credit-print-section credit-print-financial"><h2>3. Ingresos y gastos mensuales</h2><div class="credit-print-financial-grid"><dl class="credit-print-grid" id="creditPrintIncome"></dl><aside><span>Disponible estimado</span><strong id="creditPrintAvailable">RD$0.00</strong><small>Resultado informativo sujeto a validación.</small></aside></div></section>
+        <section class="credit-print-section"><h2>4. Detalles de la operación</h2><dl class="credit-print-grid" id="creditPrintSpecific"></dl></section>
+        <footer class="credit-print-footer"><span>M&M Inversiones / Vegamotors · Solicitud de crédito</span><span>Documento confidencial</span></footer>
+      </article>
+      <article class="credit-print-sheet credit-print-sheet--back">
+        <header class="credit-print-back-header"><span>Solicitud de crédito · <b id="creditPrintApplicant">Solicitante</b></span><span id="creditPrintTypeBack">Préstamo personal</span></header>
+        <section class="credit-print-section"><h2>5. Referencias personales</h2><div class="credit-print-reference-table" id="creditPrintPersonalReferences"></div></section>
+        <section class="credit-print-section"><h2>6. Referencias comerciales</h2><div class="credit-print-reference-table" id="creditPrintCommercialReferences"></div></section>
+        <section class="credit-print-section"><h2>7. Referencias familiares</h2><div class="credit-print-reference-table" id="creditPrintFamilyReferences"></div></section>
+        <section class="credit-print-declaration"><h2>8. Declaración y autorización</h2><p>Declaro que la información suministrada en esta solicitud es correcta y completa. Autorizo a M&M Inversiones / Vegamotors a verificar la información y a utilizarla únicamente para el proceso de evaluación de crédito, conforme a las políticas aplicables.</p></section>
+        <section class="credit-print-signatures"><div><span></span><small>Firma del solicitante</small><b id="creditPrintSignatureName">Nombre del solicitante</b></div><div><span></span><small>Firma del cónyuge / codeudor (si aplica)</small><b>Nombre y cédula</b></div><div><span></span><small>Recibido por M&M / Vegamotors</small><b>Nombre y firma</b></div></section>
+        <footer class="credit-print-footer"><span>M&M Inversiones / Vegamotors · Documento confidencial</span><span>Solicitud de crédito</span></footer>
+      </article>
+    </section>
+
+    <dialog class="rules-dialog" id="rulesDialog" aria-labelledby="rulesDialogTitle">
+      <form method="dialog" class="rules-dialog-card">
+        <div class="dialog-topline"><div><p>Configuración administrativa</p><h2 id="rulesDialogTitle">Reglas del producto</h2></div><button class="icon-btn" id="closeRulesBtn" type="submit" aria-label="Cerrar configuración"><i class="fa-solid fa-xmark"></i></button></div>
+        <p class="dialog-copy">Estas reglas se aplican automáticamente al producto seleccionado y se guardan en este navegador.</p>
+        <div class="disclosure-content advanced-grid">
+          <label>Producto <input id="rulesProductName" type="text" readonly></label>
+          <label>Inicial mínimo % <input id="ruleMinDown" type="number" min="0" max="100" step="1"></label>
+          <label>Plazo mínimo (meses) <input id="ruleMinTerm" type="number" min="1" max="60" step="1"></label>
+          <label>Plazo máximo (meses) <input id="ruleMaxTerm" type="number" min="1" max="60" step="1"></label>
+          <label>Tipo de tasa predeterminado<select id="ruleRateType"><option value="simple">Interés simple</option><option value="monthly">Mensual</option><option value="effectiveAnnual">Efectiva anual</option><option value="nominalAnnual">Nominal anual</option></select></label>
+          <label>Tasa predeterminada % <input id="ruleRate" type="number" min="0" max="100" step="0.01"></label>
+        </div>
+        <div class="settings-actions"><button class="quiet-btn" id="restoreRulesBtn" type="button">Restaurar valores</button><button class="primary-btn" id="saveRulesBtn" type="button">Aplicar en esta sesión</button></div>
+      </form>
+    </dialog>
 
     <section class="print-report" id="printReport" aria-label="Propuesta imprimible">
       <header><div class="print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div><div><p>Propuesta comercial</p><h1 id="printHeading">Cotización</h1><span id="printReference">BORRADOR</span></div></header>
       <div class="print-client"><span id="printCustomer">Cliente: No especificado</span><span id="printDate">Fecha</span></div>
-      <section class="print-hero"><p id="printProduct">Estás cotizando</p><strong id="printPayment">RD$0.00</strong><span id="printFrequency">Mensual · 12 meses</span></section>
-      <dl class="print-summary"><div><dt>Precio</dt><dd id="printPrice">RD$0.00</dd></div><div><dt>Inicial</dt><dd id="printDown">RD$0.00</dd></div><div><dt>Financiado</dt><dd id="printFinanced">RD$0.00</dd></div><div><dt>Total del plan</dt><dd id="printTotal">RD$0.00</dd></div></dl>
+      <section class="print-hero"><p id="printProduct">Estás cotizando</p><strong id="printPayment">RD$0.00</strong><span id="printFrequency">Mensual · 12 meses</span><small id="printScheduleInfo">Primera cuota: —</small></section>
+      <dl class="print-summary"><div><dt>Precio</dt><dd id="printPrice">RD$0.00</dd></div><div><dt>Inicial</dt><dd id="printDown">RD$0.00</dd></div><div><dt>Financiado</dt><dd id="printFinanced">RD$0.00</dd></div><div><dt>Interés</dt><dd id="printInterest">RD$0.00</dd></div><div><dt>Total del plan</dt><dd id="printTotal">RD$0.00</dd></div></dl>
       <section class="print-table-section" id="printPlansSection"><div class="print-section-head"><h2>Planes de pago</h2><span id="printRangeLabel">3 a 18 meses</span></div><table><thead><tr><th>Meses</th><th>Mensual</th><th>Quincenal</th><th>Semanal</th></tr></thead><tbody id="printPlansBody"></tbody></table></section>
-      <section class="print-table-section" id="printAmortizationSection"><div class="print-section-head"><h2>Tabla de amortización</h2><span id="printAmortizationLabel"></span></div><table><thead><tr><th>Cuota</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="printAmortizationBody"></tbody></table></section>
-      <p class="print-terms">Cotización sujeta a validación y aprobación. Propuesta preparada con fines comerciales.</p>
+      <section class="print-table-section" id="printAmortizationSection"><div class="print-section-head"><h2>Tabla de amortización</h2><span id="printAmortizationLabel"></span></div><table><thead><tr><th>Cuota</th><th>Vence</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="printAmortizationBody"></tbody></table></section>
+      <p class="print-terms" id="printTerms">Cotización sujeta a validación y aprobación. Propuesta preparada con fines comerciales.</p>
       <section class="print-signatures" aria-label="Firmas de aceptación">
         <div class="signature-block company-signature">
           <span class="signature-rule" aria-hidden="true"></span>
@@ -177,7 +487,7 @@
 
     <div class="print-modal" id="printModal" aria-hidden="true">
       <section class="print-dialog" role="dialog" aria-modal="true" aria-labelledby="printDialogTitle">
-        <p>Propuesta comercial</p><h2 id="printDialogTitle">Preparar impresión</h2><span>Elige los plazos que deseas incluir antes de imprimir la propuesta.</span>
+        <p>Propuesta comercial</p><h2 id="printDialogTitle">Preparar PDF e impresión</h2><span>Elige el contenido y en el diálogo del navegador selecciona “Guardar como PDF” para descargar una propuesta profesional.</span>
         <div class="print-mode-picker" role="radiogroup" aria-label="Contenido a imprimir">
           <label class="print-option active"><input type="radio" name="printMode" value="plans" checked><span><strong>Planes de pago</strong><small>Compara cuotas por plazo.</small></span></label>
           <label class="print-option"><input type="radio" name="printMode" value="amortization"><span><strong>Tabla de amortización</strong><small>Capital, interés y balance.</small></span></label>
@@ -189,10 +499,14 @@
           <div><small id="printReviewCustomer">Cliente: No especificado</small><b id="printReviewPayment">RD$0.00</b></div>
         </section>
         <p class="range-summary"><span id="printRangeSummary">Se imprimirán los planes de 3 a 18 meses.</span><b id="printPageEstimate">Aproximadamente 1 página</b></p>
-        <div class="dialog-actions"><button class="quiet-btn" id="cancelPrintBtn" type="button">Volver</button><button class="primary-btn" id="confirmPrintBtn" type="button">Imprimir propuesta</button></div>
+        <div class="dialog-actions"><button class="quiet-btn" id="cancelPrintBtn" type="button">Volver</button><button class="primary-btn" id="confirmPrintBtn" type="button"><i class="fa-solid fa-file-pdf"></i> PDF / imprimir</button></div>
       </section>
     </div>
 
+    <script src="vendor-docx.js"></script>
+    <script src="vendor-xlsx-style.js"></script>
     <script src="app.js"></script>
+    <script src="calculadora-express.js"></script>
+    <script src="menu-acordeon.js"></script>
   </body>
 </html>

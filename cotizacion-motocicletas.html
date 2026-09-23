@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cotización de motocicletas | M&M Inversiones</title>
+  <link rel="stylesheet" href="cotizacion-motocicletas.css">
+  <script src="cotizacion-motocicletas.js" defer></script>
+</head>
+<body>
+  <header class="app-topbar screen-only">
+    <a class="back-link" href="index.html">← Volver al centro de financiamiento</a>
+    <div class="topbar-actions">
+      <button type="button" class="button button-quiet" id="newQuote">Nueva cotización</button>
+      <button type="button" class="button button-primary" id="printQuote">Imprimir cotización</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="editor screen-only" aria-labelledby="editorTitle">
+      <div class="editor-intro">
+        <span class="eyebrow">Propuesta comercial</span>
+        <h1 id="editorTitle">Cotización de motocicleta</h1>
+        <p>Prepara una propuesta clara para entregar al cliente.</p>
+      </div>
+
+      <form id="motorcycleQuoteForm">
+        <fieldset class="form-card">
+          <legend><span>01</span> Datos del cliente</legend>
+          <div class="field-grid">
+            <label class="wide">Nombre del cliente <input name="clientName" required maxlength="100" placeholder="Nombre y apellido"></label>
+            <label>Cédula del cliente <input name="clientId" required inputmode="numeric" maxlength="13" pattern="[0-9]{3}-?[0-9]{7}-?[0-9]" title="Escribe 11 dígitos, con o sin guiones" placeholder="000-0000000-0"></label>
+            <label>Teléfono <input name="clientPhone" type="tel" maxlength="30" placeholder="809-000-0000"></label>
+            <label class="wide">Fecha de cotización <input name="quoteDate" type="date" required></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-card">
+          <legend><span>02</span> Motocicleta</legend>
+          <div class="field-grid">
+            <label>Marca <input name="brand" required maxlength="60" placeholder="Ej. Yamaha"></label>
+            <label>Modelo <input name="model" required maxlength="80" placeholder="Ej. FZ 2.0"></label>
+            <label>Año <input name="year" type="number" min="1950" max="2100" step="1" placeholder="2026"></label>
+            <label>Color <input name="color" maxlength="40" placeholder="Ej. Azul"></label>
+            <label>Cilindraje (cc) <input name="displacement" type="number" min="1" max="3000" step="1" placeholder="150"></label>
+            <label>Chasis <input name="chassis" maxlength="80" placeholder="Opcional si ya se asignó la unidad"></label>
+            <label>Precio de la motocicleta (RD$) <input name="price" type="number" min="0.01" step="0.01" required placeholder="0.00"></label>
+          </div>
+          <div class="photo-upload">
+            <div class="photo-upload-copy"><strong>Imagen de la motocicleta</strong><small>Se incluirá en la cotización impresa. JPG, PNG o WebP, hasta 10 MB.</small></div>
+            <div class="photo-upload-actions"><label class="upload-button" for="motorcycleImage">Seleccionar imagen</label><input id="motorcycleImage" name="motorcycleImage" type="file" accept="image/jpeg,image/png,image/webp"><button id="removeImage" type="button" hidden>Quitar</button></div>
+            <p id="imageStatus" role="status">Sin imagen seleccionada</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-card">
+          <legend><span>03</span> Tipo de cotización</legend>
+          <div class="mode-select" role="radiogroup" aria-label="Tipo de cotización">
+            <label><input type="radio" name="saleType" value="cash" checked><span>Contado<small>Precio final indicado</small></span></label>
+            <label><input type="radio" name="saleType" value="financed"><span>Financiada<small>Inicial y cuotas mensuales</small></span></label>
+          </div>
+          <div class="discount-control">
+            <label class="discount-toggle"><input name="hasDiscount" type="checkbox"><span><strong>Aplicar descuento</strong><small>Se descontará del precio antes de calcular el financiamiento.</small></span></label>
+            <div class="field-grid discount-fields" id="discountFields" hidden>
+              <label>Tipo de descuento <select name="discountType"><option value="amount">Monto en RD$</option><option value="percent">Porcentaje %</option></select></label>
+              <label>Descuento <input name="discountValue" type="number" min="0.01" step="0.01" placeholder="0.00"></label>
+            </div>
+          </div>
+          <div class="field-grid financing-fields" id="financingFields" hidden>
+            <label>Inicial (RD$) <input name="downPayment" type="number" min="0" step="0.01" value="0"></label>
+            <label>Plazo (meses) <input name="termMonths" type="number" min="1" max="120" step="1" value="12"></label>
+            <label>Tasa simple mensual (%) <input name="monthlyRate" type="number" min="0" max="100" step="0.01" placeholder="0.00"></label>
+            <p class="field-hint">La cuota estimada se calcula con interés simple mensual sobre el monto financiado.</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-card">
+          <legend><span>04</span> Incluido en el precio</legend>
+          <p class="section-help">Marca lo que se entrega sin costo adicional al precio indicado.</p>
+          <div class="inclusion-grid">
+            <label><input name="includesPlate" type="checkbox"><span>Placa</span></label>
+            <label><input name="includesRegistration" type="checkbox"><span>Matrícula</span></label>
+            <label><input name="includesInsurance" type="checkbox"><span>Seguro</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-card">
+          <legend><span>05</span> Observaciones</legend>
+          <label>Notas para el cliente <textarea name="notes" maxlength="500" rows="3" placeholder="Ej. Tiempo de entrega o detalle relevante"></textarea></label>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="preview-column" aria-labelledby="previewTitle">
+      <div class="preview-label screen-only"><span>Vista previa</span><strong>Hoja tamaño carta</strong></div>
+      <article class="quote-sheet" id="quoteSheet">
+        <header class="sheet-header">
+          <div class="sheet-brands">
+            <img src="LOGO%20M%26M.png" alt="M&M Inversiones">
+            <span></span>
+            <img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors">
+          </div>
+          <div class="sheet-title">
+            <span>Propuesta comercial</span>
+            <h2 id="previewTitle">COTIZACIÓN</h2>
+            <small>Motocicleta</small>
+            <p id="viewDate">—</p>
+          </div>
+        </header>
+
+        <div class="sheet-accent"></div>
+        <div class="sheet-meta"><span>Cliente</span><strong id="viewClient">Nombre del cliente</strong><div class="sheet-meta-details"><small>Cédula: <b id="viewClientId">—</b></small><small id="viewPhone">Teléfono no indicado</small></div></div>
+
+        <section class="sheet-section">
+          <div class="sheet-section-title"><span>01</span><h3>Motocicleta cotizada</h3></div>
+          <div class="motorcycle-presentation" id="motorcyclePresentation">
+            <div class="sheet-data-grid">
+              <div><span>Marca</span><strong id="viewBrand">—</strong></div>
+              <div><span>Modelo</span><strong id="viewModel">—</strong></div>
+              <div><span>Año</span><strong id="viewYear">—</strong></div>
+              <div><span>Color</span><strong id="viewColor">—</strong></div>
+              <div><span>Cilindraje</span><strong id="viewDisplacement">—</strong></div>
+              <div><span>Chasis</span><strong id="viewChassis">—</strong></div>
+            </div>
+            <div class="motorcycle-photo" id="motorcyclePhoto" hidden><img id="viewMotorcycleImage" alt="Motocicleta cotizada"></div>
+          </div>
+        </section>
+
+        <section class="sheet-section">
+          <div class="sheet-section-title"><span>02</span><h3>Condiciones comerciales</h3></div>
+          <div class="price-banner"><div><span id="viewPriceLabel">Precio de contado</span><strong id="viewPrice">RD$0.00</strong></div><b id="viewSaleType">CONTADO</b></div>
+          <div class="discount-breakdown" id="discountBreakdown" hidden><span>Precio regular <b id="viewRegularPrice">RD$0.00</b></span><span><span id="viewDiscountLabel">Descuento</span> <b id="viewDiscount">RD$0.00</b></span></div>
+          <div class="finance-summary" id="financeSummary" hidden>
+            <div><span>Inicial</span><strong id="viewDownPayment">RD$0.00</strong></div>
+            <div><span>Monto a financiar</span><strong id="viewFinanced">RD$0.00</strong></div>
+            <div><span>Plazo</span><strong id="viewTerm">—</strong></div>
+            <div><span>Tasa simple mensual</span><strong id="viewRate">—</strong></div>
+            <div class="payment-highlight"><span>Cuota mensual estimada</span><strong id="viewMonthlyPayment">RD$0.00</strong></div>
+          </div>
+        </section>
+
+        <section class="sheet-section">
+          <div class="sheet-section-title"><span>03</span><h3>Incluido en el precio</h3></div>
+          <div class="included-grid">
+            <div><span>Placa</span><strong id="viewPlate">No incluida</strong></div>
+            <div><span>Matrícula</span><strong id="viewRegistration">No incluida</strong></div>
+            <div><span>Seguro</span><strong id="viewInsurance">No incluido</strong></div>
+          </div>
+        </section>
+
+        <section class="sheet-section sheet-notes" id="notesSection" hidden>
+          <div class="sheet-section-title"><span>04</span><h3>Observaciones</h3></div>
+          <p id="viewNotes"></p>
+        </section>
+
+        <footer class="sheet-footer">
+          <p>Esta cotización presenta las condiciones indicadas a la fecha de emisión. La aprobación del financiamiento, cuando aplique, está sujeta a evaluación.</p>
+          <div><strong>M&M Inversiones · VegaMotors</strong><span>Cotización de motocicleta</span></div>
+        </footer>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
