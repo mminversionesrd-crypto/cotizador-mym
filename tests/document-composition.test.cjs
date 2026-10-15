@@ -1,17 +1,27 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
+const fs = require("node:fs");
+const path = require("node:path");
 const { letterPageGeometry } = require("../document-engine/page-geometry.js");
 const { composeNotarialBlocks, formatNotarialControlLine } = require("../document-engine/document-blocks.js");
 const { fillerCount } = require("../document-engine/line-finisher.js");
 const { planTailTransfer, shouldContinueBlockOnPage, pageClosingMode, spanishBreakPoints, chooseWordBreak, shouldStopTailTransfer } = require("../document-engine/pagination-engine.js");
 const { validateDocumentLayout } = require("../document-engine/document-layout-contract.js");
 
-test("Carta usa el mismo ancho útil de 7.26 pulgadas y alto de 10.5 pulgadas", () => {
+test("cada hoja del pagaré cabe en Carta con márgenes de impresora y reserva contra redondeo", () => {
   const geometry = letterPageGeometry();
-  assert.equal(geometry.contentWidthIn, 7.26);
-  assert.equal(geometry.contentHeightIn, 10.5);
   assert.equal(geometry.pageWidthIn, 8.5);
   assert.equal(geometry.pageHeightIn, 11);
+  assert.equal(geometry.contentWidthIn <= geometry.pageWidthIn - 1, true);
+  assert.equal(geometry.contentHeightIn <= geometry.pageHeightIn - 1.1, true);
+});
+
+test("la medición y la impresión usan el mismo ancho y tamaño de texto legible", () => {
+  const css = fs.readFileSync(path.join(__dirname, "../pagare-notarial.css"), "utf8");
+  assert.match(css, /\.notarial-print-report\.is-measuring \.notarial-print-page \{[^}]*width: var\(--notarial-content-width, 7\.26in\)/);
+  assert.match(css, /body\[data-print-target="document-notarial-promissory"\] \.notarial-print-page \{[^}]*width: var\(--notarial-content-width, 7\.26in\)/);
+  assert.match(css, /\.notarial-print-report\.is-measuring \.notarial-legal-copy \{[^}]*font-size: 11pt/);
+  assert.match(css, /\.notarial-legal-copy \{[^}]*font-size: 11pt/);
 });
 
 test("los artículos conservan su texto y el cierre no incorpora decoración", () => {

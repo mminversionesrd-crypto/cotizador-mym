@@ -7,12 +7,12 @@
     return Object.freeze({
       pageWidthIn: 8.5,
       pageHeightIn: 11,
-      marginTopIn: .25,
-      marginBottomIn: .25,
+      marginTopIn: .5,
+      marginBottomIn: .5,
       marginLeftIn: .62,
       marginRightIn: .62,
       contentWidthIn: 7.26,
-      contentHeightIn: 10.5,
+      contentHeightIn: 9.9,
       signatureSafetyPx: 8
     });
   }
