@@ -4,9 +4,12 @@
   const form = document.getElementById("expressCalculatorForm");
   if (!form) return;
 
+  const productInput = document.getElementById("expressProductType");
   const amountInput = document.getElementById("expressAmount");
+  const downPaymentInput = document.getElementById("expressDownPayment");
   const termInput = document.getElementById("expressTerm");
   const rateInput = document.getElementById("expressRate");
+  const financedOutput = document.getElementById("expressFinanced");
   const paymentOutput = document.getElementById("expressPayment");
   const metaOutput = document.getElementById("expressPaymentMeta");
   const interestOutput = document.getElementById("expressInterest");
@@ -37,13 +40,19 @@
   }
 
   function calculate() {
-    const principal = Number(amountInput.value);
+    const amount = Number(amountInput.value);
+    const downPayment = Number(downPaymentInput.value);
     const months = Number(termInput.value);
     const monthlyRate = Number(rateInput.value);
 
-    if (!Number.isFinite(principal) || principal <= 0) {
+    if (!Number.isFinite(amount) || amount <= 0) {
       showError("Introduce un monto mayor que cero.");
       amountInput.focus();
+      return;
+    }
+    if (!Number.isFinite(downPayment) || downPayment < 0 || downPayment >= amount) {
+      showError("La inicial debe ser menor que el monto o precio.");
+      downPaymentInput.focus();
       return;
     }
     if (!Number.isInteger(months) || months < 1 || months > 60) {
@@ -58,26 +67,27 @@
     }
 
     const frequency = frequencyConfig[selectedFrequency()];
+    const principal = amount - downPayment;
     const paymentCount = months * frequency.paymentsPerMonth;
     const totalInterest = principal * (monthlyRate / 100) * months;
     const total = principal + totalInterest;
     const payment = total / paymentCount;
 
     result.classList.remove("is-error");
+    financedOutput.textContent = `A financiar: ${money.format(principal)}`;
     paymentOutput.textContent = money.format(payment);
-    metaOutput.textContent = `${paymentCount} pagos ${frequency.plural} · Total ${money.format(total)}`;
-    interestOutput.textContent = `Interés total: ${money.format(totalInterest)}`;
+    metaOutput.textContent = `${productInput.value} · ${paymentCount} pagos ${frequency.plural}`;
+    interestOutput.textContent = `Total ${money.format(total)} · Interés ${money.format(totalInterest)}`;
     result.querySelector(".express-result__label").textContent = `Cuota ${frequency.singular} aproximada`;
   }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     calculate();
+    window.registerDailyActivity?.("express");
   });
 
-  form.addEventListener("change", (event) => {
-    if (event.target.matches('input[name="expressFrequency"]')) calculate();
-  });
+  form.addEventListener("change", calculate);
 
   calculate();
 })();

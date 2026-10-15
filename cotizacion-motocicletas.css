@@ -4,11 +4,12 @@ body { margin: 0; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 [hidden] { display: none !important; }
-.app-topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px max(24px, calc((100vw - 1500px) / 2)); border-bottom: 1px solid #c9d7e4; background: #fff; }
-.back-link { color: #175ca7; font-size: 14px; font-weight: 700; text-decoration: none; }
-.back-link:hover { text-decoration: underline; }
+.app-topbar { position: sticky; z-index: 20; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px max(24px, calc((100vw - 1500px) / 2)); border-bottom: 1px solid #c9d7e4; background: rgba(255,255,255,.96); box-shadow: 0 8px 24px rgba(12,51,79,.07); backdrop-filter: blur(14px); }
+.back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 12px; border: 1px solid #c4d8e6; border-radius: 8px; color: #175ca7; background: #f7fbfd; font-size: 13px; font-weight: 800; text-decoration: none; }
+.back-link span { font-size: 16px; line-height: 1; }
+.back-link:hover { border-color: #5598c5; background: #eef8fc; }
 .topbar-actions { display: flex; gap: 10px; }
-.button { min-height: 40px; padding: 0 17px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 17px; border-radius: 8px; font-size: 13px; font-weight: 700; line-height: 1.15; text-align: center; }
 .button-quiet { border: 1px solid #bcd1e6; color: #174c83; background: #fff; }
 .button-primary { border: 1px solid #1157a9; color: #fff; background: #1157a9; box-shadow: 0 4px 11px #1157a92b; }
 .button:hover { filter: brightness(.95); }

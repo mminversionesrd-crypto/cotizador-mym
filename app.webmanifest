@@ -1,0 +1,14 @@
+{
+  "name": "FinanPro | Centro de Operaciones",
+  "short_name": "FinanPro",
+  "description": "Compra, venta, financiamiento y formalización de operaciones.",
+  "lang": "es-DO",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f1f6f8",
+  "theme_color": "#073a61",
+  "icons": [
+    { "src": "LOGO%20M%26M.png", "sizes": "any", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

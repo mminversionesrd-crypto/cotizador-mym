@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "currency": "DOP",
+  "capacityRatio": 0.35,
+  "products": {
+    "motorcycle_cash_sale": { "termOptions": [0], "minimumDownPercent": 100 },
+    "motorcycle_financing": { "termOptions": [6, 12, 15, 18, 24, 30, 36], "minimumDownPercent": 15, "suggestedMonthlyRate": 3 },
+    "personal_loan": { "termOptions": [3, 6, 9, 12, 18, 24], "minimumDownPercent": 0, "suggestedMonthlyRate": 3 },
+    "commercial_loan": { "termOptions": [3, 6, 9, 12, 18, 24, 36], "minimumDownPercent": 0, "suggestedMonthlyRate": 3 },
+    "vehicle_secured_loan": { "termOptions": [6, 12, 18, 24, 36], "maximumLoanToValue": 0.6, "suggestedMonthlyRate": 3 },
+    "mortgage_secured_loan": { "termOptions": [12, 24, 36, 48, 60], "maximumLoanToValue": 0.5, "suggestedMonthlyRate": 2.5 },
+    "smartphone_financing": { "termOptions": [3, 6, 9, 12], "minimumDownPercent": 20, "suggestedMonthlyRate": 3 },
+    "appliance_financing": { "termOptions": [3, 6, 9, 12, 18, 24], "minimumDownPercent": 15, "suggestedMonthlyRate": 3 }
+  }
+}
+

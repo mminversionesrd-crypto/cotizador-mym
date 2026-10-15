@@ -49,6 +49,17 @@
   body .workspace-menu-section .workspace-choice > span { width: 58px !important; height: 58px !important; font-size: 1.35rem !important; }
   body .workspace-menu-section .workspace-choice { grid-template-columns: 58px minmax(0, 1fr) !important; }
 }
+
+/* Navegación simplificada: solo muestra las etapas que realmente tienen herramientas. */
+@media screen {
+  body .workspace-menu-nav { padding: 5px; border: 1px solid #d1e1ec; border-radius: 11px; background: #fff; box-shadow: 0 5px 16px rgba(22, 65, 95, .045); }
+  body .workspace-menu-nav a { flex: 1; justify-content: center; min-height: 42px; border-color: transparent; background: transparent; }
+  body .workspace-menu-nav a.is-active { box-shadow: 0 5px 13px rgba(20, 104, 197, .1); }
+  body .workspace-menu-section .workspace-choice { grid-template-rows: auto auto auto 1fr !important; }
+  body .workspace-menu-section .workspace-choice > span { grid-row: 1 / 5 !important; }
+  body .workspace-menu-section .workspace-choice::after { grid-column: 2; grid-row: 3; justify-self: start; padding: 3px 6px; border-radius: 999px; color: var(--menu-accent); background: var(--menu-soft); font-size: .55rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; content: attr(data-tool-label); }
+  body .workspace-menu-section .workspace-choice em { grid-row: 4 !important; }
+}
 @media (prefers-reduced-motion: reduce) {
   body .workspace-menu-nav a, body .workspace-menu-section .workspace-choice { transition: none; }
 }

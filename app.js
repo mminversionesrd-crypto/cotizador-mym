@@ -122,10 +122,32 @@ const els = {
   productDetailSummary: $("#productDetailSummary"),
   productAmount: $("#productAmount"),
   downPayment: $("#downPayment"),
+  formFinancedAmount: $("#formFinancedAmount"),
   minimumDownNote: $("#minimumDownNote"),
   firstPaymentDate: $("#firstPaymentDate"),
   calendarNote: $("#calendarNote"),
   validationSummary: $("#validationSummary"),
+  quoteStepButtons: $$('[data-quote-step]'),
+  quoteHeaderStepButtons: $$('[data-header-quote-step]'),
+  quoteStepPanels: $$('[data-quote-step-panel]'),
+  quoteStepBackBtn: $("#quoteStepBackBtn"),
+  quoteStepNextBtn: $("#quoteStepNextBtn"),
+  quoteStepFeedback: $("#quoteStepFeedback"),
+  reviewProduct: $("#reviewProduct"),
+  reviewAmount: $("#reviewAmount"),
+  reviewDown: $("#reviewDown"),
+  reviewFinanced: $("#reviewFinanced"),
+  reviewTerm: $("#reviewTerm"),
+  reviewRate: $("#reviewRate"),
+  reviewCustomer: $("#reviewCustomer"),
+  reviewCustomerId: $("#reviewCustomerId"),
+  reviewCustomerPhone: $("#reviewCustomerPhone"),
+  reviewCustomerAddress: $("#reviewCustomerAddress"),
+  reviewPartiesStatus: $("#reviewPartiesStatus"),
+  reviewCodebtorCard: $("#reviewCodebtorCard"),
+  reviewCodebtor: $("#reviewCodebtor"),
+  reviewFirstPayment: $("#reviewFirstPayment"),
+  reviewCharges: $("#reviewCharges"),
   rateType: $("#rateType"),
   rateLabel: $("#rateLabel"),
   rateHelp: $("#rateHelp"),
@@ -133,10 +155,39 @@ const els = {
   legalRate: $("#legalRate"),
   extraFee: $("#extraFee"),
   customerName: $("#customerName"),
+  includeCustomerData: $("#includeCustomerData"),
+  customerDataPanel: $("#customerDataPanel"),
+  customerDataStatus: $("#customerDataStatus"),
+  editPartyDataBtn: $("#editPartyDataBtn"),
+  closePartyPanelBtn: $("#closePartyPanelBtn"),
+  savePartyPanelBtn: $("#savePartyPanelBtn"),
+  customerFirstNames: $("#customerFirstNames"),
+  customerLastNames: $("#customerLastNames"),
+  customerId: $("#customerId"),
   customerPhone: $("#customerPhone"),
+  customerStreet: $("#customerStreet"),
+  customerHouseNumber: $("#customerHouseNumber"),
+  customerSector: $("#customerSector"),
+  customerCity: $("#customerCity"),
+  customerProvince: $("#customerProvince"),
+  includeCodebtorData: $("#includeCodebtorData"),
+  codebtorDataPanel: $("#codebtorDataPanel"),
+  codebtorDataStatus: $("#codebtorDataStatus"),
+  codebtorFirstNames: $("#codebtorFirstNames"),
+  codebtorLastNames: $("#codebtorLastNames"),
+  codebtorId: $("#codebtorId"),
+  codebtorPhone: $("#codebtorPhone"),
+  codebtorStreet: $("#codebtorStreet"),
+  codebtorHouseNumber: $("#codebtorHouseNumber"),
+  codebtorSector: $("#codebtorSector"),
+  codebtorCity: $("#codebtorCity"),
+  codebtorProvince: $("#codebtorProvince"),
+  applyRecommendedConditionsBtn: $("#applyRecommendedConditionsBtn"),
+  recommendedConditionsText: $("#recommendedConditionsText"),
   downPercent: $("#downPercent"),
   termPicker: $("#termPicker"),
   termSelect: $("#termSelect"),
+  termRangeNote: $("#termRangeNote"),
   frequencyPicker: $(".frequency-picker"),
   quoteHeading: $("#quoteHeading"),
   quoteReference: $("#quoteReference"),
@@ -153,6 +204,22 @@ const els = {
   summaryFinancedPercent: $("#summaryFinancedPercent"),
   summaryInterest: $("#summaryInterest"),
   summaryInterestDetail: $("#summaryInterestDetail"),
+  summaryTotal: $("#summaryTotal"),
+  sidebarTerm: $("#sidebarTerm"),
+  sidebarRate: $("#sidebarRate"),
+  sidebarRateFrequency: $("#sidebarRateFrequency"),
+  sideSummaryTerm: $("#sideSummaryTerm"),
+  sideSummaryRate: $("#sideSummaryRate"),
+  sideSummaryTotal: $("#sideSummaryTotal"),
+  screenValidityTotal: $("#screenValidityTotal"),
+  screenCodebtorSignature: $("#screenCodebtorSignature"),
+  sidebarPlanBtn: $("#sidebarPlanBtn"),
+  sidebarSaveBtn: $("#sidebarSaveBtn"),
+  quoteHeaderSettingsBtn: $("#quoteHeaderSettingsBtn"),
+  controlAmountValue: $("#controlAmountValue"),
+  controlTermsValue: $("#controlTermsValue"),
+  controlStatus: $("#controlStatus"),
+  controlStatusValue: $("#controlStatusValue"),
   planComparisonInfo: $("#planComparisonInfo"),
   availableTermsLabel: $("#availableTermsLabel"),
   recommendedPlans: $("#recommendedPlans"),
@@ -163,15 +230,24 @@ const els = {
   newQuoteBtn: $("#newQuoteBtn"),
   printBtn: $("#printBtn"),
   printModal: $("#printModal"),
-  printPlanStart: $("#printPlanStart"),
-  printPlanEnd: $("#printPlanEnd"),
-  printModes: $$("input[name=printMode]"),
-  printRangePicker: $("#printRangePicker"),
-  printRangeSummary: $("#printRangeSummary"),
-  printPageEstimate: $("#printPageEstimate"),
-  printReviewProduct: $("#printReviewProduct"),
-  printReviewCustomer: $("#printReviewCustomer"),
-  printReviewPayment: $("#printReviewPayment"),
+  planDialogCloseBtn: $("#planDialogCloseBtn"),
+  planReviewProduct: $("#planReviewProduct"),
+  planReviewCustomer: $("#planReviewCustomer"),
+  planReviewPayment: $("#planReviewPayment"),
+  planReviewFrequency: $("#planReviewFrequency"),
+  planReviewPrice: $("#planReviewPrice"),
+  planReviewDown: $("#planReviewDown"),
+  planReviewFinanced: $("#planReviewFinanced"),
+  planReviewInterest: $("#planReviewInterest"),
+  planReviewTotal: $("#planReviewTotal"),
+  planReviewScheduleLabel: $("#planReviewScheduleLabel"),
+  planReviewBody: $("#planReviewBody"),
+  planOptionsLabel: $("#planOptionsLabel"),
+  planOptionsBody: $("#planOptionsBody"),
+  modalPlanTabs: $$(".plan-dialog__tabs [role=tab]"),
+  modalPlansPanel: $("#modalPlansPanel"),
+  modalAmortizationPanel: $("#modalAmortizationPanel"),
+  planPrintModes: $$("input[name=planPrintMode]"),
   cancelPrintBtn: $("#cancelPrintBtn"),
   confirmPrintBtn: $("#confirmPrintBtn"),
   printHeading: $("#printHeading"),
@@ -194,6 +270,18 @@ const els = {
   printAmortizationLabel: $("#printAmortizationLabel"),
   printAmortizationBody: $("#printAmortizationBody"),
   printTerms: $("#printTerms"),
+  printParties: $("#printParties"),
+  printDebtorName: $("#printDebtorName"),
+  printDebtorIdentity: $("#printDebtorIdentity"),
+  printDebtorAddress: $("#printDebtorAddress"),
+  printCodebtorParty: $("#printCodebtorParty"),
+  printCodebtorName: $("#printCodebtorName"),
+  printCodebtorIdentity: $("#printCodebtorIdentity"),
+  printCodebtorAddress: $("#printCodebtorAddress"),
+  printGoodFor: $("#printGoodFor"),
+  printDebtorSignature: $("#printDebtorSignature"),
+  printCodebtorSignatureBlock: $("#printCodebtorSignatureBlock"),
+  printCodebtorSignature: $("#printCodebtorSignature"),
   rulesProductName: $("#rulesProductName"),
   ruleMinDown: $("#ruleMinDown"),
   ruleMinTerm: $("#ruleMinTerm"),
@@ -208,7 +296,43 @@ const els = {
   ruleActionProduct: $("#ruleActionProduct")
 };
 
-const state = { term: 12, frequency: "monthly", reference: "BORRADOR", product: "Motocicleta", productDetails: {}, productRules: loadProductRules(), quoteEdited: false };
+const state = { term: 12, frequency: "monthly", reference: "BORRADOR", product: "Motocicleta", productDetails: {}, productRules: loadProductRules(), quoteEdited: false, reviewCounted: false };
+let activeQuoteStep = 0;
+let maxQuoteStep = 0;
+
+// Bitácora visual de la jornada. Vive solo en memoria: no usa storage ni base de datos.
+const dailyActivity = { express: 0, quote: 0, print: 0 };
+const dailyDashboard = {
+  day: document.querySelector("#dailyDayNumber"),
+  month: document.querySelector("#dailyMonthShort"),
+  date: document.querySelector("#dailyFullDate"),
+  express: document.querySelector("#dailyExpressCount"),
+  quote: document.querySelector("#dailyQuoteCount"),
+  print: document.querySelector("#dailyPrintCount")
+};
+
+function renderDailyDashboard() {
+  const now = new Date();
+  if (dailyDashboard.day) dailyDashboard.day.textContent = String(now.getDate()).padStart(2, "0");
+  if (dailyDashboard.month) dailyDashboard.month.textContent = new Intl.DateTimeFormat("es-DO", { month: "short" }).format(now).replace(".", "").toUpperCase();
+  if (dailyDashboard.date) {
+    const formatted = new Intl.DateTimeFormat("es-DO", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(now);
+    dailyDashboard.date.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  }
+  ["express", "quote", "print"].forEach((type) => {
+    if (dailyDashboard[type]) dailyDashboard[type].textContent = String(dailyActivity[type]);
+  });
+}
+
+function registerDailyActivity(type) {
+  if (!(type in dailyActivity)) return;
+  dailyActivity[type] += 1;
+  renderDailyDashboard();
+}
+
+window.registerDailyActivity = registerDailyActivity;
+window.addEventListener("beforeprint", () => registerDailyActivity("print"));
+renderDailyDashboard();
 
 function numberValue(input) {
   return Math.max(0, Number(input.value) || 0);
@@ -333,13 +457,18 @@ function renderRuleFields() {
   els.ruleRate.value = rules.rate;
 }
 
-function applyProductRules() {
+function applyProductRules({ replaceConditions = false } = {}) {
   const rules = rulesFor();
-  els.rateType.value = rules.rateType;
-  els.monthlyRate.value = rules.rate;
-  const terms = allowedTerms();
-  if (!terms.includes(state.term)) state.term = terms.includes(12) ? 12 : terms[0];
+  if (replaceConditions) {
+    els.rateType.value = rules.rateType;
+    els.monthlyRate.value = rules.rate;
+    const terms = allowedTerms();
+    if (!terms.includes(state.term)) state.term = terms.includes(12) ? 12 : terms[0];
+  }
   els.minimumDownNote.textContent = `Mínimo ${rules.minDown}%`;
+  if (els.recommendedConditionsText) {
+    els.recommendedConditionsText.textContent = `Recomendado: ${rules.minTerm}–${rules.maxTerm} meses · ${rules.rate}% · ${RATE_TYPES[rules.rateType].shortLabel}.`;
+  }
   renderRuleFields();
 }
 
@@ -354,7 +483,7 @@ function saveProductRules() {
     rate: Math.min(100, numberValue(els.ruleRate))
   };
   persistProductRules();
-  applyProductRules();
+  applyProductRules({ replaceConditions: true });
   renderAllTermButtons();
   renderScreen();
 }
@@ -362,7 +491,7 @@ function saveProductRules() {
 function restoreProductRules() {
   state.productRules[els.productName.value] = { ...DEFAULT_PRODUCT_RULES[els.productName.value] };
   persistProductRules();
-  applyProductRules();
+  applyProductRules({ replaceConditions: true });
   renderAllTermButtons();
   renderScreen();
 }
@@ -405,7 +534,54 @@ function planForTerm(quote, term, frequencyKey) {
   return calculatePlan(quote.base, term, FREQUENCIES[frequencyKey], quote.rateType, quote.monthlyRate);
 }
 
+function formatIdentity(value) {
+  const digits = String(value || "").replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 10) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 10)}-${digits.slice(10)}`;
+}
+
+function fullName(firstNames, lastNames) {
+  return [firstNames?.value, lastNames?.value].map((value) => String(value || "").trim()).filter(Boolean).join(" ");
+}
+
+function fullAddress(street, houseNumber, sector, city, province) {
+  const streetLine = [street?.value, houseNumber?.value ? `No. ${houseNumber.value}` : ""].map((value) => String(value || "").trim()).filter(Boolean).join(", ");
+  return [streetLine, sector?.value, city?.value, province?.value].map((value) => String(value || "").trim()).filter(Boolean).join(" · ");
+}
+
+function partyValues() {
+  const customerIncluded = Boolean(els.includeCustomerData?.checked);
+  const codebtorIncluded = customerIncluded && Boolean(els.includeCodebtorData?.checked);
+  const customer = customerIncluded ? fullName(els.customerFirstNames, els.customerLastNames) : "";
+  if (els.customerName) els.customerName.value = customer;
+  return {
+    customerIncluded,
+    customer,
+    customerId: customerIncluded ? els.customerId.value.trim() : "",
+    customerPhone: customerIncluded ? els.customerPhone.value.trim() : "",
+    customerAddress: customerIncluded ? fullAddress(els.customerStreet, els.customerHouseNumber, els.customerSector, els.customerCity, els.customerProvince) : "",
+    codebtorIncluded,
+    codebtor: codebtorIncluded ? fullName(els.codebtorFirstNames, els.codebtorLastNames) : "",
+    codebtorId: codebtorIncluded ? els.codebtorId.value.trim() : "",
+    codebtorPhone: codebtorIncluded ? els.codebtorPhone.value.trim() : "",
+    codebtorAddress: codebtorIncluded ? fullAddress(els.codebtorStreet, els.codebtorHouseNumber, els.codebtorSector, els.codebtorCity, els.codebtorProvince) : ""
+  };
+}
+
+function syncPartyPanels() {
+  const customerIncluded = Boolean(els.includeCustomerData?.checked);
+  const codebtorIncluded = customerIncluded && Boolean(els.includeCodebtorData?.checked);
+  els.customerDataPanel.hidden = !customerIncluded;
+  if (!customerIncluded) els.customerDataPanel.classList.remove("is-open");
+  els.codebtorDataPanel.hidden = !codebtorIncluded;
+  els.customerDataStatus.textContent = customerIncluded ? (fullName(els.customerFirstNames, els.customerLastNames) || "Completar datos") : "Opcional";
+  els.codebtorDataStatus.textContent = codebtorIncluded ? (fullName(els.codebtorFirstNames, els.codebtorLastNames) || "Completar datos") : "No incluido";
+  els.editPartyDataBtn.hidden = !customerIncluded;
+}
+
 function quoteValues() {
+  const parties = partyValues();
   const price = numberValue(els.productAmount);
   const down = Math.min(numberValue(els.downPayment), price);
   const financed = Math.max(0, price - down);
@@ -420,8 +596,9 @@ function quoteValues() {
   const schedule = plan.rows.map((row, index) => ({ ...row, dueDate: paymentDate(firstPaymentDate, index, state.frequency) }));
 
   const quote = {
+    reference: state.reference,
     product: productDescription(),
-    customer: els.customerName.value.trim(),
+    ...parties,
     price,
     down,
     financed,
@@ -431,16 +608,22 @@ function quoteValues() {
     term: state.term,
     frequency,
     monthlyRate,
+    enteredRate: numberValue(els.monthlyRate),
+    rateTypeKey: els.rateType.value,
     rateType,
     payment: plan.payment,
     schedule,
     installments: plan.installments,
     firstPaymentDate,
+    legal,
+    extra,
     rules: rulesFor()
   };
   quote.validation = validateQuote(quote);
   return quote;
 }
+
+window.getActiveQuoteSnapshot = () => quoteValues();
 
 function validateQuote(quote) {
   const issues = [];
@@ -459,9 +642,11 @@ function paymentForTerm(quote, term, frequencyKey) {
 }
 
 function renderAllTermButtons() {
-  const terms = allowedTerms();
+  const rules = rulesFor();
   els.termPicker.innerHTML = featuredTerms().map((term) => `<button class="choice-chip ${term === state.term ? "active" : ""}" type="button" data-term="${term}">${term}</button>`).join("");
-  els.termSelect.innerHTML = terms.map((term) => `<option value="${term}">${term} meses</option>`).join("");
+  els.termSelect.min = String(rules.minTerm);
+  els.termSelect.max = String(rules.maxTerm);
+  els.termRangeNote.textContent = `Permitido: ${rules.minTerm} a ${rules.maxTerm} meses`;
   els.termSelect.value = String(state.term);
 }
 
@@ -522,11 +707,91 @@ function renderValidation(quote) {
       : `<i class="fa-solid fa-circle-check"></i><span>Reglas validadas: inicial mínima ${money(minimumDown)} y plazo permitido.</span>`
     : `<i class="fa-solid fa-triangle-exclamation"></i><span>${issues.join(" ")}</span>`;
   els.printBtn.disabled = !valid;
-  els.printBtn.title = valid ? suggestions.length ? "Preparar cotización sin inicial" : "Preparar PDF o impresión" : "Corrige las validaciones para generar la propuesta";
+  els.printBtn.title = valid ? "Ver el resumen y el calendario completo de pagos" : "Corrige las validaciones para ver el plan";
+}
+
+function setQuoteStep(step, { focus = false } = {}) {
+  activeQuoteStep = Math.max(0, Math.min(2, step));
+  maxQuoteStep = Math.max(maxQuoteStep, activeQuoteStep);
+  els.quoteStepPanels.forEach((panel) => {
+    const panelStep = Number(panel.dataset.quoteStepPanel);
+    panel.hidden = panelStep === 2;
+  });
+  els.quoteStepButtons.forEach((button) => {
+    const buttonStep = Number(button.dataset.quoteStep);
+    const active = buttonStep === activeQuoteStep;
+    button.disabled = buttonStep > maxQuoteStep;
+    button.classList.toggle("active", active);
+    button.classList.toggle("complete", buttonStep < maxQuoteStep);
+    if (active) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+  });
+  els.quoteHeaderStepButtons.forEach((button) => {
+    const buttonStep = Number(button.dataset.headerQuoteStep);
+    button.classList.toggle("active", buttonStep === activeQuoteStep);
+    button.classList.toggle("complete", buttonStep < maxQuoteStep);
+    button.disabled = buttonStep > maxQuoteStep;
+  });
+  els.quoteStepBackBtn.hidden = activeQuoteStep === 0;
+  els.quoteStepNextBtn.querySelector("span").textContent = activeQuoteStep === 0
+    ? "Continuar a condiciones"
+    : activeQuoteStep === 1
+      ? "Revisar cotización"
+      : "Ver plan de pagos";
+  els.quoteStepFeedback.className = "";
+  els.quoteStepFeedback.innerHTML = activeQuoteStep === 2
+    ? '<i class="fa-solid fa-circle-check"></i> Verifica el resumen antes de generar el plan.'
+    : '<i class="fa-solid fa-shield-halved"></i> Completa este bloque para continuar.';
+  if (focus && activeQuoteStep < 2) els.quoteStepPanels[activeQuoteStep]?.querySelector("input, select, button")?.focus();
+}
+
+function rejectQuoteStep(message, field) {
+  els.quoteStepFeedback.className = "is-error";
+  els.quoteStepFeedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${message}`;
+  field?.focus();
+  field?.classList.add("field-attention");
+  field?.addEventListener("input", () => field.classList.remove("field-attention"), { once: true });
+  return false;
+}
+
+function validateCurrentQuoteStep() {
+  const quote = quoteValues();
+  const rawDown = Number(els.downPayment.value) || 0;
+  if (activeQuoteStep === 0) {
+    if (quote.price <= 0) return rejectQuoteStep("Indica un precio mayor que cero.", els.productAmount);
+    if (rawDown < 0) return rejectQuoteStep("La inicial no puede ser negativa.", els.downPayment);
+    if (rawDown >= quote.price) return rejectQuoteStep("La inicial debe ser menor que el precio del producto.", els.downPayment);
+    if (quote.customerIncluded) {
+      const missingCustomer = [
+        [els.customerFirstNames, "Completa los nombres del cliente."],
+        [els.customerLastNames, "Completa los apellidos del cliente."],
+        [els.customerId, "Completa la cédula del cliente."],
+        [els.customerStreet, "Completa la dirección del cliente."],
+        [els.customerCity, "Completa la ciudad o municipio del cliente."],
+        [els.customerProvince, "Completa la provincia del cliente."]
+      ].find(([field]) => !field.value.trim());
+      if (missingCustomer) return rejectQuoteStep(missingCustomer[1], missingCustomer[0]);
+    }
+    if (quote.codebtorIncluded) {
+      const missingCodebtor = [
+        [els.codebtorFirstNames, "Completa los nombres del codeudor."],
+        [els.codebtorLastNames, "Completa los apellidos del codeudor."],
+        [els.codebtorId, "Completa la cédula del codeudor."]
+      ].find(([field]) => !field.value.trim());
+      if (missingCodebtor) return rejectQuoteStep(missingCodebtor[1], missingCodebtor[0]);
+    }
+  }
+  if (activeQuoteStep === 1 && !quote.validation.valid) {
+    const message = quote.validation.issues[0] || "Revisa las condiciones del financiamiento.";
+    const field = !quote.firstPaymentDate ? els.firstPaymentDate : numberValue(els.monthlyRate) > 100 ? els.monthlyRate : els.termSelect;
+    return rejectQuoteStep(message, field);
+  }
+  return true;
 }
 
 function renderScreen() {
   const quote = quoteValues();
+  syncPartyPanels();
   const downPercent = quote.price ? Math.round((quote.down / quote.price) * 100) : 0;
   const financedPercent = quote.price ? Math.round((quote.financed / quote.price) * 100) : 0;
   const customer = quote.customer || "No especificado";
@@ -547,10 +812,42 @@ function renderScreen() {
   els.summaryPrice.textContent = money(quote.price);
   els.summaryDown.textContent = money(quote.down);
   els.summaryFinanced.textContent = money(quote.financed);
+  els.formFinancedAmount.textContent = money(quote.financed);
   els.summaryInterest.textContent = money(quote.interest);
+  els.summaryTotal.textContent = money(quote.total);
+  els.sidebarTerm.textContent = `${quote.term} meses`;
+  els.sidebarRate.textContent = `${numberValue(els.monthlyRate).toFixed(2)}%`;
+  els.sidebarRateFrequency.textContent = quote.frequency.sentence;
+  els.sideSummaryTerm.textContent = String(quote.term);
+  els.sideSummaryRate.textContent = `${numberValue(els.monthlyRate).toFixed(2)}%`;
+  els.sideSummaryTotal.textContent = money(quote.total);
+  els.screenValidityTotal.textContent = money(quote.total);
+  els.screenCodebtorSignature.hidden = !quote.codebtorIncluded;
   els.summaryDownPercent.textContent = `${downPercent}% del precio`;
   els.summaryFinancedPercent.textContent = `${financedPercent}% del precio`;
   els.summaryInterestDetail.textContent = rateType.shortLabel;
+  els.reviewProduct.textContent = quote.product;
+  els.reviewAmount.textContent = money(quote.price);
+  els.reviewDown.textContent = `${money(quote.down)} · ${downPercent}%`;
+  els.reviewFinanced.textContent = money(quote.financed);
+  els.reviewTerm.textContent = `${quote.term} meses · ${quote.frequency.label}`;
+  els.reviewRate.textContent = `${numberValue(els.monthlyRate)}% · ${rateType.shortLabel}`;
+  els.reviewCustomer.textContent = quote.customer || "No especificado";
+  els.reviewCustomerId.textContent = quote.customerId || "No especificada";
+  els.reviewCustomerPhone.textContent = quote.customerPhone || "No especificado";
+  els.reviewCustomerAddress.textContent = quote.customerAddress || "No especificada";
+  els.reviewPartiesStatus.textContent = quote.codebtorIncluded ? "Deudor y codeudor" : quote.customerIncluded ? "Deudor incluido" : "Datos opcionales";
+  els.reviewCodebtorCard.hidden = !quote.codebtorIncluded;
+  els.reviewCodebtor.textContent = quote.codebtorIncluded ? `${quote.codebtor} · ${quote.codebtorId}` : "No incluido";
+  els.reviewFirstPayment.textContent = formatDueDate(quote.firstPaymentDate);
+  const chargeParts = [];
+  if (numberValue(els.legalRate) > 0) chargeParts.push(`Legalización ${numberValue(els.legalRate)}% (${money(quote.legal)})`);
+  if (quote.extra > 0) chargeParts.push(`Adicional ${money(quote.extra)}`);
+  els.reviewCharges.textContent = chargeParts.join(" · ") || "Sin cargos";
+  els.controlAmountValue.textContent = money(quote.financed);
+  els.controlTermsValue.textContent = `${quote.term} meses · ${quote.frequency.label}`;
+  els.controlStatus.classList.toggle("is-warning", !quote.validation.valid);
+  els.controlStatusValue.textContent = quote.validation.valid ? "Listo" : "Revisar";
   els.calendarNote.textContent = `${quote.installments} pagos ${quote.frequency.plural}: del ${formatDueDate(quote.firstPaymentDate)} al ${formatDueDate(quote.schedule.at(-1)?.dueDate)}.`;
   renderProductDetailSummary();
   renderProductState();
@@ -562,18 +859,7 @@ function renderScreen() {
   renderPrintReport(quote);
 }
 
-function rangeValues() {
-  const start = Number(els.printPlanStart.value || 3);
-  const end = Number(els.printPlanEnd.value || 18);
-  return { start: Math.min(start, end), end: Math.max(start, end) };
-}
-
-function printMode() {
-  return $("input[name=printMode]:checked").value;
-}
-
 function renderPrintReport(quote) {
-  const { start, end } = rangeValues();
   const customer = quote.customer || "No especificado";
   els.printHeading.textContent = `Cotización de ${quote.product}`;
   els.printReference.textContent = state.reference;
@@ -588,38 +874,58 @@ function renderPrintReport(quote) {
   els.printFinanced.textContent = money(quote.financed);
   els.printInterest.textContent = money(quote.interest);
   els.printTotal.textContent = money(quote.total);
-  els.printReviewProduct.textContent = quote.product;
-  els.printReviewCustomer.textContent = `Cliente: ${customer}`;
-  els.printReviewPayment.textContent = `${money(quote.payment)} ${quote.frequency.sentence}`;
-  els.printRangeLabel.textContent = `${start} a ${end} meses`;
-  els.printPlansBody.innerHTML = allowedTerms().filter((term) => term >= start && term <= end).map((term) => {
-    const classes = [term === quote.term ? "selected-row" : "", featuredTerms().includes(term) ? "recommended-row" : ""].filter(Boolean).join(" ");
-    return `<tr class="${classes}"><td>${term} meses</td><td>${money(paymentForTerm(quote, term, "monthly"))}</td><td>${money(paymentForTerm(quote, term, "biweekly"))}</td><td>${money(paymentForTerm(quote, term, "weekly"))}</td></tr>`;
+  els.printParties.hidden = !quote.customerIncluded;
+  els.printDebtorName.textContent = quote.customer;
+  els.printDebtorIdentity.textContent = quote.customerId ? `Cédula: ${quote.customerId}` : "";
+  els.printDebtorAddress.textContent = quote.customerAddress;
+  els.printCodebtorParty.hidden = !quote.codebtorIncluded;
+  els.printCodebtorName.textContent = quote.codebtor;
+  els.printCodebtorIdentity.textContent = quote.codebtorId ? `Cédula: ${quote.codebtorId}` : "";
+  els.printCodebtorAddress.textContent = quote.codebtorAddress;
+  els.printGoodFor.textContent = `BUENO Y VÁLIDO POR ${money(quote.total)}`;
+  els.printDebtorSignature.textContent = quote.customer || "Nombre del deudor";
+  els.printCodebtorSignatureBlock.hidden = !quote.codebtorIncluded;
+  els.printCodebtorSignature.textContent = quote.codebtor || "Nombre del codeudor";
+  els.planReviewProduct.textContent = quote.product;
+  els.planReviewCustomer.textContent = `Cliente: ${customer}`;
+  els.planReviewPayment.textContent = money(quote.payment);
+  els.planReviewFrequency.textContent = `${quote.frequency.label} · ${quote.term} meses`;
+  els.planReviewPrice.textContent = money(quote.price);
+  els.planReviewDown.textContent = money(quote.down);
+  els.planReviewFinanced.textContent = money(quote.financed);
+  els.planReviewInterest.textContent = money(quote.interest);
+  els.planReviewTotal.textContent = money(quote.total);
+  const terms = allowedTerms();
+  const planRows = terms.map((term) => {
+    const selected = term === quote.term ? "selected-row" : "";
+    return `<tr class="${selected}"><td>${term} meses</td><td>${money(paymentForTerm(quote, term, "monthly"))}</td><td>${money(paymentForTerm(quote, term, "biweekly"))}</td><td>${money(paymentForTerm(quote, term, "weekly"))}</td></tr>`;
   }).join("");
+  els.planOptionsBody.innerHTML = planRows;
+  els.printPlansBody.innerHTML = planRows;
+  els.planOptionsLabel.textContent = `${terms[0]} a ${terms.at(-1)} meses · el plan elegido está resaltado`;
+  els.printRangeLabel.textContent = `${terms[0]} a ${terms.at(-1)} meses`;
+  renderAmortization(quote, els.planReviewBody, els.planReviewScheduleLabel);
   renderAmortization(quote, els.printAmortizationBody, els.printAmortizationLabel);
   els.printTerms.textContent = `${quote.rateType.shortLabel}: ${els.rateLabel.textContent}. ${quote.rateType.help} Primera cuota el ${formatDueDate(quote.firstPaymentDate)}. Cotización sujeta a validación y aprobación.`;
-  const mode = printMode();
+  updatePlanPrintMode();
+}
+
+function selectedPlanPrintMode() {
+  return $("input[name=planPrintMode]:checked")?.value || "plans";
+}
+
+function updatePlanPrintMode(mode = selectedPlanPrintMode()) {
+  els.planPrintModes.forEach((input) => { input.checked = input.value === mode; });
+  els.modalPlanTabs.forEach((tab) => {
+    const active = tab.id === (mode === "plans" ? "modalPlansTab" : "modalAmortizationTab");
+    tab.classList.toggle("active", active);
+    tab.setAttribute("aria-selected", String(active));
+  });
+  els.modalPlansPanel.hidden = mode !== "plans";
+  els.modalAmortizationPanel.hidden = mode !== "amortization";
   els.printPlansSection.hidden = mode !== "plans";
   els.printAmortizationSection.hidden = mode !== "amortization";
-}
-
-function printPageEstimate(mode, start, end, quote) {
-  const rows = mode === "plans" ? allowedTerms().filter((term) => term >= start && term <= end).length : quote.installments;
-  const capacity = mode === "plans" ? 23 : 25;
-  return Math.max(1, Math.ceil((rows + 6) / capacity));
-}
-
-function updateRangeSummary() {
-  const { start, end } = rangeValues();
-  const mode = printMode();
-  const quote = quoteValues();
-  els.printRangePicker.hidden = mode !== "plans";
-  els.printRangeSummary.textContent = mode === "plans"
-    ? `Se imprimirán los planes de ${start} a ${end} meses.`
-    : `Se imprimirá la amortización de ${quote.term} meses (${quote.installments} cuotas ${quote.frequency.plural}).`;
-  const pages = printPageEstimate(mode, start, end, quote);
-  els.printPageEstimate.textContent = `Aproximadamente ${pages} ${pages === 1 ? "página" : "páginas"}`;
-  els.printModes.forEach((input) => input.closest(".print-option").classList.toggle("active", input.checked));
+  els.confirmPrintBtn.querySelector("span").textContent = mode === "plans" ? "Imprimir planes" : "Imprimir amortización";
 }
 
 function createReference() {
@@ -631,16 +937,17 @@ function createReference() {
 function openPrintDialog() {
   if (!quoteValues().validation.valid) return;
   createReference();
-  updateRangeSummary();
   renderScreen();
   els.printModal.classList.add("is-open");
   els.printModal.setAttribute("aria-hidden", "false");
-  els.printPlanStart.focus();
+  document.body.classList.add("plan-modal-open");
+  els.planDialogCloseBtn.focus();
 }
 
 function closePrintDialog() {
   els.printModal.classList.remove("is-open");
   els.printModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("plan-modal-open");
   els.printBtn.focus();
 }
 
@@ -651,38 +958,30 @@ function resetQuote() {
   state.productDetails = {};
   state.product = els.productName.value;
   state.quoteEdited = false;
+  state.reviewCounted = false;
   els.firstPaymentDate.value = defaultFirstPaymentDate();
-  applyProductRules();
+  applyProductRules({ replaceConditions: true });
   renderAllTermButtons();
-  initializePrintRange();
   renderProductDetails();
   renderScreen();
+  activeQuoteStep = 0;
+  maxQuoteStep = 0;
+  setQuoteStep(0);
 }
 
 function selectTerm(term) {
-  const selectedTerm = Number(term);
-  const terms = allowedTerms();
-  if (!terms.includes(selectedTerm)) return;
+  const selectedTerm = Math.round(Number(term) || 0);
   state.term = selectedTerm;
   state.quoteEdited = true;
   renderScreen();
 }
 
-function initializePrintRange() {
-  const terms = allowedTerms();
-  [els.printPlanStart, els.printPlanEnd].forEach((select) => {
-    select.innerHTML = terms.map((term) => `<option value="${term}">${term} meses</option>`).join("");
-  });
-  els.printPlanStart.value = String(terms[0]);
-  els.printPlanEnd.value = String(terms.includes(18) ? 18 : terms.at(-1));
-}
-
 els.firstPaymentDate.value = defaultFirstPaymentDate();
-applyProductRules();
+applyProductRules({ replaceConditions: true });
 renderAllTermButtons();
-initializePrintRange();
 renderProductDetails();
 renderScreen();
+setQuoteStep(0);
 
 els.form.addEventListener("input", (event) => {
   // El selector de plazo se procesa en su propio control antes de volver a pintar la cotización.
@@ -700,7 +999,6 @@ els.productName.addEventListener("change", () => {
   renderProductDetails();
   applyProductRules();
   renderAllTermButtons();
-  initializePrintRange();
   renderScreen();
 });
 els.productPicker.addEventListener("click", (event) => {
@@ -712,16 +1010,46 @@ els.productPicker.addEventListener("click", (event) => {
   renderProductDetails();
   applyProductRules();
   renderAllTermButtons();
-  initializePrintRange();
   els.productMenu.open = false;
   renderScreen();
+});
+els.applyRecommendedConditionsBtn?.addEventListener("click", () => {
+  applyProductRules({ replaceConditions: true });
+  renderAllTermButtons();
+  state.quoteEdited = true;
+  renderScreen();
+  els.quoteStepFeedback.className = "is-success";
+  els.quoteStepFeedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Se aplicaron las condiciones recomendadas. Los montos se conservaron.';
+});
+[els.customerId, els.codebtorId].forEach((input) => input?.addEventListener("input", () => {
+  const formatted = formatIdentity(input.value);
+  if (input.value !== formatted) input.value = formatted;
+}));
+[els.includeCustomerData, els.includeCodebtorData].forEach((input) => input?.addEventListener("change", () => {
+  syncPartyPanels();
+  renderScreen();
+  if (input.checked) {
+    const panel = input === els.includeCustomerData ? els.customerDataPanel : els.codebtorDataPanel;
+    els.customerDataPanel.classList.add("is-open");
+    panel?.querySelector("input:not([type=hidden])")?.focus();
+  }
+}));
+const closePartyDrawer = () => els.customerDataPanel.classList.remove("is-open");
+els.editPartyDataBtn?.addEventListener("click", () => {
+  els.customerDataPanel.hidden = false;
+  els.customerDataPanel.classList.add("is-open");
+  els.customerDataPanel.querySelector("input:not([type=hidden])")?.focus();
+});
+els.closePartyPanelBtn?.addEventListener("click", closePartyDrawer);
+els.savePartyPanelBtn?.addEventListener("click", () => {
+  renderScreen();
+  closePartyDrawer();
 });
 els.termPicker.addEventListener("click", (event) => {
   const button = event.target.closest("[data-term]");
   if (button) selectTerm(Number(button.dataset.term));
 });
-// Algunos navegadores emiten "input" antes de "change" en un <select>.
-// Sin esta sincronización, el render general podía restaurar el plazo anterior.
+// El campo manual y los atajos comparten el mismo estado del plazo.
 const syncSelectedTerm = () => selectTerm(els.termSelect.value);
 els.termSelect.addEventListener("input", syncSelectedTerm);
 els.termSelect.addEventListener("change", syncSelectedTerm);
@@ -755,15 +1083,41 @@ els.comparisonTabs.forEach((tab) => tab.addEventListener("click", () => {
     panel.classList.toggle("active", active);
   });
 }));
+els.quoteStepBackBtn.addEventListener("click", () => setQuoteStep(activeQuoteStep - 1, { focus: true }));
+els.quoteStepNextBtn.addEventListener("click", () => {
+  if (activeQuoteStep === 2) {
+    openPrintDialog();
+    return;
+  }
+  if (validateCurrentQuoteStep()) {
+    const enteringReview = activeQuoteStep === 1;
+    setQuoteStep(activeQuoteStep + 1, { focus: true });
+    if (enteringReview && !state.reviewCounted) {
+      state.reviewCounted = true;
+      registerDailyActivity("quote");
+    }
+  }
+});
+els.quoteStepButtons.forEach((button) => button.addEventListener("click", () => {
+  const step = Number(button.dataset.quoteStep);
+  if (step <= maxQuoteStep) setQuoteStep(step);
+}));
+els.quoteHeaderStepButtons.forEach((button) => button.addEventListener("click", () => {
+  const step = Number(button.dataset.headerQuoteStep);
+  if (step <= maxQuoteStep) setQuoteStep(step, { focus: true });
+}));
 els.newQuoteBtn.addEventListener("click", resetQuote);
 els.printBtn.addEventListener("click", openPrintDialog);
+els.sidebarPlanBtn.addEventListener("click", openPrintDialog);
+els.sidebarSaveBtn.addEventListener("click", openPrintDialog);
+els.quoteHeaderSettingsBtn.addEventListener("click", () => els.rulesDialog.showModal());
 els.saveRulesBtn.addEventListener("click", saveProductRules);
 els.restoreRulesBtn.addEventListener("click", restoreProductRules);
 els.openRulesBtn.addEventListener("click", () => els.rulesDialog.showModal());
-els.printPlanStart.addEventListener("change", () => { updateRangeSummary(); renderScreen(); });
-els.printPlanEnd.addEventListener("change", () => { updateRangeSummary(); renderScreen(); });
-els.printModes.forEach((input) => input.addEventListener("change", () => { updateRangeSummary(); renderScreen(); }));
 els.cancelPrintBtn.addEventListener("click", closePrintDialog);
+els.planDialogCloseBtn.addEventListener("click", closePrintDialog);
+els.modalPlanTabs.forEach((tab) => tab.addEventListener("click", () => updatePlanPrintMode(tab.id === "modalPlansTab" ? "plans" : "amortization")));
+els.planPrintModes.forEach((input) => input.addEventListener("change", () => updatePlanPrintMode(input.value)));
 els.confirmPrintBtn.addEventListener("click", () => { renderScreen(); closePrintDialog(); document.body.dataset.printTarget = "quote"; window.print(); });
 els.printModal.addEventListener("click", (event) => { if (event.target === els.printModal) closePrintDialog(); });
 document.addEventListener("keydown", (event) => { if (event.key === "Escape" && els.printModal.classList.contains("is-open")) closePrintDialog(); });
@@ -777,6 +1131,7 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape" && 
   const choice = document.createElement("button");
   choice.className = "workspace-choice workspace-choice--collection";
   choice.type = "button";
+  choice.dataset.toolLabel = "Cobranza";
   choice.dataset.workspaceTarget = "collection";
   choice.innerHTML = '<span><i class="fa-solid fa-hand-holding-dollar"></i></span><b>Visita de cobro</b><small>Prepara una ficha para gestionar atrasos y compromisos de pago.</small><em>Preparar ficha <i class="fa-solid fa-arrow-right"></i></em>';
   fieldMenu.append(choice);
@@ -798,6 +1153,7 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape" && 
   const preChoice = document.createElement("button");
   preChoice.className = "workspace-choice workspace-choice--preapplication";
   preChoice.type = "button";
+  preChoice.dataset.toolLabel = "Filtro";
   preChoice.dataset.workspaceTarget = "preapplication";
   preChoice.innerHTML = '<span><i class="fa-solid fa-filter-circle-dollar"></i></span><b>Pre-solicitud</b><small>Filtra capacidad y datos esenciales antes de la solicitud completa.</small><em>Preparar pre-solicitud <i class="fa-solid fa-arrow-right"></i></em>';
   commercialMenu.append(preChoice);
@@ -834,8 +1190,9 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape" && 
   const f = (n, l, o = {}) => ({ n, l, ...o });
   const commonControl = [f("date", "Fecha", { type: "date", required: true }), f("branch", "Sucursal", { options: ["VegaMotors", "M&M Inversiones", "Otra"], required: true }), f("staff", "Responsable", { required: true }), f("reference", "Referencia", { readonly: true })];
   const commonClient = [f("clientName", "Nombre completo", { required: true, wide: true }), f("clientId", "Cédula", { required: true }), f("phone", "Teléfono"), f("loanNumber", "Número de préstamo"), f("address", "Dirección", { wide: true })];
+  const receiptClient = commonClient.filter((field) => field.n !== "address");
   const docs = [
-    { id: "payment", menu: "control", icon: "fa-receipt", menuTitle: "Recibo de pago", title: "Recibo de pago y otros ingresos", subtitle: "Comprobante temporal de ingreso", prefix: "REC", groups: [["Control del recibo", commonControl], ["Cliente y operación", commonClient], ["Detalle del ingreso", [f("concept", "Concepto", { options: ["Cuota de préstamo", "Abono a capital", "Inicial de préstamo", "Pago de mora / recargo", "Pago de cuota de motocicleta", "Inicial de motocicleta", "Pago de documentos de motocicleta", "Matrícula", "Placa", "Traspaso", "Seguro", "Reserva de motocicleta", "Venta de contado", "Pago de smartphone", "Pago de electrodomésticos", "Cargo administrativo", "Gastos de legalización o notario", "Gastos de cobro legal", "Penalidad o cargo por atraso", "Reposición de llave o accesorio", "Otros"], required: true }), f("paymentMethod", "Método de pago", { options: ["Efectivo", "Transferencia bancaria", "Depósito bancario", "Tarjeta de débito o crédito", "Cheque", "Pago móvil / billetera", "Otro"], required: true }), f("amount", "Monto recibido", { money: true, required: true }), f("voucher", "No. comprobante", { readonly: true }), f("notes", "Detalle u observación", { textarea: true, wide: true })]]], declaration: "Recibo conforme el monto descrito por el concepto indicado. El número de referencia y el número de comprobante identifican el mismo recibo.", signatures: ["Recibido de", "Recibido por"] },
+    { id: "payment", menu: "control", icon: "fa-receipt", menuTitle: "Recibo de ingreso", title: "Recibo de ingreso", subtitle: "Comprobante de pago en formato compacto", prefix: "REC", groups: [["Control del recibo", commonControl], ["Cliente y operación", receiptClient], ["Detalle del ingreso", [f("concept", "Concepto", { options: ["Cuota de préstamo", "Abono a capital", "Inicial de préstamo", "Pago de mora / recargo", "Pago de cuota de motocicleta", "Inicial de motocicleta", "Pago de documentos de motocicleta", "Matrícula", "Placa", "Traspaso", "Seguro", "Reserva de motocicleta", "Venta de contado", "Pago de smartphone", "Pago de electrodomésticos", "Cargo administrativo", "Gastos de legalización o notario", "Gastos de cobro legal", "Penalidad o cargo por atraso", "Reposición de llave o accesorio", "Otros"], required: true }), f("paymentMethod", "Método de pago", { options: ["Efectivo", "Transferencia bancaria", "Depósito bancario", "Tarjeta de débito o crédito", "Cheque", "Pago móvil / billetera", "Otro"], required: true }), f("amount", "Monto recibido", { money: true, required: true }), f("voucher", "No. comprobante", { readonly: true }), f("notes", "Detalle u observación", { textarea: true, wide: true })]]], declaration: "Recibo conforme el monto descrito por el concepto indicado. El número de referencia y el número de comprobante identifican el mismo recibo.", signatures: ["Entregado por", "Recibido por"] },
     { id: "agreement", menu: "control", icon: "fa-handshake", menuTitle: "Acuerdo de pago", title: "Acuerdo de pago y regularización", subtitle: "Compromiso para normalizar la obligación", prefix: "ACU", groups: [["Control", commonControl], ["Cliente", commonClient], ["Estado y propuesta", [f("totalDebt", "Deuda total", { money: true, required: true }), f("arrears", "Monto en atraso", { money: true, required: true }), f("overdue", "Cuotas vencidas", { type: "number" }), f("regularization", "Inicial de regularización", { money: true }), f("commitmentDate", "Fecha comprometida", { type: "date", required: true }), f("newPayment", "Nueva cuota", { money: true }), f("conditions", "Condiciones acordadas", { textarea: true, wide: true })]]], decision: ["Aprobado", "Aprobado con condiciones", "Pendiente"], declaration: "El cliente reconoce el balance indicado y se compromete a cumplir la propuesta establecida.", signatures: ["Cliente / deudor", "Codeudor (si aplica)", "Representante de la empresa"] },
     { id: "motorcycle-delivery", menu: "formal", icon: "fa-motorcycle", menuTitle: "Entrega de motocicleta", title: "Acta de entrega de motocicleta", subtitle: "Constancia de entrega física de la unidad", prefix: "ENTM", groups: [["Control de entrega", commonControl], ["Cliente", commonClient], ["Motocicleta", [f("brand", "Marca", { required: true }), f("model", "Modelo", { required: true }), f("year", "Año", { type: "number" }), f("color", "Color"), f("chassis", "No. chasis", { required: true }), f("engine", "No. motor"), f("plate", "No. placa"), f("registration", "No. matrícula"), f("odometer", "Kilometraje", { type: "number" })]]], checks: ["Llave principal", "Llave de repuesto", "Casco", "Manual", "Matrícula", "Placa", "Seguro", "Otros accesorios"], declaration: "El cliente recibe la motocicleta y los accesorios señalados en el estado indicado, luego de verificar sus datos principales.", signatures: ["Recibido por el cliente", "Entregado por la empresa"] },
     { id: "dossier", menu: "field", icon: "fa-folder-open", menuTitle: "Checklist de expediente", title: "Checklist de expediente de crédito", subtitle: "Control interno de documentos y pendientes", prefix: "EXP", groups: [["Control de revisión", commonControl], ["Cliente y crédito", [...commonClient, f("loanType", "Tipo de crédito", { options: ["Préstamo personal", "Préstamo comercial", "Préstamo con garantía", "Préstamo hipotecario", "Financiamiento de smartphone", "Financiamiento de electrodomésticos"], required: true })]]], checks: ["Cédula del deudor", "Foto del deudor", "Buró del deudor", "Referencias del deudor", "Evaluación de campo del deudor", "Cédula del codeudor (si aplica)", "Foto del codeudor (si aplica)", "Buró del codeudor (si aplica)", "Referencias del codeudor (si aplica)", "Evaluación de campo del codeudor (si aplica)", "Cotización", "Contrato", "Pagaré", "Autorización de cobro", "Garantía", "Matrícula", "Seguro", "Recibo de inicial", "Aprobación"], manual: "Documentos pendientes, responsable y fecha límite:", signatures: ["Revisado por", "Recibido para expediente"] },
@@ -855,7 +1212,7 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape" && 
     return `<label class="${wide}">${escape(field.l)}${field.money ? `<span class="currency-input"><b>RD$</b>${input}</span>` : input}</label>`;
   }
   function addDocument(cfg) {
-    const button = document.createElement("button"); button.type = "button"; button.className = "workspace-choice workspace-choice--document"; button.dataset.workspaceTarget = cfg.id; button.innerHTML = `<span><i class="fa-solid ${cfg.icon}"></i></span><b>${escape(cfg.menuTitle)}</b><small>${escape(cfg.subtitle)}</small><em>Preparar documento <i class="fa-solid fa-arrow-right"></i></em>`; menus[cfg.menu].append(button);
+    const button = document.createElement("button"); button.type = "button"; button.className = "workspace-choice workspace-choice--document"; button.dataset.workspaceTarget = cfg.id; button.dataset.toolLabel = cfg.menu === "control" ? "Control" : cfg.menu === "formal" ? "Documento" : "Herramienta"; button.innerHTML = `<span><i class="fa-solid ${cfg.icon}"></i></span><b>${escape(cfg.menuTitle)}</b><small>${escape(cfg.subtitle)}</small><em>Preparar documento <i class="fa-solid fa-arrow-right"></i></em>`; menus[cfg.menu].append(button);
     const workspace = document.createElement("section"); workspace.className = "workspace document-workspace"; workspace.id = `documentWorkspace-${cfg.id}`; workspace.dataset.workspaceTitle = cfg.menuTitle; workspace.hidden = true;
     const codebtorHtml = cfg.codebtor ? `<section class="document-section document-codebtor" data-codebtor-section hidden><div class="document-section-heading"><span>03</span><div><p>Obligado solidario</p><h3>Codeudor</h3></div></div><div class="application-fields four-columns">${cfg.codebtorFields.map((field) => control("Codeudor", field)).join("")}</div></section>` : "";
     const groupHtml = cfg.groups.map(([title, fields], index) => `${cfg.codebtor && index === 2 ? codebtorHtml : ""}<section class="document-section"><div class="document-section-heading"><span>${String(index + 1 + (cfg.codebtor && index === 2 ? 1 : 0)).padStart(2, "0")}</span><div><p>${index === 0 ? "Datos principales" : "Información del documento"}</p><h3>${escape(title)}</h3></div>${cfg.codebtor && title === "Deudor" ? '<label class="document-codebtor-toggle"><input name="requiresCodebtor" type="checkbox"><span>Requiere codeudor</span></label>' : ""}</div><div class="application-fields four-columns">${fields.map((field) => control(title, field)).join("")}</div>${cfg.calculator && index === cfg.groups.length - 1 ? '<aside class="document-interest-card" data-interest-card><b>Interés simple estimado</b><dl><div><dt>Interés</dt><dd>RD$ 0.00</dd></div><div><dt>Total a pagar</dt><dd>RD$ 0.00</dd></div><div><dt>Cuota estimada</dt><dd>RD$ 0.00</dd></div></dl><small>Capital × tasa mensual × plazo. Resultado orientativo para el pagaré.</small></aside>' : ""}</section>`).join("");
@@ -902,7 +1259,7 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape" && 
         const principal = cash("principal"); const security = guaranteeToggle.checked ? text("security") : "No aplica";
         body = `${header("Instrumento de pago · sujeto a revisión jurídica")}<section class="legal-document"><p class="legal-place">En ${text("placeOfPayment")}, República Dominicana, a ${printDate(data.date)}.</p><h2>Promesa de pago</h2><p>Yo, <strong>${text("debtorName")}</strong>, dominicano(a), mayor de edad, portador(a) de la cédula de identidad y electoral No. <strong>${text("debtorId")}</strong>, domiciliado(a) en <strong>${text("debtorAddress")}</strong>, por medio del presente documento <strong>PROMETO PAGAR INCONDICIONALMENTE A LA ORDEN DE ${text("beneficiary")}</strong> la suma de <strong>${principal}</strong> (<strong>${escape(amountInWords(data.principal))}</strong>), recibida por concepto de <strong>${text("valueReceived")}</strong>.</p><p>La obligación devengará una tasa mensual de <strong>${text("rate")}%</strong>, tendrá un plazo de <strong>${text("term")} meses</strong>, iniciando el ${printDate(data.startDate)} y venciendo el ${printDate(data.dueDate)}. El pago se realizará en <strong>${text("placeOfPayment")}</strong>, República Dominicana, conforme a las condiciones que las partes formalicen.</p><p>La garantía indicada para esta obligación es: <strong>${security}</strong>. El deudor declara haber leído y aceptado voluntariamente el presente pagaré.</p>${codebtorToggle.checked ? `<p>Comparece además <strong>${text("coDebtorName")}</strong>, cédula No. <strong>${text("coDebtorId")}</strong>, domiciliado(a) en <strong>${text("coDebtorAddress")}</strong>, quien manifiesta su aceptación como codeudor(a) solidario(a) en los términos que suscriba.</p>` : ""}<aside class="legal-terms"><b>Datos de control</b>${info([["No. de préstamo provisional", text("loanNumber")], ["Monto principal", principal], ["Interés simple estimado", pesos(number(data.principal) * (number(data.rate) / 100) * number(data.term))], ["Total estimado", pesos(number(data.principal) * (1 + (number(data.rate) / 100) * number(data.term)))], ["Garantía", security]])}</aside><small class="legal-disclaimer">Modelo operativo. Debe ser revisado y aprobado por un abogado dominicano antes de su uso definitivo.</small></section>${signatures(["Deudor", ...(codebtorToggle.checked ? ["Codeudor solidario"] : []), "Testigo / representante"])}`;
       } else if (cfg.id === "payment") {
-        body = `${header("Comprobante interno de ingreso")}<section class="receipt-document"><p>Recibimos de <strong>${text("clientName")}</strong>, cédula No. <strong>${text("clientId")}</strong>, la suma de <strong>${cash("amount")}</strong> por concepto de <strong>${text("concept")}</strong>.</p><table><thead><tr><th>Concepto</th><th>Préstamo / operación</th><th>Método</th><th>Valor recibido</th></tr></thead><tbody><tr><td>${text("concept")}</td><td>${text("loanNumber")}</td><td>${text("paymentMethod")}</td><td>${cash("amount")}</td></tr></tbody><tfoot><tr><th colspan="3">TOTAL RECIBIDO</th><th>${cash("amount")}</th></tr></tfoot></table><p class="receipt-words">Valor en letras: <strong>${escape(amountInWords(data.amount))}</strong>.</p><p>Detalle u observación: ${text("notes", "Sin observaciones")}</p><small>Referencia interna y comprobante: ${escape(ref())}. Este recibo no sustituye un comprobante fiscal autorizado.</small></section>${signatures(["Entregado por", "Recibido por M&M / VegaMotors"])}`;
+        body = `${header("Comprobante de ingreso")}<section class="receipt-document"><div class="receipt-lead"><div><span>Recibimos de</span><strong>${text("clientName")}</strong><small>Cédula ${text("clientId")} · Tel. ${text("phone")}</small></div><div class="receipt-total"><span>Total recibido</span><strong>${cash("amount")}</strong></div></div><dl class="receipt-details"><div><dt>Concepto</dt><dd>${text("concept")}</dd></div><div><dt>Préstamo / operación</dt><dd>${text("loanNumber")}</dd></div><div><dt>Método de pago</dt><dd>${text("paymentMethod")}</dd></div><div><dt>Comprobante</dt><dd>${text("voucher", ref())}</dd></div></dl><p class="receipt-words"><span>Valor en letras</span><strong>${escape(amountInWords(data.amount))}</strong></p><p class="receipt-notes"><b>Detalle u observación:</b> ${text("notes", "Sin observaciones")}</p><aside class="receipt-provisional"><b>Documento provisional</b><span>Este recibo no es del sistema. Es un comprobante provisional sujeto a validación administrativa.</span></aside><small class="receipt-disclaimer">Referencia ${escape(ref())}. Este recibo no sustituye un comprobante fiscal autorizado.</small></section>${signatures(["Entregado por", "Recibido por M&M / VegaMotors"])}<div class="receipt-cutline" aria-hidden="true"><span>✂</span><i></i><small>Cortar por aquí</small><i></i></div>`;
       } else if (cfg.id === "agreement" || cfg.id === "authorization" || cfg.id === "credit-letter") {
         const isAgreement = cfg.id === "agreement"; const isAuthorization = cfg.id === "authorization"; const title = isAgreement ? "Compromiso de regularización" : isAuthorization ? "Autorización expresa" : "Comunicación al cliente";
         const narrative = isAgreement ? `El/la señor(a) <strong>${text("clientName")}</strong>, cédula No. <strong>${text("clientId")}</strong>, reconoce una deuda total de <strong>${cash("totalDebt")}</strong>, de la cual ${cash("arrears")} corresponde a monto en atraso. Se compromete a realizar una inicial de regularización de <strong>${cash("regularization")}</strong> y continuar con una cuota de <strong>${cash("newPayment")}</strong>, con fecha comprometida ${printDate(data.commitmentDate)}.` : isAuthorization ? `Yo, <strong>${text("clientName")}</strong>, cédula No. <strong>${text("clientId")}</strong>, autorizo a M&M Inversiones / VegaMotors a utilizar los medios de contacto marcados para verificación, comunicación y gestión de mi obligación.` : `Por medio de la presente informamos a <strong>${text("clientName")}</strong> que su solicitud o producto <strong>${text("product")}</strong> se encuentra en condición de <strong>${text("result")}</strong>. ${data.conditions ? `Condiciones o información relevante: <strong>${text("conditions")}</strong>.` : ""}`;
@@ -922,11 +1279,37 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape" && 
     function load(file) { if (!file) return; const reader = new FileReader(); reader.onload = () => { try { const payload = JSON.parse(String(reader.result || "{}")); if (payload.module && payload.module !== cfg.id) throw new Error("wrong-module"); setDefaults(); Object.entries(payload.fields || {}).forEach(([name, value]) => { if (form.elements[name]) form.elements[name].value = value; }); (payload.checks || []).forEach((checked, index) => { if (form.elements[`check_${index}`]) form.elements[`check_${index}`].checked = Boolean(checked); }); syncCodebtor(); syncGuarantee(); updateInterest(); status.className = "application-status is-success"; status.textContent = "Ficha cargada. Revisa los datos antes de imprimir."; } catch { status.className = "application-status is-error"; status.textContent = "El archivo no corresponde a este documento o no se puede leer."; } }; reader.readAsText(file); }
     form.querySelectorAll(".currency-input input").forEach((input) => { input.inputMode = "decimal"; input.addEventListener("focus", () => { const raw = number(input.value); if (input.value.trim()) input.value = String(raw); }); input.addEventListener("blur", () => { if (input.value.trim()) input.value = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(number(input.value)); }); });
     codebtorToggle?.addEventListener("change", syncCodebtor); guaranteeToggle?.addEventListener("change", syncGuarantee);
-    form.querySelector("[data-print]").addEventListener("click", () => { const missing = [...required, ...(cfg.codebtor && codebtorToggle.checked ? cfg.codebtorFields.filter((field) => field.required) : []), ...(cfg.guarantee && guaranteeToggle.checked ? [{ n: "security", l: "descripción de la garantía" }] : [])].filter((field) => !String(form.elements[field.n]?.value || "").trim()); if (missing.length) { status.className = "application-status is-error"; status.textContent = `Antes de imprimir completa: ${missing.map((field) => field.l.toLowerCase()).join(", ")}.`; form.elements[missing[0].n]?.focus(); return; } renderPrint(); document.querySelectorAll(".document-print-report").forEach((item) => item.classList.remove("is-current")); report.classList.add("is-current"); status.className = "application-status is-success"; status.textContent = "Documento preparado para impresión."; document.body.dataset.printTarget = `document-${cfg.id}`; window.print(); });
+    form.querySelector("[data-print]").addEventListener("click", () => {
+      const missing = [...required, ...(cfg.codebtor && codebtorToggle.checked ? cfg.codebtorFields.filter((field) => field.required) : []), ...(cfg.guarantee && guaranteeToggle.checked ? [{ n: "security", l: "descripción de la garantía" }] : [])].filter((field) => !String(form.elements[field.n]?.value || "").trim());
+      if (missing.length) {
+        status.className = "application-status is-error";
+        status.textContent = `Antes de imprimir completa: ${missing.map((field) => field.l.toLowerCase()).join(", ")}.`;
+        form.elements[missing[0].n]?.focus();
+        return;
+      }
+      renderPrint();
+      document.querySelectorAll(".document-print-report").forEach((item) => item.classList.remove("is-current"));
+      report.classList.add("is-current");
+      status.className = "application-status is-success";
+      status.textContent = cfg.id === "payment" ? "Recibo preparado en hoja Carta vertical; ocupa la mitad superior." : "Documento preparado para impresión.";
+      document.body.dataset.printTarget = `document-${cfg.id}`;
+      const previousPageRule = document.querySelector("#receiptPrintPageSize");
+      previousPageRule?.remove();
+      if (cfg.id === "payment") {
+        const pageRule = document.createElement("style");
+        pageRule.id = "receiptPrintPageSize";
+        pageRule.textContent = '@media print { @page { size: letter portrait; margin: .34in .38in; } body[data-print-target="document-payment"] .document-print-sheet--payment { page: auto; } }';
+        document.head.append(pageRule);
+        window.addEventListener("afterprint", () => pageRule.remove(), { once: true });
+      }
+      window.print();
+    });
     form.querySelector("[data-clear]").addEventListener("click", () => { setDefaults(); status.className = "application-status"; status.textContent = "Documento limpio. Los datos no se guardan en el navegador."; }); form.querySelector("[data-save]").addEventListener("click", download); form.querySelector("[data-load]").addEventListener("click", () => form.querySelector('input[type="file"]').click()); form.querySelector('input[type="file"]').addEventListener("change", (event) => load(event.target.files?.[0])); form.addEventListener("input", updateInterest); form.addEventListener("submit", (event) => event.preventDefault()); button.addEventListener("click", () => window.selectCotizadorWorkspace(cfg.id)); setDefaults();
   }
   docs.forEach(addDocument);
 })();
+
+window.installNotarialPromissory?.();
 
 const workspaceMenuButtons = [...document.querySelectorAll("[data-workspace-target]")];
 const workspaceMenu = document.querySelector("#workspaceMenu");
@@ -965,6 +1348,7 @@ function selectWorkspace(target) {
   workspaceHomeButton.hidden = false;
   if (headerApplicationButton) headerApplicationButton.hidden = target !== "quote";
   els.newQuoteBtn.hidden = target !== "quote";
+  els.quoteHeaderSettingsBtn.hidden = target !== "quote";
   els.printBtn.hidden = target !== "quote";
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -984,12 +1368,24 @@ function showWorkspaceHome() {
   workspaceHomeButton.hidden = true;
   headerApplicationButton.hidden = true;
   els.newQuoteBtn.hidden = true;
+  els.quoteHeaderSettingsBtn.hidden = true;
   els.printBtn.hidden = true;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 workspaceMenuButtons.forEach((button) => button.addEventListener("click", () => selectWorkspace(button.dataset.workspaceTarget)));
 workspaceHomeButton.addEventListener("click", showWorkspaceHome);
+if (["#quote-conditions", "#quote-review", "#quote-print-plans", "#quote-print-amortization"].includes(window.location.hash)) {
+  selectWorkspace("quote");
+  const linkedStep = window.location.hash === "#quote-conditions" ? 1 : 2;
+  maxQuoteStep = linkedStep;
+  setQuoteStep(linkedStep);
+  if (window.location.hash.startsWith("#quote-print-")) {
+    updatePlanPrintMode(window.location.hash.endsWith("amortization") ? "amortization" : "plans");
+    renderScreen();
+    document.body.dataset.printTarget = "quote";
+  }
+}
 window.selectCotizadorWorkspace = selectWorkspace;
 
 // Solicitud de crédito: los detalles cambian según el producto solicitado.
@@ -1259,7 +1655,13 @@ window.selectCotizadorWorkspace = selectWorkspace;
     renderSpecificFields();
     setFieldValue("firstNames", firstName || "");
     setFieldValue("lastNames", lastName.join(" "));
+    setFieldValue("identityNumber", els.customerId.value.trim());
     setFieldValue("phone", els.customerPhone.value.trim());
+    setFieldValue("street", els.customerStreet?.value.trim() || "");
+    setFieldValue("houseNumber", els.customerHouseNumber?.value.trim() || "");
+    setFieldValue("sector", els.customerSector?.value.trim() || "");
+    setFieldValue("city", els.customerCity?.value.trim() || "");
+    setFieldValue("province", els.customerProvince?.value.trim() || "");
     contextTitle.textContent = "Cotización convertida";
     contextCopy.textContent = `${product} · ${money(quote.financed)} financiado · ${quote.term} meses.`;
     updateLoanEstimate();
@@ -2832,8 +3234,8 @@ window.selectCotizadorWorkspace = selectWorkspace;
   clearButton.addEventListener("click", clearCollection);
 })();
 
-// Pre-solicitud: filtro comercial rápido antes de iniciar la solicitud completa.
-(() => {
+// Pre-solicitud heredada. Se conserva como referencia, pero la versión V3 se inicia más abajo.
+function initializeLegacyPreApplication() {
   const form = document.querySelector("#preApplicationForm");
   if (!form) return;
   const decisionSection = form.querySelector(".preapplication-decision");
@@ -2842,39 +3244,149 @@ window.selectCotizadorWorkspace = selectWorkspace;
   const printButton = document.querySelector("#printPreApplicationBtn");
   const clearButton = document.querySelector("#clearPreApplicationBtn");
   const capacity = document.querySelector("#preCapacity");
+  const uploadSection = form.querySelector(".preapplication-upload");
+  const readiness = document.createElement("aside");
+  readiness.className = "preapplication-readiness";
+  readiness.innerHTML = '<div class="preapplication-readiness__header"><div><span>Estado del expediente</span><strong>Preparando evaluación</strong></div><output id="preReadinessPercent" aria-live="polite">0%</output></div><div class="preapplication-readiness__bar" aria-hidden="true"><span id="preReadinessBar"></span></div><div class="preapplication-readiness__steps"><span data-readiness-step="control"><i class="fa-solid fa-user-tie"></i> Control</span><span data-readiness-step="client"><i class="fa-solid fa-address-card"></i> Cliente</span><span data-readiness-step="finance"><i class="fa-solid fa-calculator"></i> Financiamiento</span><span data-readiness-step="evidence"><i class="fa-solid fa-id-card"></i> Cédula</span></div><p id="preReadinessHint">Completa los datos marcados para preparar la evaluación.</p>';
+  form.prepend(readiness);
+  uploadSection.innerHTML = '<div class="preapplication-id-heading"><span><i class="fa-regular fa-id-card"></i><b>Cédula para evaluación</b></span><small>Encuadra, amplía o gira la imagen antes de imprimir.</small></div><label class="preapplication-id-picker"><input name="preIdPhoto" type="file" accept="image/*"><i class="fa-solid fa-cloud-arrow-up"></i><span><b>Seleccionar cédula</b><small>JPG, PNG o WEBP</small></span></label><div class="preapplication-id-editor" data-id-editor hidden><canvas id="preIdCanvas" width="760" height="480" aria-label="Editor de imagen de la cédula"></canvas><span class="preapplication-id-guide" aria-hidden="true"></span></div><div class="preapplication-id-controls" data-id-controls hidden><label><span>Ampliación</span><input id="preIdZoom" type="range" min="1" max="3" step="0.05" value="1"></label><div><button type="button" data-id-action="rotate-left" title="Girar a la izquierda"><i class="fa-solid fa-rotate-left"></i><span>Girar</span></button><button type="button" data-id-action="rotate-right" title="Girar a la derecha"><i class="fa-solid fa-rotate-right"></i><span>Girar</span></button><button type="button" data-id-action="flip" title="Voltear horizontalmente"><i class="fa-solid fa-arrows-left-right"></i><span>Voltear</span></button><button type="button" data-id-action="center" title="Restablecer encuadre"><i class="fa-solid fa-expand"></i><span>Ajustar</span></button></div><small>Arrastra la cédula dentro del marco para recortarla. La impresión usará exactamente este encuadre.</small></div>';
+  const provinces = ["Azua", "Bahoruco", "Barahona", "Dajabón", "Distrito Nacional", "Duarte", "Elías Piña", "El Seibo", "Espaillat", "Hato Mayor", "Hermanas Mirabal", "Independencia", "La Altagracia", "La Romana", "La Vega", "María Trinidad Sánchez", "Monseñor Nouel", "Monte Cristi", "Monte Plata", "Pedernales", "Peravia", "Puerto Plata", "Samaná", "San Cristóbal", "San José de Ocoa", "San Juan", "San Pedro de Macorís", "Sánchez Ramírez", "Santiago", "Santiago Rodríguez", "Santo Domingo", "Valverde"];
+  const phoneInput = form.elements.namedItem("preClientPhone");
+  phoneInput.required = true;
+  phoneInput.inputMode = "tel";
+  phoneInput.autocomplete = "tel";
+  const idInput = form.elements.namedItem("preClientId");
+  idInput.inputMode = "numeric";
+  const phoneLabel = phoneInput.closest("label");
+  phoneLabel.childNodes[0].textContent = "Teléfono / WhatsApp ";
+  const addressLabel = form.elements.namedItem("preAddress").closest("label");
+  const provinceLabel = document.createElement("label");
+  provinceLabel.innerHTML = `Provincia <select name="preProvince" required><option value="">Selecciona</option>${provinces.map((province) => `<option>${province}</option>`).join("")}</select>`;
+  const municipalityLabel = document.createElement("label");
+  municipalityLabel.innerHTML = 'Municipio <input name="preMunicipality" required placeholder="Municipio o distrito municipal">';
+  addressLabel.before(provinceLabel, municipalityLabel);
+  const workLabel = form.elements.namedItem("preWork").closest("label");
+  workLabel.childNodes[0].textContent = "Empresa, negocio o actividad ";
+  const incomeTypeLabel = document.createElement("label");
+  incomeTypeLabel.innerHTML = '<span>Fuente principal de ingresos</span><select name="preIncomeType" required><option value="">Selecciona</option><option>Empleado privado</option><option>Empleado público</option><option>Negocio propio</option><option>Independiente</option><option>Pensionado</option><option>Remesas</option><option>Otro</option></select>';
+  const workTimeLabel = document.createElement("label");
+  workTimeLabel.innerHTML = 'Tiempo en la actividad <input name="preWorkTime" required placeholder="Ej. 2 años y 6 meses">';
+  workLabel.before(incomeTypeLabel, workTimeLabel);
+  const incomeLabel = form.elements.namedItem("preIncome").closest("label");
+  incomeLabel.classList.remove("span-two");
+  incomeLabel.childNodes[0].textContent = "Ingreso principal mensual ";
+  const otherIncomeLabel = document.createElement("label");
+  otherIncomeLabel.innerHTML = 'Otros ingresos mensuales <span class="currency-input"><b>RD$</b><input name="preOtherIncome" type="number" min="0" placeholder="0"></span>';
+  incomeLabel.after(otherIncomeLabel);
   const paymentLabel = form.elements.namedItem("prePayment").closest("label");
   const rateLabel = document.createElement("label");
   rateLabel.innerHTML = 'Tasa de interés mensual <span class="currency-input rate-input"><input name="preRate" type="number" min="0" step="0.01" required placeholder="Ej. 3.00"><b>%</b></span>';
   paymentLabel.before(rateLabel);
+  const commitmentsLabel = document.createElement("label");
+  commitmentsLabel.innerHTML = 'Otros compromisos mensuales <span class="currency-input"><b>RD$</b><input name="preExistingPayments" type="text" inputmode="decimal" placeholder="0.00"></span>';
+  rateLabel.before(commitmentsLabel);
   paymentLabel.innerHTML = 'Cuota calculada <span class="currency-input"><b>RD$</b><input name="prePayment" type="text" readonly placeholder="Completa tasa y plazo"></span>';
   const loanType = form.elements.namedItem("preLoanType");
+  const productInput = form.elements.namedItem("preProduct");
+  const productLabel = productInput.closest("label");
+  const purposeLabel = document.createElement("label");
+  purposeLabel.className = "span-two";
+  purposeLabel.innerHTML = 'Destino del crédito <input name="prePurpose" required placeholder="Explica brevemente para qué necesita el financiamiento">';
+  productLabel.after(purposeLabel);
   const loanPlans = {
     "Préstamo personal": { rate: 5, term: 24, text: "Consumo personal · referencia editable" },
     "Préstamo comercial": { rate: 4, term: 36, text: "Capital de trabajo o negocio · referencia editable" },
     "Garantía de vehículo": { rate: 3, term: 36, text: "Crédito con garantía vehicular · referencia editable" },
     "Hipotecario": { rate: 1.5, term: 120, text: "Crédito hipotecario · referencia editable" },
-    "Compra de motocicleta": { rate: 3.5, term: 36, text: "Financiamiento de motocicleta · referencia editable" },
-    "Compra de smartphone": { rate: 5, term: 12, text: "Financiamiento de smartphone · referencia editable" },
-    "Compra de electrodoméstico": { rate: 4, term: 18, text: "Financiamiento de electrodoméstico · referencia editable" }
+    "Compra de pasola o motocicleta": { rate: 3.5, term: 36, text: "Financiamiento de pasola o motocicleta · referencia editable", productLabel: "Descripción de la pasola o motocicleta", placeholder: "Marca, modelo, año, color y condición" },
+    "Compra de celular": { rate: 5, term: 12, text: "Financiamiento de celular · referencia editable", productLabel: "Descripción del celular", placeholder: "Marca, modelo, capacidad, color y condición" },
+    "Compra de electrodoméstico": { rate: 4, term: 18, text: "Financiamiento de electrodoméstico · referencia editable", productLabel: "Descripción del electrodoméstico", placeholder: "Tipo, marca, modelo y condición" }
   };
   loanType.innerHTML = '<option value="">Selecciona el tipo</option>' + Object.keys(loanPlans).map((name) => `<option>${name}</option>`).join("");
   const planNote = document.createElement("p");
   planNote.className = "preapplication-plan-note";
   planNote.innerHTML = '<i class="fa-solid fa-sliders"></i><span>Selecciona un tipo de crédito para proponer la tasa y el plazo de referencia.</span>';
   form.querySelector(".preapplication-finance-grid").before(planNote);
-  const required = ["preDate", "preAdvisor", "preBranch", "preClientName", "preClientId", "preAddress", "preReference1", "preReference2", "preWork", "preIncome", "preLoanType", "preProduct", "preAmount", "preRate", "preTerm"];
-  const moneyFields = ["preIncome", "preAmount", "preInitial", "prePayment"];
+  const required = ["preDate", "preAdvisor", "preBranch", "preClientName", "preClientId", "preClientPhone", "preProvince", "preMunicipality", "preAddress", "preReference1", "preReference2", "preIncomeType", "preWorkTime", "preWork", "preIncome", "preLoanType", "prePurpose", "preAmount", "preRate", "preTerm"];
+  const moneyFields = ["preIncome", "preOtherIncome", "preAmount", "preInitial", "preExistingPayments", "prePayment"];
   let photo = "";
+  let sourcePhoto = null;
+  const photoEditor = { rotation: 0, flip: 1, zoom: 1, x: 0, y: 0, dragging: false, pointerX: 0, pointerY: 0 };
   const value = (name, fallback = "—") => String(form.elements.namedItem(name)?.value || "").trim() || fallback;
   const escape = (text) => String(text ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
   const amount = (raw) => Number(String(raw ?? "").replace(/[^\d,.-]/g, "").replaceAll(",", ""));
   const peso = (raw, fallback = "—") => Number.isFinite(amount(raw)) && String(raw).trim() ? `RD$ ${new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount(raw))}` : fallback;
-  const labels = { preDate: "fecha", preAdvisor: "colaborador", preBranch: "sucursal", preClientName: "nombre", preClientId: "cédula", preAddress: "dirección", preReference1: "referencia 1", preReference2: "referencia 2", preWork: "trabajo", preIncome: "ingresos", preLoanType: "tipo de préstamo", preProduct: "qué desea", preAmount: "monto solicitado", preRate: "tasa de interés mensual", preTerm: "plazo", preIdPhoto: "foto de cédula" };
+  const labels = { preDate: "fecha", preAdvisor: "colaborador", preBranch: "sucursal", preClientName: "nombre", preClientId: "cédula", preClientPhone: "teléfono / WhatsApp", preProvince: "provincia", preMunicipality: "municipio", preAddress: "dirección", preReference1: "referencia 1", preReference2: "referencia 2", preIncomeType: "fuente de ingresos", preWorkTime: "tiempo en la actividad", preWork: "empresa, negocio o actividad", preIncome: "ingreso principal", preLoanType: "tipo de préstamo", prePurpose: "destino del crédito", preProduct: "descripción del bien", preAmount: "monto solicitado", preRate: "tasa de interés mensual", preTerm: "plazo", preIdPhoto: "foto de cédula" };
+
+  const digits = (raw) => String(raw ?? "").replace(/\D/g, "");
+  function documentIsValid() { return digits(value("preClientId", "")).length === 11; }
+  function phoneIsValid() {
+    const phone = digits(value("preClientPhone", ""));
+    return phone.length === 10 || (phone.length === 11 && phone.startsWith("1"));
+  }
+  function sectionComplete(names) { return names.every((name) => Boolean(value(name, ""))); }
+  function updateReadiness() {
+    const conditional = loanPlans[value("preLoanType", "")]?.productLabel ? ["preProduct"] : [];
+    const checklist = [...required, ...conditional];
+    let completed = checklist.filter((name) => Boolean(value(name, ""))).length + (photo ? 1 : 0);
+    if (value("preClientId", "") && !documentIsValid()) completed -= 1;
+    if (value("preClientPhone", "") && !phoneIsValid()) completed -= 1;
+    const total = checklist.length + 1;
+    const percentage = Math.round((completed / total) * 100);
+    const steps = {
+      control: sectionComplete(["preDate", "preAdvisor", "preBranch"]),
+      client: sectionComplete(["preClientName", "preClientId", "preClientPhone", "preProvince", "preMunicipality", "preAddress", "preReference1", "preReference2", "preIncomeType", "preWorkTime", "preWork", "preIncome"]) && documentIsValid() && phoneIsValid(),
+      finance: sectionComplete(["preLoanType", "prePurpose", "preAmount", "preRate", "preTerm", ...conditional]),
+      evidence: Boolean(photo)
+    };
+    document.querySelector("#preReadinessPercent").textContent = `${percentage}%`;
+    document.querySelector("#preReadinessBar").style.width = `${percentage}%`;
+    Object.entries(steps).forEach(([step, complete]) => readiness.querySelector(`[data-readiness-step="${step}"]`).classList.toggle("is-complete", complete));
+    const hint = document.querySelector("#preReadinessHint");
+    readiness.classList.toggle("is-ready", percentage === 100 && Object.values(steps).every(Boolean));
+    hint.textContent = percentage === 100 && Object.values(steps).every(Boolean)
+      ? "Expediente listo para revisar e imprimir."
+      : `${total - completed} ${total - completed === 1 ? "dato pendiente" : "datos pendientes"} para completar la pre-solicitud.`;
+  }
+  function markFormat(input, valid) {
+    input.setAttribute("aria-invalid", String(!valid));
+    input.closest("label")?.classList.toggle("has-format-error", !valid);
+  }
+  function validateFormats(showMessage = false) {
+    const issues = [];
+    const idInput = form.elements.namedItem("preClientId");
+    const clientPhone = form.elements.namedItem("preClientPhone");
+    const validId = documentIsValid();
+    const validPhone = phoneIsValid();
+    markFormat(idInput, validId);
+    markFormat(clientPhone, validPhone);
+    if (!validId) issues.push("la cédula debe tener 11 dígitos");
+    if (!validPhone) issues.push("el teléfono debe tener 10 dígitos");
+    if (showMessage && issues.length) {
+      status.className = "application-status is-error";
+      status.textContent = `Revisa ${issues.join(" y ")}.`;
+    }
+    return issues;
+  }
 
   function reference() { return `PRE-${value("preDate", new Date().toISOString().slice(0, 10)).replaceAll("-", "")}`; }
   function syncReference() { form.elements.namedItem("preReference").value = reference(); }
+  function syncProductField() {
+    const plan = loanPlans[value("preLoanType", "")];
+    const needsDescription = Boolean(plan?.productLabel);
+    productLabel.hidden = !needsDescription;
+    productInput.required = needsDescription;
+    if (needsDescription) {
+      productLabel.childNodes[0].textContent = `${plan.productLabel} `;
+      productInput.placeholder = plan.placeholder;
+    } else {
+      productInput.value = "";
+      productInput.removeAttribute("required");
+    }
+  }
   function applyLoanPlan() {
     const plan = loanPlans[value("preLoanType", "")];
+    syncProductField();
     if (!plan) {
       planNote.innerHTML = '<i class="fa-solid fa-sliders"></i><span>Selecciona un tipo de crédito para proponer la tasa y el plazo de referencia.</span>';
       updateCapacity();
@@ -2912,49 +3424,298 @@ window.selectCotizadorWorkspace = selectWorkspace;
     return { capital, interest, total, payment, rate, term, ready: true };
   }
   function updateCapacity() {
-    const income = amount(value("preIncome", ""));
+    const mainIncome = amount(value("preIncome", "")) || 0;
+    const otherIncome = amount(value("preOtherIncome", "")) || 0;
+    const income = mainIncome + otherIncome;
+    const existingPayments = amount(value("preExistingPayments", "")) || 0;
     const calculation = financing();
     const payment = calculation.payment;
     if (!income || !calculation.ready) {
       capacity.dataset.level = "empty";
       capacity.innerHTML = '<div><i class="fa-solid fa-gauge-high"></i><span>Capacidad automática</span></div><strong>Completa monto, inicial, tasa, plazo e ingresos</strong><small>Interés simple: capital × tasa mensual × plazo. La capacidad recomendada equivale al 35% de los ingresos mensuales.</small>';
+      updateReadiness();
       return;
     }
-    const limit = income * .35;
-    const percentage = Math.round((payment / income) * 100);
-    const state = percentage <= 35 ? "within" : percentage <= 45 ? "review" : "exceeds";
+    const grossLimit = income * .35;
+    const limit = Math.max(grossLimit - existingPayments, 0);
+    const percentage = Math.round(((payment + existingPayments) / income) * 100);
+    const state = payment <= limit ? "within" : payment + existingPayments <= income * .45 ? "review" : "exceeds";
     const label = state === "within" ? "Dentro de capacidad" : state === "review" ? "Revisar cuota" : "Excede capacidad";
     capacity.dataset.level = state;
-    capacity.innerHTML = `<div><i class="fa-solid fa-gauge-high"></i><span>Capacidad automática</span><b>${percentage}%</b></div><strong>${label}</strong><dl><div><dt>Capital financiado</dt><dd>${peso(calculation.capital)}</dd></div><div><dt>Interés simple</dt><dd>${peso(calculation.interest)}</dd></div><div><dt>Total a pagar</dt><dd>${peso(calculation.total)}</dd></div><div><dt>Cuota calculada</dt><dd>${peso(payment)}</dd></div><div><dt>Capacidad (35%)</dt><dd>${peso(limit)}</dd></div><div><dt>Disponible</dt><dd>${peso(Math.max(limit - payment, 0))}</dd></div></dl>`;
+    capacity.innerHTML = `<div><i class="fa-solid fa-gauge-high"></i><span>Capacidad automática</span><b>${percentage}%</b></div><strong>${label}</strong><dl><div><dt>Ingresos evaluados</dt><dd>${peso(income)}</dd></div><div><dt>Capital financiado</dt><dd>${peso(calculation.capital)}</dd></div><div><dt>Interés simple</dt><dd>${peso(calculation.interest)}</dd></div><div><dt>Total a pagar</dt><dd>${peso(calculation.total)}</dd></div><div><dt>Cuota exacta</dt><dd>${peso(payment)}</dd></div><div><dt>Límite 35%</dt><dd>${peso(grossLimit)}</dd></div><div><dt>Compromisos actuales</dt><dd>${peso(existingPayments)}</dd></div><div><dt>Capacidad disponible</dt><dd>${peso(limit)}</dd></div><div><dt>Margen luego de cuota</dt><dd class="${limit - payment < 0 ? "is-negative" : ""}">${peso(limit - payment)}</dd></div></dl>`;
+    updateReadiness();
   }
   function readPhoto() {
-    form.elements.namedItem("preIdPhoto").addEventListener("change", () => {
-      const file = form.elements.namedItem("preIdPhoto").files?.[0];
+    const input = form.elements.namedItem("preIdPhoto");
+    const canvas = document.querySelector("#preIdCanvas");
+    const context = canvas.getContext("2d");
+    const editor = uploadSection.querySelector("[data-id-editor]");
+    const controls = uploadSection.querySelector("[data-id-controls]");
+    const zoom = document.querySelector("#preIdZoom");
+    const resetEditor = () => { photoEditor.rotation = 0; photoEditor.flip = 1; photoEditor.zoom = 1; photoEditor.x = 0; photoEditor.y = 0; zoom.value = "1"; };
+    const draw = () => {
+      if (!sourcePhoto) return;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.fillStyle = "#eef5f8";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      const sideways = Math.abs(photoEditor.rotation / 90) % 2 === 1;
+      const visualWidth = sideways ? sourcePhoto.height : sourcePhoto.width;
+      const visualHeight = sideways ? sourcePhoto.width : sourcePhoto.height;
+      const scale = Math.max(canvas.width / visualWidth, canvas.height / visualHeight) * photoEditor.zoom;
+      context.save();
+      context.translate(canvas.width / 2 + photoEditor.x, canvas.height / 2 + photoEditor.y);
+      context.rotate(photoEditor.rotation * Math.PI / 180);
+      context.scale(photoEditor.flip * scale, scale);
+      context.drawImage(sourcePhoto, -sourcePhoto.width / 2, -sourcePhoto.height / 2);
+      context.restore();
+      photo = canvas.toDataURL("image/jpeg", .94);
+    };
+    input.addEventListener("change", () => {
+      const file = input.files?.[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.addEventListener("load", () => { photo = String(reader.result || ""); const preview = document.querySelector("#preIdPreview"); preview.src = photo; preview.hidden = false; });
+      reader.addEventListener("load", () => {
+        const image = new Image();
+        image.addEventListener("load", () => { sourcePhoto = image; resetEditor(); editor.hidden = false; controls.hidden = false; draw(); updateReadiness(); });
+        image.src = String(reader.result || "");
+      });
       reader.readAsDataURL(file);
     });
+    zoom.addEventListener("input", () => { photoEditor.zoom = Number(zoom.value); draw(); });
+    controls.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-id-action]");
+      if (!button || !sourcePhoto) return;
+      const action = button.dataset.idAction;
+      if (action === "rotate-left") photoEditor.rotation -= 90;
+      if (action === "rotate-right") photoEditor.rotation += 90;
+      if (action === "flip") photoEditor.flip *= -1;
+      if (action === "center") resetEditor();
+      draw();
+    });
+    canvas.addEventListener("pointerdown", (event) => { if (!sourcePhoto) return; photoEditor.dragging = true; photoEditor.pointerX = event.clientX; photoEditor.pointerY = event.clientY; canvas.setPointerCapture(event.pointerId); });
+    canvas.addEventListener("pointermove", (event) => { if (!photoEditor.dragging) return; const box = canvas.getBoundingClientRect(); photoEditor.x += (event.clientX - photoEditor.pointerX) * canvas.width / box.width; photoEditor.y += (event.clientY - photoEditor.pointerY) * canvas.height / box.height; photoEditor.pointerX = event.clientX; photoEditor.pointerY = event.clientY; draw(); });
+    const stopDragging = () => { photoEditor.dragging = false; };
+    canvas.addEventListener("pointerup", stopDragging);
+    canvas.addEventListener("pointercancel", stopDragging);
   }
   function renderPrint() {
     const dateValue = value("preDate", "");
     const date = dateValue ? new Intl.DateTimeFormat("es-DO", { dateStyle: "long" }).format(new Date(`${dateValue}T00:00:00`)) : "—";
     document.querySelector("#prePrintReference").textContent = `${reference()} · ${date}\nSucursal: ${value("preBranch")}`;
-    const client = [["Nombre", value("preClientName")], ["Cédula", value("preClientId")], ["Teléfono", value("preClientPhone")], ["Dirección", value("preAddress")], ["Referencia 1", value("preReference1")], ["Referencia 2", value("preReference2")], ["Trabajo / actividad", value("preWork")], ["Ingresos mensuales", peso(value("preIncome", ""))]].map(([label, content]) => `<div><dt>${escape(label)}</dt><dd>${escape(content)}</dd></div>`).join("");
+    const mainIncome = amount(value("preIncome", "")) || 0;
+    const otherIncome = amount(value("preOtherIncome", "")) || 0;
+    const totalIncome = mainIncome + otherIncome;
+    const client = [["Nombre", value("preClientName")], ["Cédula", value("preClientId")], ["Teléfono / WhatsApp", value("preClientPhone")], ["Provincia", value("preProvince")], ["Municipio", value("preMunicipality")], ["Dirección", value("preAddress")], ["Referencia 1", value("preReference1")], ["Referencia 2", value("preReference2")], ["Fuente de ingresos", value("preIncomeType")], ["Empresa / actividad", value("preWork")], ["Tiempo en la actividad", value("preWorkTime")], ["Ingreso principal", peso(mainIncome)], ["Otros ingresos", otherIncome ? peso(otherIncome) : "No indicados"], ["Ingresos evaluados", peso(totalIncome)]].map(([label, content]) => `<div><dt>${escape(label)}</dt><dd>${escape(content)}</dd></div>`).join("");
     document.querySelector("#prePrintClient").innerHTML = client;
-    const income = amount(value("preIncome", "")); const calculation = financing(); const payment = calculation.payment; const percent = income && payment ? `${Math.round((payment / income) * 100)}% de ingresos` : "—";
-    const finance = [["Tipo", value("preLoanType")], ["Producto", value("preProduct")], ["Monto solicitado", peso(value("preAmount", ""))], ["Inicial", peso(value("preInitial", ""), "No indicado")], ["Capital financiado", peso(calculation.capital)], ["Tasa mensual", calculation.ready ? `${calculation.rate}%` : "—"], ["Plazo", calculation.ready ? `${calculation.term} meses` : "—"], ["Interés simple", peso(calculation.interest)], ["Total a pagar", peso(calculation.total)], ["Cuota calculada", peso(payment)], ["Capacidad (35%)", peso(income * .35)], ["Relación cuota / ingreso", percent]].map(([label, content]) => `<div><dt>${escape(label)}</dt><dd>${escape(content)}</dd></div>`).join("");
-    document.querySelector("#prePrintFinance").innerHTML = finance;
+    const income = totalIncome; const existingPayments = amount(value("preExistingPayments", "")) || 0; const calculation = financing(); const payment = calculation.payment; const ratio = income && payment ? Math.round(((payment + existingPayments) / income) * 100) : 0; const availableCapacity = Math.max(income * .35 - existingPayments, 0); const capacityResult = payment <= availableCapacity ? "DENTRO DE CAPACIDAD" : payment + existingPayments <= income * .45 ? "REQUIERE REVISIÓN" : "EXCEDE CAPACIDAD";
+    const plan = loanPlans[value("preLoanType", "")];
+    const financeRows = [["Tipo", value("preLoanType")], ["Destino del crédito", value("prePurpose")], ...(plan?.productLabel ? [["Bien a financiar", value("preProduct")]] : []), ["Monto solicitado", peso(value("preAmount", ""))], ["Inicial", peso(value("preInitial", ""), "No indicada")], ["Capital financiado", peso(calculation.capital)], ["Tasa mensual", calculation.ready ? `${calculation.rate}%` : "—"], ["Plazo", calculation.ready ? `${calculation.term} meses` : "—"], ["Interés simple", peso(calculation.interest)], ["Total a pagar", peso(calculation.total)], ["Cuota exacta", peso(payment)], ["Compromisos actuales", peso(existingPayments)], ["Capacidad disponible", peso(availableCapacity)], ["Carga total", `${ratio}% de ingresos`]];
+    document.querySelector("#prePrintFinance").innerHTML = financeRows.map(([label, content]) => `<div><dt>${escape(label)}</dt><dd>${escape(content)}</dd></div>`).join("");
+    let printCapacity = document.querySelector("#prePrintCapacityResult");
+    if (!printCapacity) { printCapacity = document.createElement("aside"); printCapacity.id = "prePrintCapacityResult"; document.querySelector("#prePrintFinance").after(printCapacity); }
+    printCapacity.dataset.level = capacityResult === "DENTRO DE CAPACIDAD" ? "within" : capacityResult === "REQUIERE REVISIÓN" ? "review" : "exceeds";
+    printCapacity.innerHTML = `<span>Resultado automático</span><strong>${capacityResult}</strong><b>Cuota ${peso(payment)} · capacidad ${peso(availableCapacity)}</b>`;
     document.querySelector(".preapplication-print-decision").innerHTML = '<h2>Decisión del gerente <small>Marcar manualmente</small></h2><div class="preapplication-print-checklist"><span>☐ Proceder</span><span>☐ Proceder bajo condiciones</span><span>☐ Rechazar</span></div><p class="preapplication-print-conditions"><b>Condiciones, modificaciones o motivo:</b><span></span><span></span></p>';
     document.querySelector("#prePrintAdvisor").textContent = value("preAdvisor");
     const figure = document.querySelector("#prePrintPhotoFigure"); figure.hidden = !photo; if (photo) document.querySelector("#prePrintPhoto").src = photo;
   }
   function printPreApplication() {
     const missing = required.filter((name) => !value(name, ""));
+    if (loanPlans[value("preLoanType", "")]?.productLabel && !value("preProduct", "")) missing.push("preProduct");
     if (!photo) missing.push("preIdPhoto");
     if (missing.length) { status.className = "application-status is-error"; status.textContent = `Antes de imprimir completa: ${missing.map((name) => labels[name]).join(", ")}.`; const first = form.elements.namedItem(missing[0]); (first instanceof RadioNodeList ? first[0] : first)?.focus(); return; }
+    const formatIssues = validateFormats(true);
+    if (formatIssues.length) {
+      const firstInvalid = form.querySelector('[aria-invalid="true"]');
+      firstInvalid?.focus();
+      return;
+    }
     renderPrint(); status.className = "application-status is-success"; status.textContent = "Pre-solicitud preparada para impresión."; document.body.dataset.printTarget = "preapplication"; window.print();
   }
-  function clearPreApplication() { form.reset(); photo = ""; const preview = document.querySelector("#preIdPreview"); preview.removeAttribute("src"); preview.hidden = true; form.elements.namedItem("preDate").value = new Date().toISOString().slice(0, 10); syncReference(); applyLoanPlan(); updateCapacity(); status.className = "application-status"; status.textContent = "Pre-solicitud limpia. Los datos no se guardan en el navegador."; }
-  setupMoney(); readPhoto(); form.elements.namedItem("preDate").value = new Date().toISOString().slice(0, 10); syncReference(); updateCapacity(); form.elements.namedItem("preDate").addEventListener("change", syncReference); loanType.addEventListener("change", applyLoanPlan); form.addEventListener("input", updateCapacity); form.addEventListener("submit", (event) => event.preventDefault()); printButton.addEventListener("click", printPreApplication); clearButton.addEventListener("click", clearPreApplication);
+  function clearPreApplication() { form.reset(); photo = ""; sourcePhoto = null; uploadSection.querySelector("[data-id-editor]").hidden = true; uploadSection.querySelector("[data-id-controls]").hidden = true; form.querySelectorAll('[aria-invalid="true"]').forEach((input) => input.removeAttribute("aria-invalid")); form.querySelectorAll(".has-format-error").forEach((label) => label.classList.remove("has-format-error")); form.elements.namedItem("preDate").value = new Date().toISOString().slice(0, 10); syncReference(); applyLoanPlan(); updateCapacity(); status.className = "application-status"; status.textContent = "Pre-solicitud limpia. Los datos no se guardan en el navegador."; }
+  setupMoney();
+  readPhoto();
+  form.elements.namedItem("preDate").value = new Date().toISOString().slice(0, 10);
+  syncReference();
+  updateCapacity();
+  form.elements.namedItem("preDate").addEventListener("change", syncReference);
+  loanType.addEventListener("change", applyLoanPlan);
+  form.addEventListener("input", (event) => {
+    if (["preClientId", "preClientPhone"].includes(event.target.name)) {
+      event.target.removeAttribute("aria-invalid");
+      event.target.closest("label")?.classList.remove("has-format-error");
+    }
+    updateCapacity();
+  });
+  form.addEventListener("focusout", (event) => {
+    if (event.target.name === "preClientId") markFormat(event.target, documentIsValid());
+    if (event.target.name === "preClientPhone") markFormat(event.target, phoneIsValid());
+  });
+  form.addEventListener("submit", (event) => event.preventDefault());
+  printButton.addEventListener("click", printPreApplication);
+  clearButton.addEventListener("click", clearPreApplication);
+}
+
+// Pre-solicitud V3: evaluación compacta de solicitante y codeudor.
+(() => {
+  const form = document.querySelector("#preApplicationForm");
+  const report = document.querySelector("#preApplicationPrintReport");
+  const core = window.PreApplicationCore;
+  if (!form || !report || !core) return;
+
+  form.className = "preapplication-form preapplication-v3-form";
+  form.innerHTML = `
+    <section class="preapplication-v3-section preapplication-v3-operation">
+      <div class="preapplication-v3-heading"><span>01</span><div><p>Operación</p><h3>Condiciones del crédito</h3></div><em>Cuota calculada con interés simple</em></div>
+      <div class="preapplication-v3-meta">
+        <label>Fecha <input name="preDate" type="date" required></label>
+        <label>Colaborador <input name="preAdvisor" required placeholder="Nombre del colaborador"></label>
+        <label>Referencia <input name="preReference" readonly></label>
+      </div>
+      <div class="preapplication-v3-operation-grid">
+        <label>Operación <select name="preOperationType" required><option value="">Selecciona</option><option>Préstamo personal</option><option>Préstamo comercial</option><option>Préstamo con garantía</option><option>Préstamo hipotecario</option><option>Financiamiento de motocicleta</option><option>Financiamiento de celular</option><option>Financiamiento de electrodoméstico</option><option>Otro</option></select></label>
+        <label class="span-two">¿Para qué necesita el crédito? <input name="prePurpose" required placeholder="Describe el destino del dinero"></label>
+        <label>Monto solicitado <span class="currency-input"><b>RD$</b><input name="preAmount" inputmode="decimal" required placeholder="0.00"></span></label>
+        <label>Tasa mensual <span class="preapplication-v3-suffix"><input name="preRate" type="number" min="0" step="0.01" required placeholder="3"><b>%</b></span></label>
+        <label>Plazo <span class="preapplication-v3-suffix"><input name="preTerm" type="number" min="1" step="1" required placeholder="12"><b>meses</b></span></label>
+        <label class="preapplication-v3-payment">Cuota estimada <input name="prePayment" readonly placeholder="RD$ 0.00"><small>Sujeta a revisión y cambios.</small></label>
+      </div>
+      <div class="preapplication-v3-calculation" aria-live="polite"><span>Intereses estimados <b id="preV3Interest">RD$ 0.00</b></span><span>Total estimado <b id="preV3Total">RD$ 0.00</b></span><small>Método: monto + interés simple mensual durante el plazo.</small></div>
+    </section>
+
+    <div class="preapplication-v3-parties">
+      <section class="preapplication-v3-section preapplication-v3-party preapplication-v3-applicant">
+        <div class="preapplication-v3-heading"><span>02</span><div><p>Solicitante</p><h3>Información personal</h3></div></div>
+        <div class="preapplication-v3-person-grid">
+          <label>Nombre <input name="preApplicantFirstName" required></label><label>Apellido <input name="preApplicantLastName" required></label>
+          <label>Cédula <input name="preApplicantIdNumber" inputmode="numeric" required placeholder="000-0000000-0"></label><label>Teléfono <input name="preApplicantPhone" type="tel" required placeholder="809-000-0000"></label>
+          <label class="span-two">Dirección específica <input name="preApplicantAddress" required placeholder="Calle, número, sector y ciudad"></label>
+          <label>Referencia de ubicación 1 <input name="preApplicantLandmark1" required placeholder="Ej. frente a la escuela"></label><label>Referencia de ubicación 2 <input name="preApplicantLandmark2" required placeholder="Ej. detrás del colmado"></label>
+          <label class="span-two">Data Crédito <textarea name="preApplicantDataReport" required placeholder="Escribe lo que respondieron en Data Crédito"></textarea></label>
+        </div>
+        <label class="preapplication-v3-id-upload"><input name="preApplicantIdPhoto" type="file" accept="image/*"><span><i class="fa-regular fa-id-card"></i><b>Anexar cédula del solicitante</b><small>La imagen se mostrará grande en la hoja.</small></span><img id="preApplicantIdPreview" alt="Cédula del solicitante" hidden></label>
+      </section>
+
+      <section class="preapplication-v3-section preapplication-v3-party preapplication-v3-codebtor is-disabled">
+        <div class="preapplication-v3-heading"><span>03</span><div><p>Codeudor</p><h3>Información personal</h3></div><label class="preapplication-v3-switch"><input name="preHasCoDebtor" type="checkbox"><span></span><b>Agregar</b></label></div>
+        <div class="preapplication-v3-person-grid" data-codebtor-fields>
+          <label>Nombre <input name="preCoDebtorFirstName"></label><label>Apellido <input name="preCoDebtorLastName"></label>
+          <label>Cédula <input name="preCoDebtorIdNumber" inputmode="numeric" placeholder="000-0000000-0"></label><label>Teléfono <input name="preCoDebtorPhone" type="tel" placeholder="809-000-0000"></label>
+          <label class="span-two">Dirección específica <input name="preCoDebtorAddress" placeholder="Calle, número, sector y ciudad"></label>
+          <label>Referencia de ubicación 1 <input name="preCoDebtorLandmark1" placeholder="Ej. frente a la escuela"></label><label>Referencia de ubicación 2 <input name="preCoDebtorLandmark2" placeholder="Ej. detrás del colmado"></label>
+          <label class="span-two">Data Crédito <textarea name="preCoDebtorDataReport" placeholder="Escribe lo que respondieron en Data Crédito"></textarea></label>
+        </div>
+        <label class="preapplication-v3-id-upload" data-codebtor-upload><input name="preCoDebtorIdPhoto" type="file" accept="image/*"><span><i class="fa-regular fa-id-card"></i><b>Anexar cédula del codeudor</b><small>Activa “Agregar” para completar esta parte.</small></span><img id="preCoDebtorIdPreview" alt="Cédula del codeudor" hidden></label>
+      </section>
+    </div>
+
+    <section class="preapplication-v3-section preapplication-v3-decision">
+      <div class="preapplication-v3-heading"><span>04</span><div><p>Resultado</p><h3>Decisión de la evaluación</h3></div></div>
+      <div class="preapplication-v3-decision-options" role="radiogroup" aria-label="Decisión de la evaluación">
+        <label><input name="preDecision" type="radio" value="Aprobado"><span><i class="fa-solid fa-circle-check"></i><b>Aprobado</b></span></label>
+        <label><input name="preDecision" type="radio" value="Rechazado"><span><i class="fa-solid fa-circle-xmark"></i><b>Rechazado</b></span></label>
+        <label><input name="preDecision" type="radio" value="Aprobado con observaciones"><span><i class="fa-solid fa-message"></i><b>Aprobado con observaciones</b></span></label>
+      </div>
+      <div class="preapplication-v3-decision-detail"><label>Observaciones <textarea name="preDecisionObservations" placeholder="Escribe condiciones, motivos o notas de la decisión"></textarea></label><label>Evaluado por <input name="preDecisionOfficer" placeholder="Nombre de quien evalúa"></label></div>
+      <div class="preapplication-v3-actions"><p class="application-status" id="preApplicationStatus" aria-live="polite">Completa la operación y los datos del solicitante.</p><button class="quiet-btn" id="clearPreApplicationBtn" type="button"><i class="fa-solid fa-eraser"></i> Limpiar</button><button class="primary-btn" id="printPreApplicationBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir una hoja</button></div>
+    </section>`;
+
+  const field = (name) => form.elements.namedItem(name);
+  const value = (name) => String(field(name)?.value || "").trim();
+  const escapeHtml = (text) => String(text ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
+  const formatMoney = (amount) => new Intl.NumberFormat("es-DO", { style: "currency", currency: "DOP", minimumFractionDigits: 2 }).format(Number(amount) || 0).replace("DOP", "RD$");
+  const parseAmount = (text) => Number(String(text || "").replace(/[^0-9.-]/g, ""));
+  const status = document.querySelector("#preApplicationStatus");
+  const photos = { applicant: "", coDebtor: "" };
+  let calculation = null;
+
+  const partyNames = {
+    applicant: { firstName: "preApplicantFirstName", lastName: "preApplicantLastName", idNumber: "preApplicantIdNumber", phone: "preApplicantPhone", address: "preApplicantAddress", landmark1: "preApplicantLandmark1", landmark2: "preApplicantLandmark2", dataReport: "preApplicantDataReport" },
+    coDebtor: { firstName: "preCoDebtorFirstName", lastName: "preCoDebtorLastName", idNumber: "preCoDebtorIdNumber", phone: "preCoDebtorPhone", address: "preCoDebtorAddress", landmark1: "preCoDebtorLandmark1", landmark2: "preCoDebtorLandmark2", dataReport: "preCoDebtorDataReport" }
+  };
+  const readParty = (key) => Object.fromEntries(Object.entries(partyNames[key]).map(([property, name]) => [property, value(name)]));
+
+  function makeReference() {
+    const date = value("preDate").replaceAll("-", "") || new Date().toISOString().slice(0, 10).replaceAll("-", "");
+    field("preReference").value = `PRE-${date}`;
+  }
+  function updateCalculation() {
+    calculation = core.calculateOperation({ amount: parseAmount(value("preAmount")), monthlyRate: Number(value("preRate")), months: Number(value("preTerm")) });
+    field("prePayment").value = calculation ? formatMoney(calculation.installment) : "";
+    document.querySelector("#preV3Interest").textContent = formatMoney(calculation?.interest);
+    document.querySelector("#preV3Total").textContent = formatMoney(calculation?.total);
+  }
+  function toggleCoDebtor() {
+    const active = field("preHasCoDebtor").checked;
+    const section = form.querySelector(".preapplication-v3-codebtor");
+    section.classList.toggle("is-disabled", !active);
+    section.querySelectorAll("input:not([name='preHasCoDebtor']), textarea").forEach((input) => { input.disabled = !active; input.required = active && input.type !== "file"; });
+  }
+  function loadPhoto(inputName, previewId, key) {
+    const input = field(inputName);
+    input.addEventListener("change", () => {
+      const file = input.files?.[0];
+      const preview = document.querySelector(`#${previewId}`);
+      if (!file) { photos[key] = ""; preview.hidden = true; preview.removeAttribute("src"); return; }
+      const reader = new FileReader();
+      reader.onload = () => { photos[key] = String(reader.result); preview.src = photos[key]; preview.hidden = false; };
+      reader.readAsDataURL(file);
+    });
+  }
+  function clearErrors() { form.querySelectorAll('[aria-invalid="true"]').forEach((input) => input.removeAttribute("aria-invalid")); }
+  function markError(name) { field(name)?.setAttribute("aria-invalid", "true"); }
+  function validate() {
+    clearErrors();
+    const messages = [];
+    ["preDate", "preAdvisor", "preOperationType", "prePurpose", "preAmount", "preRate", "preTerm"].forEach((name) => { if (!value(name)) { markError(name); messages.push("Completa todos los datos de la operación."); } });
+    if (!calculation) messages.push("Revisa el monto, la tasa y el plazo.");
+    const hasCoDebtor = field("preHasCoDebtor").checked;
+    const people = core.validateApplication({ applicant: readParty("applicant"), hasCoDebtor, coDebtor: readParty("coDebtor") });
+    Object.keys(people.errors.applicant).forEach((key) => markError(partyNames.applicant[key]));
+    Object.keys(people.errors.coDebtor).forEach((key) => markError(partyNames.coDebtor[key]));
+    if (!people.valid) messages.push("Revisa los datos del solicitante y del codeudor.");
+    if (!photos.applicant) { markError("preApplicantIdPhoto"); messages.push("Anexa la cédula del solicitante."); }
+    if (hasCoDebtor && !photos.coDebtor) { markError("preCoDebtorIdPhoto"); messages.push("Anexa la cédula del codeudor."); }
+    const decision = core.validateDecision({ decision: value("preDecision"), observations: value("preDecisionObservations") });
+    if (!decision.valid) { messages.push(Object.values(decision.errors)[0]); if (decision.errors.observations) markError("preDecisionObservations"); }
+    if (!value("preDecisionOfficer")) { markError("preDecisionOfficer"); messages.push("Indica quién realizó la evaluación."); }
+    return [...new Set(messages)];
+  }
+  const infoRows = (party) => `<dl><div><dt>Nombre</dt><dd>${escapeHtml(`${party.firstName} ${party.lastName}`)}</dd></div><div><dt>Cédula</dt><dd>${escapeHtml(party.idNumber)}</dd></div><div><dt>Teléfono</dt><dd>${escapeHtml(party.phone)}</dd></div><div class="wide"><dt>Dirección</dt><dd>${escapeHtml(party.address)}</dd></div><div><dt>Ubicación 1</dt><dd>${escapeHtml(party.landmark1)}</dd></div><div><dt>Ubicación 2</dt><dd>${escapeHtml(party.landmark2)}</dd></div><div class="wide data"><dt>Data Crédito</dt><dd>${escapeHtml(party.dataReport)}</dd></div></dl>`;
+  function renderPrint() {
+    const hasCoDebtor = field("preHasCoDebtor").checked;
+    const applicant = readParty("applicant");
+    const coDebtor = readParty("coDebtor");
+    const decision = value("preDecision");
+    report.innerHTML = `<article class="preapplication-v3-print-sheet">
+      <header><div class="preapplication-v3-print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><div><small>Centro de financiamiento · uso interno</small><h1>PRE-SOLICITUD DE CRÉDITO</h1></div></div><p><b>${escapeHtml(value("preReference"))}</b><span>${escapeHtml(value("preDate"))}</span><span>${escapeHtml(value("preAdvisor"))}</span></p></header>
+      <section class="preapplication-v3-print-operation"><div><small>Operación</small><b>${escapeHtml(value("preOperationType"))}</b></div><div class="purpose"><small>Destino</small><b>${escapeHtml(value("prePurpose"))}</b></div><div><small>Monto</small><b>${formatMoney(calculation.amount)}</b></div><div><small>Tasa / plazo</small><b>${escapeHtml(value("preRate"))}% · ${escapeHtml(value("preTerm"))} meses</b></div><div class="payment"><small>Cuota estimada*</small><b>${formatMoney(calculation.installment)}</b></div><p>*Interés simple mensual. Resultado sujeto a revisión y cambios. Intereses: ${formatMoney(calculation.interest)} · Total: ${formatMoney(calculation.total)}</p></section>
+      <div class="preapplication-v3-print-people${hasCoDebtor ? "" : " is-single"}"><section><h2>Solicitante</h2>${infoRows(applicant)}</section>${hasCoDebtor ? `<section><h2>Codeudor</h2>${infoRows(coDebtor)}</section>` : ""}</div>
+      <div class="preapplication-v3-print-ids${hasCoDebtor ? "" : " is-single"}"><figure><img src="${photos.applicant}" alt="Cédula del solicitante"><figcaption>Cédula del solicitante</figcaption></figure>${hasCoDebtor ? `<figure><img src="${photos.coDebtor}" alt="Cédula del codeudor"><figcaption>Cédula del codeudor</figcaption></figure>` : ""}</div>
+      <footer><div class="preapplication-v3-print-decision"><small>Resultado de evaluación</small><b>${escapeHtml(decision)}</b><p>${escapeHtml(value("preDecisionObservations") || "Sin observaciones adicionales.")}</p></div><div class="preapplication-v3-print-signature"><span></span><small>Evaluado por</small><b>${escapeHtml(value("preDecisionOfficer"))}</b></div></footer>
+    </article>`;
+  }
+  function printSheet() {
+    const errors = validate();
+    if (errors.length) { status.className = "application-status is-error"; status.textContent = errors.join(" "); form.querySelector('[aria-invalid="true"]')?.focus(); return; }
+    renderPrint(); status.className = "application-status is-success"; status.textContent = "Pre-solicitud lista para imprimir en una sola hoja."; document.body.dataset.printTarget = "preapplication-v3"; window.print();
+  }
+  function resetForm() {
+    form.reset(); photos.applicant = ""; photos.coDebtor = ""; form.querySelectorAll(".preapplication-v3-id-upload img").forEach((image) => { image.hidden = true; image.removeAttribute("src"); });
+    field("preDate").value = new Date().toISOString().slice(0, 10); field("preRate").value = "3"; clearErrors(); makeReference(); toggleCoDebtor(); updateCalculation(); status.className = "application-status"; status.textContent = "Formulario limpio. Los datos no se guardan en el navegador.";
+  }
+
+  field("preDate").value = new Date().toISOString().slice(0, 10);
+  field("preRate").value = "3";
+  makeReference(); toggleCoDebtor(); updateCalculation();
+  loadPhoto("preApplicantIdPhoto", "preApplicantIdPreview", "applicant");
+  loadPhoto("preCoDebtorIdPhoto", "preCoDebtorIdPreview", "coDebtor");
+  field("preDate").addEventListener("change", makeReference);
+  ["preAmount", "preRate", "preTerm"].forEach((name) => field(name).addEventListener("input", updateCalculation));
+  field("preHasCoDebtor").addEventListener("change", toggleCoDebtor);
+  form.addEventListener("input", (event) => event.target.removeAttribute?.("aria-invalid"));
+  form.addEventListener("submit", (event) => event.preventDefault());
+  document.querySelector("#printPreApplicationBtn").addEventListener("click", printSheet);
+  document.querySelector("#clearPreApplicationBtn").addEventListener("click", resetForm);
+  window.addEventListener("afterprint", () => { if (document.body.dataset.printTarget === "preapplication-v3") delete document.body.dataset.printTarget; });
 })();

@@ -3,40 +3,100 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#073a61">
     <title>Cotizador M&M</title>
+    <link rel="manifest" href="app.webmanifest">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="menu-empresarial.css">
-    <link rel="stylesheet" href="calculadora-express.css">
+    <link rel="stylesheet" href="styles.css?v=20261012-quoteux1">
+  <link rel="stylesheet" href="pagare-notarial.css?v=20261015-layout6">
+    <link rel="stylesheet" href="menu-empresarial.css?v=20261012-quoteux1">
+    <link rel="stylesheet" href="calculadora-express.css?v=20261005-dashboard2">
+    <link rel="stylesheet" href="quote-reference.css?v=20261012-reference1">
+    <link rel="stylesheet" href="pagare-privado.css?v=20261013-1">
+    <link rel="stylesheet" href="ultimate-ui.css?v=20261013-1">
+    <link rel="stylesheet" href="operation-workbench.css?v=20261013-1">
   </head>
   <body>
+    <a class="skip-link" href="#workspaceMenu">Saltar al contenido principal</a>
     <main class="app-shell">
       <header class="app-header">
         <div class="brand-lockup" aria-label="M&M Inversiones y VegaMotors">
           <img src="LOGO%20M%26M.png" alt="M&M Inversiones">
+          <span class="brand-wordmark" aria-hidden="true"><b>M&amp;M</b><small>INVERSIONES</small></span>
           <span class="brand-divider"></span>
           <img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors">
         </div>
         <h1>Centro de financiamiento</h1>
+        <nav class="quote-header-flow" id="quoteHeaderFlow" aria-label="Etapas de la cotización">
+          <button class="active" type="button" data-header-quote-step="0"><b>1</b><span>Operación<small>Datos de la cotización</small></span></button>
+          <i aria-hidden="true"></i>
+          <button type="button" data-header-quote-step="1"><b>2</b><span>Condiciones<small>Plazo y tasa</small></span></button>
+          <i aria-hidden="true"></i>
+          <button type="button" data-header-quote-step="2"><b>3</b><span>Resultado<small>Plan de pagos</small></span></button>
+        </nav>
         <div class="header-actions">
           <button class="quiet-btn" id="workspaceHomeBtn" type="button" hidden><i class="fa-solid fa-house"></i> Inicio</button>
           <a class="application-btn" id="applicationEntryBtn" href="#creditApplication" hidden><i class="fa-solid fa-file-circle-plus"></i><span>Nueva solicitud</span></a>
-          <button class="quiet-btn" id="newQuoteBtn" type="button" hidden><i class="fa-solid fa-rotate-left"></i> Nueva</button>
-          <button class="primary-btn" id="printBtn" type="button" hidden><i class="fa-solid fa-file-pdf"></i> PDF / imprimir</button>
+          <button class="quiet-btn" id="newQuoteBtn" type="button" hidden><i class="fa-regular fa-file-lines"></i> Nueva cotización</button>
+          <button class="quiet-btn quote-header-settings" id="quoteHeaderSettingsBtn" type="button" hidden><i class="fa-solid fa-gear"></i> Configuración</button>
+          <button class="primary-btn" id="printBtn" type="button" hidden><i class="fa-solid fa-table-list"></i> Ver plan de pagos</button>
         </div>
       </header>
+
+      <section class="daily-dashboard" id="dailyDashboard" aria-labelledby="dailyDashboardTitle">
+        <div class="daily-dashboard__brief">
+          <div class="daily-dashboard__calendar" aria-hidden="true"><span id="dailyDayNumber">--</span><small id="dailyMonthShort">---</small></div>
+          <div class="daily-dashboard__heading">
+            <span class="daily-dashboard__eyebrow"><i class="fa-solid fa-sun" aria-hidden="true"></i> Panel del día</span>
+            <h2 id="dailyDashboardTitle">Jornada de consulta</h2>
+            <p id="dailyFullDate">Actividad temporal de esta sesión</p>
+          </div>
+          <span class="daily-dashboard__status"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Centro listo</span>
+        </div>
+
+        <div class="daily-dashboard__metrics" aria-label="Actividad temporal de la sesión">
+          <article>
+            <span><i class="fa-solid fa-bolt" aria-hidden="true"></i> Consultas rápidas</span>
+            <strong id="dailyExpressCount" aria-live="polite">0</strong>
+            <small>Cuotas calculadas</small>
+          </article>
+          <article>
+            <span><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Cotizaciones</span>
+            <strong id="dailyQuoteCount" aria-live="polite">0</strong>
+            <small>Llevadas a revisión</small>
+          </article>
+          <article>
+            <span><i class="fa-solid fa-print" aria-hidden="true"></i> Impresiones</span>
+            <strong id="dailyPrintCount" aria-live="polite">0</strong>
+            <small>Preparadas hoy</small>
+          </article>
+        </div>
+
+        <div class="daily-dashboard__footer">
+          <p><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span><b>Sesión temporal.</b> Los contadores vuelven a cero al actualizar o cerrar.</span></p>
+          <button class="daily-dashboard__action" type="button" data-workspace-target="quote">Abrir cotizador <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </section>
 
       <section class="express-calculator" aria-labelledby="expressCalculatorTitle">
         <div class="express-calculator__intro">
           <span class="express-calculator__eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Cálculo rápido</span>
           <h2 id="expressCalculatorTitle">Cuota exprés</h2>
-          <p>Obtén una cuota aproximada con interés simple fijo, sin preparar una cotización completa.</p>
+          <p>Evalúa una operación en segundos antes de preparar la cotización completa.</p>
         </div>
 
         <form class="express-calculator__form" id="expressCalculatorForm">
+          <label class="express-field express-field--type">
+            <span>Tipo de financiamiento</span>
+            <select id="expressProductType"><option>Préstamo personal</option><option>Préstamo comercial</option><option>Préstamo prendario</option><option>Smartphone</option><option>Electrodoméstico</option><option selected>Motocicleta</option></select>
+          </label>
           <label class="express-field express-field--amount">
-            <span>Monto a financiar</span>
-            <span class="express-money-input"><b>RD$</b><input id="expressAmount" type="number" min="0" step="500" value="50000" required inputmode="decimal"></span>
+            <span>Monto o precio</span>
+            <span class="express-money-input"><b>RD$</b><input id="expressAmount" type="number" min="0" step="500" value="60000" required inputmode="decimal"></span>
+          </label>
+          <label class="express-field express-field--down">
+            <span>Inicial</span>
+            <span class="express-money-input"><b>RD$</b><input id="expressDownPayment" type="number" min="0" step="500" value="10000" required inputmode="decimal"></span>
           </label>
           <label class="express-field">
             <span>Plazo en meses</span>
@@ -55,6 +115,7 @@
             </div>
           </fieldset>
           <button class="express-calculator__submit" type="submit"><i class="fa-solid fa-calculator" aria-hidden="true"></i> Calcular cuota</button>
+          <output class="express-financed" id="expressFinanced">A financiar: RD$50,000.00</output>
         </form>
 
         <output class="express-result" id="expressResult" aria-live="polite">
@@ -68,24 +129,46 @@
 
       <section class="workspace-menu" id="workspaceMenu" aria-label="Menú principal">
         <div class="workspace-menu-intro"><span>Herramientas M&M · VegaMotors</span><h2>Centro de operaciones</h2><p>Selecciona la tarea que vas a realizar. Cada área agrupa las herramientas de una misma etapa.</p></div>
-        <nav class="workspace-menu-nav" aria-label="Áreas de trabajo"><a href="#commercialToolsTitle"><i class="fa-solid fa-chart-line"></i> Comercial</a><a href="#fieldToolsTitle"><i class="fa-solid fa-briefcase"></i> Campo</a><a href="#formalToolsTitle"><i class="fa-solid fa-file-signature"></i> Formalización</a><a href="#controlToolsTitle"><i class="fa-solid fa-money-bill-transfer"></i> Control</a></nav>
+        <nav class="workspace-menu-nav" aria-label="Áreas de trabajo"><a href="#commercialToolsTitle"><i class="fa-solid fa-chart-line"></i> Cotizar y solicitar</a><a href="#fieldToolsTitle"><i class="fa-solid fa-briefcase"></i> Verificar en campo</a><a href="#formalToolsTitle"><i class="fa-solid fa-file-signature"></i> Formalizar</a><a href="#controlToolsTitle"><i class="fa-solid fa-money-bill-transfer"></i> Cobrar y controlar</a></nav>
         <div class="workspace-menu-tools"><label class="workspace-menu-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="workspaceMenuSearch" type="search" autocomplete="off" placeholder="Buscar herramienta o formulario" aria-label="Buscar herramienta o formulario"></label><span id="workspaceMenuSearchStatus" aria-live="polite">Selecciona un área o busca una herramienta.</span></div>
         <div class="workspace-menu-sections">
-          <section class="workspace-menu-section workspace-menu-section--commercial" aria-labelledby="commercialToolsTitle"><header><span><i class="fa-solid fa-chart-line"></i> Negocio y crédito</span><h3 id="commercialToolsTitle">Preparación comercial</h3><p>Desde la primera consulta hasta la solicitud de crédito.</p></header><div class="workspace-menu-cards" id="commercialMenuCards"><button class="workspace-choice" type="button" data-workspace-target="quote"><span><i class="fa-solid fa-calculator"></i></span><b>Cotizador de pagos</b><small>Calcula cuotas, intereses, plazos y planes de pago.</small><em>Entrar al cotizador <i class="fa-solid fa-arrow-right"></i></em></button><a class="workspace-choice workspace-choice--motorcycle-quote" href="cotizacion-motocicletas.html"><span><i class="fa-solid fa-motorcycle"></i></span><b>Cotización de motocicletas</b><small>Prepara una propuesta de contado o financiada para imprimir.</small><em>Crear cotización <i class="fa-solid fa-arrow-right"></i></em></a><button class="workspace-choice" type="button" data-workspace-target="application"><span><i class="fa-solid fa-file-signature"></i></span><b>Solicitudes</b><small>Completa, verifica, imprime o exporta una solicitud de crédito.</small><em>Nueva solicitud <i class="fa-solid fa-arrow-right"></i></em></button></div></section>
-          <section class="workspace-menu-section workspace-menu-section--field" aria-labelledby="fieldToolsTitle"><header><span><i class="fa-solid fa-briefcase"></i> Gestión operativa</span><h3 id="fieldToolsTitle">Campo, control y documentación</h3><p>Fichas y comprobantes para dar seguimiento a cada gestión.</p></header><div class="workspace-menu-cards" id="fieldMenuCards"><button class="workspace-choice workspace-choice--evaluation" type="button" data-workspace-target="evaluation"><span><i class="fa-solid fa-clipboard-check"></i></span><b>Visita de evaluación</b><small>Verifica vivienda, trabajo y referencias antes de decidir.</small><em>Abrir ficha <i class="fa-solid fa-arrow-right"></i></em></button><button class="workspace-choice workspace-choice--delivery" type="button" data-workspace-target="delivery"><span><i class="fa-solid fa-file-circle-check"></i></span><b>Entrega de documentos</b><small>Genera constancia de entrega de placa, matrícula o ambos.</small><em>Generar constancia <i class="fa-solid fa-arrow-right"></i></em></button></div></section>
+          <section class="workspace-menu-section workspace-menu-section--commercial" aria-labelledby="commercialToolsTitle">
+            <header><span><i class="fa-solid fa-chart-line"></i> Negocio y crédito</span><h3 id="commercialToolsTitle">Preparación comercial</h3><p>Desde la primera consulta hasta la solicitud de crédito.</p></header>
+            <div class="workspace-menu-cards" id="commercialMenuCards">
+              <button class="workspace-choice" type="button" data-tool-label="Cálculo" data-workspace-target="quote"><span><i class="fa-solid fa-calculator"></i></span><b>Cotizador de pagos</b><small>Calcula cuotas, intereses, plazos y planes de pago.</small><em>Entrar al cotizador <i class="fa-solid fa-arrow-right"></i></em></button>
+              <a class="workspace-choice workspace-choice--motorcycle-quote" data-tool-label="Propuesta" href="cotizacion-motocicletas.html"><span><i class="fa-solid fa-motorcycle"></i></span><b>Cotización de motocicletas</b><small>Prepara una propuesta de contado o financiada para imprimir.</small><em>Crear cotización <i class="fa-solid fa-arrow-right"></i></em></a>
+              <button class="workspace-choice" type="button" data-tool-label="Expediente" data-workspace-target="application"><span><i class="fa-solid fa-file-signature"></i></span><b>Solicitudes</b><small>Completa, verifica, imprime o exporta una solicitud de crédito.</small><em>Nueva solicitud <i class="fa-solid fa-arrow-right"></i></em></button>
+            </div>
+          </section>
+          <section class="workspace-menu-section workspace-menu-section--field" aria-labelledby="fieldToolsTitle">
+            <header><span><i class="fa-solid fa-briefcase"></i> Gestión operativa</span><h3 id="fieldToolsTitle">Campo, control y documentación</h3><p>Fichas y comprobantes para dar seguimiento a cada gestión.</p></header>
+            <div class="workspace-menu-cards" id="fieldMenuCards">
+              <button class="workspace-choice workspace-choice--evaluation" type="button" data-tool-label="Verificación" data-workspace-target="evaluation"><span><i class="fa-solid fa-clipboard-check"></i></span><b>Visita de evaluación</b><small>Verifica vivienda, trabajo y referencias antes de decidir.</small><em>Abrir ficha <i class="fa-solid fa-arrow-right"></i></em></button>
+              <button class="workspace-choice workspace-choice--delivery" type="button" data-tool-label="Constancia" data-workspace-target="delivery"><span><i class="fa-solid fa-file-circle-check"></i></span><b>Entrega de documentos</b><small>Genera constancia de entrega de placa, matrícula o ambos.</small><em>Generar constancia <i class="fa-solid fa-arrow-right"></i></em></button>
+            </div>
+          </section>
         </div>
       </section>
 
       <div class="workspace workspace--quote" id="quoteWorkspace" hidden>
       <section class="workbench" aria-label="Cotizador de financiamiento">
         <form class="calculator-card" id="quoteForm">
-          <div class="panel-title">
+          <div class="panel-title quote-flow-title">
             <span class="panel-icon"><i class="fa-regular fa-clipboard"></i></span>
             <div>
-              <p>1 · Datos de la compra</p>
-              <h2>Calcula tu financiamiento</h2>
+              <p>Nueva operación</p>
+              <h2>Configura el financiamiento</h2>
             </div>
           </div>
+
+          <nav class="quote-flow" aria-label="Flujo del cotizador">
+            <button class="active" type="button" data-quote-step="0" aria-current="step"><b>1</b><span>Operación<small>Cliente, producto y montos</small></span></button>
+            <button type="button" data-quote-step="1" disabled><b>2</b><span>Condiciones<small>Plazo, tasa y cargos</small></span></button>
+            <button type="button" data-quote-step="2" disabled><b>3</b><span>Revisión<small>Confirmar sin errores</small></span></button>
+          </nav>
+
+          <section class="quote-input-group quote-input-group--operation" data-quote-step-panel="0" aria-labelledby="operationGroupTitle">
+            <header><div><span>1</span><div><h3 id="operationGroupTitle">Operación</h3><p>Completa los datos principales de la operación.</p></div></div></header>
 
           <select class="visually-hidden" id="productName" aria-label="Producto a financiar">
               <option value="Préstamo personal">Préstamo personal</option>
@@ -114,7 +197,7 @@
             <section class="product-details" id="productDetails" aria-live="polite"></section>
           </details>
 
-          <div class="currency-row">
+          <div class="currency-row operation-amounts">
             <label>
               Precio del artículo
               <span class="currency-input"><b>RD$</b><input id="productAmount" type="number" min="0" step="500" value="60000"></span>
@@ -123,40 +206,115 @@
               Inicial
               <span class="currency-input"><b>RD$</b><input id="downPayment" type="number" min="0" step="500" value="10000"></span>
             </label>
+            <div class="calculated-field"><span>Monto a financiar</span><strong id="formFinancedAmount">RD$50,000.00</strong><small>Precio menos inicial</small></div>
           </div>
           <div class="initial-note"><span id="downPercent">17%</span> del precio <em id="minimumDownNote">Inicial mínimo según producto</em></div>
+          <aside class="preserve-values-note"><span><i class="fa-solid fa-circle-info"></i><b>Tus valores se conservan al cambiar de producto</b><small id="recommendedConditionsText">Consulta las condiciones recomendadas sin sustituir tus datos.</small></span><button class="quiet-btn" id="applyRecommendedConditionsBtn" type="button"><i class="fa-solid fa-rotate"></i> Usar condiciones recomendadas</button></aside>
 
-          <fieldset class="choice-field compact-choice">
-            <legend>Condiciones del financiamiento</legend>
-            <div class="conditions-grid">
-              <label>Plazo <select id="termSelect" aria-label="Plazo en meses"></select></label>
-              <label>Primera cuota <input id="firstPaymentDate" type="date"></label>
-              <div class="frequency-control"><span>Frecuencia</span><div class="frequency-picker"><button class="frequency-chip active" type="button" data-frequency="monthly">Mensual</button><button class="frequency-chip" type="button" data-frequency="biweekly">Quincenal</button><button class="frequency-chip" type="button" data-frequency="weekly">Semanal</button></div></div>
+          <section class="party-capture" aria-labelledby="clientFieldsTitle">
+            <label class="party-toggle-card">
+              <input id="includeCustomerData" type="checkbox">
+              <span class="party-toggle-control" aria-hidden="true"></span>
+              <span class="party-toggle-icon"><i class="fa-regular fa-address-card"></i></span>
+              <span><b id="clientFieldsTitle">Incluir datos del cliente</b><small>Identifica al deudor y agrega sus datos al plan impreso.</small></span>
+              <em id="customerDataStatus">Opcional</em>
+            </label>
+            <button class="party-edit-button" id="editPartyDataBtn" type="button" hidden><i class="fa-solid fa-user-pen"></i> Editar cliente y codeudor</button>
+            <div class="party-panel" id="customerDataPanel" hidden>
+              <input id="customerName" type="hidden">
+              <div class="party-panel__heading"><div><span><i class="fa-regular fa-user"></i></span><p><b>Cliente y obligados</b><small>Completa una sola vez los datos que usarán la cotización y el pagaré.</small></p></div><button class="icon-btn" id="closePartyPanelBtn" type="button" aria-label="Cerrar datos del cliente"><i class="fa-solid fa-xmark"></i></button></div>
+              <div class="party-fields-grid">
+                <label>Nombres<input id="customerFirstNames" type="text" autocomplete="given-name" placeholder="Nombres"></label>
+                <label>Apellidos<input id="customerLastNames" type="text" autocomplete="family-name" placeholder="Apellidos"></label>
+                <label>Cédula<input id="customerId" type="text" inputmode="numeric" maxlength="13" placeholder="000-0000000-0"></label>
+                <label>Teléfono <small>Opcional</small><input id="customerPhone" type="tel" autocomplete="tel" placeholder="809-000-0000"></label>
+                <label class="span-two">Dirección<input id="customerStreet" type="text" autocomplete="street-address" placeholder="Calle o avenida"></label>
+                <label>No. de casa<input id="customerHouseNumber" type="text" placeholder="Ej. 45"></label>
+                <label>Sector<input id="customerSector" type="text" placeholder="Sector"></label>
+                <label>Ciudad o municipio<input id="customerCity" type="text" autocomplete="address-level2" placeholder="Ciudad"></label>
+                <label>Provincia<input id="customerProvince" type="text" autocomplete="address-level1" placeholder="Provincia"></label>
+              </div>
+              <label class="party-toggle-card party-toggle-card--codebtor">
+                <input id="includeCodebtorData" type="checkbox">
+                <span class="party-toggle-control" aria-hidden="true"></span>
+                <span class="party-toggle-icon"><i class="fa-solid fa-user-group"></i></span>
+                <span><b>Esta operación tiene codeudor solidario</b><small>Asume junto al deudor la obligación de pago; no es un fiador.</small></span>
+                <em id="codebtorDataStatus">No incluido</em>
+              </label>
+              <div class="codebtor-panel" id="codebtorDataPanel" hidden>
+                <div class="party-fields-grid">
+                  <label>Nombres<input id="codebtorFirstNames" type="text" placeholder="Nombres"></label>
+                  <label>Apellidos<input id="codebtorLastNames" type="text" placeholder="Apellidos"></label>
+                  <label>Cédula<input id="codebtorId" type="text" inputmode="numeric" maxlength="13" placeholder="000-0000000-0"></label>
+                  <label>Teléfono <small>Opcional</small><input id="codebtorPhone" type="tel" placeholder="809-000-0000"></label>
+                  <label class="span-two">Dirección<input id="codebtorStreet" type="text" placeholder="Calle o avenida"></label>
+                  <label>No. de casa<input id="codebtorHouseNumber" type="text" placeholder="Ej. 45"></label>
+                  <label>Sector<input id="codebtorSector" type="text" placeholder="Sector"></label>
+                  <label>Ciudad o municipio<input id="codebtorCity" type="text" placeholder="Ciudad"></label>
+                  <label>Provincia<input id="codebtorProvince" type="text" placeholder="Provincia"></label>
+                </div>
+              </div>
+              <div class="party-panel__actions"><button class="primary-btn" id="savePartyPanelBtn" type="button"><i class="fa-solid fa-check"></i> Usar estos datos</button></div>
             </div>
-            <div class="quick-terms"><span>Atajos</span><div class="term-picker" id="termPicker"></div></div>
-            <p class="calendar-note" id="calendarNote">Las fechas se generan automáticamente según la frecuencia elegida.</p>
+          </section>
+
+          </section>
+
+          <fieldset class="choice-field compact-choice quote-input-group quote-input-group--conditions" data-quote-step-panel="1" hidden>
+            <legend><span>02</span><span><b>Condiciones del pago</b><small>Configura calendario, tasa, frecuencia y cargos.</small></span></legend>
+            <section class="condition-block condition-block--schedule" aria-labelledby="scheduleBlockTitle">
+              <div class="condition-block__heading"><div><i class="fa-regular fa-calendar"></i><span><b id="scheduleBlockTitle">Calendario del plan</b><small>Escribe el plazo o utiliza un atajo</small></span></div><em id="termRangeNote">Permitido: 6 a 36 meses</em></div>
+              <div class="term-date-grid">
+                <label>Plazo en meses <span class="term-input"><input id="termSelect" type="number" min="6" max="36" step="1" value="12" inputmode="numeric" aria-label="Plazo en meses"><b>meses</b></span></label>
+                <label>Primera cuota <input id="firstPaymentDate" type="date"></label>
+              </div>
+              <div class="quick-terms"><span>Atajos rápidos</span><div class="term-picker" id="termPicker"></div></div>
+              <p class="calendar-note" id="calendarNote">Las fechas se generan automáticamente según la frecuencia elegida.</p>
+            </section>
+            <section class="condition-block" aria-labelledby="rateBlockTitle">
+              <div class="condition-block__heading"><div><i class="fa-solid fa-percent"></i><span><b id="rateBlockTitle">Tasa y frecuencia</b><small>Define cómo se calculará y dividirá la cuota</small></span></div></div>
+              <div class="conditions-grid conditions-grid--rate">
+                <label>Tipo de tasa<select id="rateType"><option value="simple" selected>Interés simple</option><option value="monthly">Mensual</option><option value="effectiveAnnual">Efectiva anual</option><option value="nominalAnnual">Nominal anual</option></select></label>
+                <label><span id="rateLabel">Tasa simple mensual %</span><span class="rate-input"><input id="monthlyRate" type="number" min="0" step="0.01" value="3"><b>%</b></span></label>
+                <div class="frequency-control"><span>Frecuencia de pago</span><div class="frequency-picker"><button class="frequency-chip active" type="button" data-frequency="monthly">Mensual</button><button class="frequency-chip" type="button" data-frequency="biweekly">Quincenal</button><button class="frequency-chip" type="button" data-frequency="weekly">Semanal</button></div></div>
+              </div>
+              <p class="rate-help" id="rateHelp">Se aplica una tasa simple mensual durante el plazo seleccionado.</p>
+            </section>
+            <section class="quote-subsection quote-charge-fields" aria-labelledby="chargeFieldsTitle">
+              <div class="quote-subsection__heading"><span><i class="fa-solid fa-receipt"></i></span><div><b id="chargeFieldsTitle">Cargos opcionales</b><small>Solo se suman cuando tienen un valor mayor que cero</small></div></div>
+              <div class="optional-fields-grid">
+                <label>Legalización %<input id="legalRate" type="number" min="0" step="0.01" value="0"></label>
+                <label>Adicional RD$<input id="extraFee" type="number" min="0" step="100" value="0"></label>
+              </div>
+              <button class="text-action rule-action" id="openRulesBtn" type="button"><i class="fa-solid fa-gear"></i> Configurar reglas de <span id="ruleActionProduct">Motocicleta</span></button>
+            </section>
           </fieldset>
 
-          <section class="validation-summary" id="validationSummary" aria-live="polite"></section>
+          <section class="quote-input-group quote-review-step" data-quote-step-panel="2" hidden aria-labelledby="reviewGroupTitle">
+            <header><div><span>03</span><div><h3 id="reviewGroupTitle">Revisión antes de continuar</h3><p>Confirma los datos clave. Lo resaltado se usará en el plan.</p></div></div></header>
+            <div class="quote-review-sections">
+              <section><h4><i class="fa-regular fa-user"></i> Partes <small id="reviewPartiesStatus">Datos opcionales</small></h4><div class="quote-review-grid quote-review-grid--three"><article><span>Deudor</span><strong id="reviewCustomer">No especificado</strong></article><article><span>Cédula</span><strong id="reviewCustomerId">No especificada</strong></article><article><span>Contacto</span><strong id="reviewCustomerPhone">No especificado</strong></article><article class="quote-review-grid__wide"><span>Dirección</span><strong id="reviewCustomerAddress">No especificada</strong></article><article class="quote-review-grid__wide" id="reviewCodebtorCard" hidden><span>Codeudor</span><strong id="reviewCodebtor">No incluido</strong></article></div></section>
+              <section><h4><i class="fa-solid fa-tag"></i> Operación</h4><div class="quote-review-grid"><article><span>Producto</span><strong id="reviewProduct">Motocicleta</strong></article><article><span>Precio</span><strong id="reviewAmount">RD$60,000.00</strong></article><article><span>Inicial</span><strong id="reviewDown">RD$10,000.00</strong></article><article class="quote-review-grid__accent"><span>A financiar</span><strong id="reviewFinanced">RD$50,000.00</strong></article></div></section>
+              <section><h4><i class="fa-regular fa-calendar-check"></i> Condiciones</h4><div class="quote-review-grid"><article><span>Plazo y frecuencia</span><strong id="reviewTerm">12 meses · Mensual</strong></article><article><span>Primera cuota</span><strong id="reviewFirstPayment">04 nov 2026</strong></article><article><span>Tasa aplicada</span><strong id="reviewRate">3% simple mensual</strong></article><article><span>Cargos adicionales</span><strong id="reviewCharges">Sin cargos</strong></article></div></section>
+            </div>
+            <section class="validation-summary" id="validationSummary" aria-live="polite"></section>
+          </section>
 
-          <details class="disclosure" id="clientDisclosure">
-            <summary><span><i class="fa-solid fa-sliders"></i> Opciones de la cotización <small>Cliente, tasa y cargos</small></span><i class="fa-solid fa-chevron-down"></i></summary>
-            <div class="options-block"><p class="option-heading"><i class="fa-regular fa-user"></i> Cliente <small>(opcional)</small></p><div class="disclosure-content"><label>Nombre <input id="customerName" type="text" placeholder="Nombre del cliente"></label><label>Teléfono <input id="customerPhone" type="tel" placeholder="809-000-0000"></label></div></div>
-            <div class="options-block"><p class="option-heading"><i class="fa-solid fa-percent"></i> Cálculo</p><div class="disclosure-content advanced-grid"><label>Tipo de tasa<select id="rateType"><option value="simple" selected>Interés simple</option><option value="monthly">Mensual</option><option value="effectiveAnnual">Efectiva anual</option><option value="nominalAnnual">Nominal anual</option></select></label><label><span id="rateLabel">Tasa simple mensual %</span><input id="monthlyRate" type="number" min="0" step="0.01" value="3"></label><label>Legalización %<input id="legalRate" type="number" min="0" step="0.01" value="0"></label><label>Adicional RD$<input id="extraFee" type="number" min="0" step="100" value="0"></label></div><p class="rate-help" id="rateHelp">Se aplica una tasa simple mensual durante el plazo seleccionado.</p></div>
-            <button class="text-action rule-action" id="openRulesBtn" type="button"><i class="fa-solid fa-gear"></i> Configurar reglas de <span id="ruleActionProduct">Motocicleta</span></button>
-          </details>
+          <div class="quote-step-actions">
+            <p id="quoteStepFeedback" aria-live="polite"><i class="fa-solid fa-shield-check"></i> Completa este bloque para continuar.</p>
+            <div><button class="quiet-btn" id="quoteStepBackBtn" type="button" hidden><i class="fa-solid fa-arrow-left"></i> Atrás</button><button class="primary-btn" id="quoteStepNextBtn" type="button"><span>Continuar a condiciones</span><i class="fa-solid fa-arrow-right"></i></button></div>
+          </div>
         </form>
 
         <section class="proposal-preview" aria-label="Propuesta en vivo">
           <div class="proposal-topline">
-            <div>
-              <p>Propuesta comercial</p>
-              <h2 id="quoteHeading">Cotización de motocicleta 150cc</h2>
-            </div>
-            <span class="quote-ref" id="quoteReference">BORRADOR</span>
+            <h2>Propuesta comercial</h2>
+            <span class="quote-status"><i class="fa-solid fa-circle-check"></i> Cálculo verificado</span>
+            <span class="visually-hidden" id="quoteHeading">Cotización de motocicleta</span>
+            <span class="visually-hidden" id="quoteReference">BORRADOR</span>
           </div>
 
-          <div class="proposal-clientline">
+          <div class="proposal-clientline visually-hidden">
             <span id="quoteCustomer">Cliente: No especificado</span>
             <span id="quoteDate">Fecha de hoy</span>
           </div>
@@ -164,18 +322,37 @@
           <div class="hero-payment">
             <span>Cuota <span id="heroFrequencyLabel">mensual</span> estimada</span>
             <strong id="heroPayment">RD$0.00</strong>
-            <p><span id="heroFrequency">mensual</span> · <b id="heroTerm">12 meses</b></p>
+            <p class="visually-hidden"><span id="heroFrequency">mensual</span> · <b id="heroTerm">12 meses</b></p>
           </div>
 
           <div class="summary-metrics">
-            <article><span class="metric-icon"><i class="fa-solid fa-tag"></i></span><p>Precio del artículo<strong id="summaryPrice">RD$0.00</strong><small>100% del precio</small></p></article>
-            <article><span class="metric-icon"><i class="fa-regular fa-credit-card"></i></span><p>Inicial<strong id="summaryDown">RD$0.00</strong><small id="summaryDownPercent">0% del precio</small></p></article>
-            <article><span class="metric-icon"><i class="fa-regular fa-calendar"></i></span><p>Monto a financiar<strong id="summaryFinanced">RD$0.00</strong><small id="summaryFinancedPercent">0% del precio</small></p></article>
-            <article><span class="metric-icon"><i class="fa-solid fa-percent"></i></span><p>Interés estimado<strong id="summaryInterest">RD$0.00</strong><small id="summaryInterestDetail">Según la tasa seleccionada</small></p></article>
+            <article><p><span>Precio del artículo</span><strong id="summaryPrice">RD$0.00</strong><small>100% del precio</small></p></article>
+            <article><p><span>Inicial</span><strong id="summaryDown">RD$0.00</strong><small id="summaryDownPercent">0% del precio</small></p></article>
+            <article><p><span>Monto a financiar</span><strong id="summaryFinanced">RD$0.00</strong><small id="summaryFinancedPercent">0% del precio</small></p></article>
+            <article><p><span>Plazo</span><strong id="sidebarTerm">12 meses</strong></p></article>
+            <article><p><span>Tasa de interés (<b id="sidebarRateFrequency">mensual</b>)</span><strong id="sidebarRate">3.00%</strong></p></article>
+            <article><p><span>Total de intereses</span><strong id="summaryInterest">RD$0.00</strong><small id="summaryInterestDetail">Según la tasa seleccionada</small></p></article>
+            <article class="summary-total"><p><span>Monto total a pagar</span><strong id="summaryTotal">RD$0.00</strong></p></article>
           </div>
 
-          <p class="validity-note"><i class="fa-solid fa-circle-check"></i> Vista previa lista para imprimir · válida por 15 días.</p>
+          <div class="proposal-actions">
+            <button class="primary-btn" id="sidebarPlanBtn" type="button"><i class="fa-solid fa-calculator"></i> Ver plan de pagos <i class="fa-solid fa-arrow-right"></i></button>
+            <button class="primary-btn private-promissory-launch" id="openPrivatePromissoryBtn" type="button"><i class="fa-solid fa-file-signature"></i> Pagaré y amortización</button>
+            <button class="quiet-btn" id="sidebarSaveBtn" type="button"><i class="fa-regular fa-file-pdf"></i> Guardar cotización</button>
+          </div>
 
+          <aside class="proposal-control visually-hidden" aria-label="Control de la operación">
+            <ul><li id="controlAmount"><b id="controlAmountValue">RD$50,000.00</b></li><li id="controlTerms"><b id="controlTermsValue">12 meses</b></li><li id="controlStatus"><b id="controlStatusValue">Listo</b></li></ul>
+          </aside>
+
+        </section>
+        <section class="proposal-side-summary" aria-label="Resumen de la operación">
+          <h3>Resumen de la operación</h3>
+          <div>
+            <article><span><i class="fa-solid fa-coins"></i></span><strong id="sideSummaryTerm">12</strong><small>Meses</small></article>
+            <article><span><i class="fa-solid fa-percent"></i></span><strong id="sideSummaryRate">3.00%</strong><small>Tasa mensual</small></article>
+            <article><span><i class="fa-regular fa-rectangle-list"></i></span><strong id="sideSummaryTotal">RD$0.00</strong><small>Total a pagar</small></article>
+          </div>
         </section>
       </section>
 
@@ -183,18 +360,25 @@
         <div class="comparison-header">
           <div><p>Información del financiamiento</p><h2>Opciones del plan</h2></div>
           <div class="comparison-tabs" role="tablist" aria-label="Opciones del financiamiento">
-            <button class="comparison-tab active" id="plansTab" type="button" role="tab" aria-selected="true" data-panel="plansPanel"><i class="fa-regular fa-credit-card"></i> Planes de pago</button>
-            <button class="comparison-tab" id="amortizationTab" type="button" role="tab" aria-selected="false" data-panel="amortizationPanel"><i class="fa-solid fa-table-list"></i> Tabla de amortización</button>
+            <button class="comparison-tab" id="plansTab" type="button" role="tab" aria-selected="false" data-panel="plansPanel"><i class="fa-regular fa-credit-card"></i> Planes de pago</button>
+            <button class="comparison-tab active" id="amortizationTab" type="button" role="tab" aria-selected="true" data-panel="amortizationPanel"><i class="fa-solid fa-table-list"></i> Tabla de amortización</button>
           </div>
         </div>
-        <section class="comparison-panel active" id="plansPanel" role="tabpanel" aria-labelledby="plansTab">
+        <section class="comparison-panel" id="plansPanel" role="tabpanel" aria-labelledby="plansTab" hidden>
           <div class="panel-explainer"><div><h3>Planes recomendados</h3><p id="planComparisonInfo">Compara cuota, interés y ahorro por liquidar antes.</p></div><span id="availableTermsLabel">Disponibles hasta 36 meses</span></div>
           <div class="recommended-plans" id="recommendedPlans"></div>
         </section>
-        <section class="comparison-panel" id="amortizationPanel" role="tabpanel" aria-labelledby="amortizationTab" hidden>
-          <div class="panel-explainer"><div><h3>Amortización del plan elegido</h3><p>Desglose de fechas, capital, interés y balance pendiente.</p></div><span id="amortizationLabel">12 cuotas mensuales</span></div>
+        <section class="comparison-panel active" id="amortizationPanel" role="tabpanel" aria-labelledby="amortizationTab">
+          <div class="panel-explainer"><div><h3><i class="fa-solid fa-clipboard-list"></i> Tabla de amortización</h3><p>Desglose de fechas, capital, interés y balance pendiente.</p></div><span id="amortizationLabel">12 cuotas mensuales</span></div>
           <div class="table-wrap amortization-table"><table><thead><tr><th>#</th><th>Vence</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="amortizationBody"></tbody></table></div>
         </section>
+      </section>
+
+      <section class="quote-validity-bar" aria-label="Validez y firmas de la cotización">
+        <div><i class="fa-solid fa-check"></i><span><strong>BUENO Y VÁLIDO POR <b id="screenValidityTotal">RD$0.00</b></strong><small>Esta cotización tiene una vigencia de 15 días a partir de la fecha de emisión.</small></span></div>
+        <span class="screen-signature">Deudor</span>
+        <span class="screen-signature" id="screenCodebtorSignature" hidden>Codeudor</span>
+        <span class="screen-signature">Firma autorizada</span>
       </section>
 
       </div>
@@ -466,47 +650,119 @@
     <section class="print-report" id="printReport" aria-label="Propuesta imprimible">
       <header><div class="print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><img src="LOGO%20VEGAMOTORS.png" alt="VegaMotors"></div><div><p>Propuesta comercial</p><h1 id="printHeading">Cotización</h1><span id="printReference">BORRADOR</span></div></header>
       <div class="print-client"><span id="printCustomer">Cliente: No especificado</span><span id="printDate">Fecha</span></div>
+      <section class="print-parties" id="printParties" hidden><div><small>DEUDOR</small><b id="printDebtorName"></b><span id="printDebtorIdentity"></span><span id="printDebtorAddress"></span></div><div id="printCodebtorParty" hidden><small>CODEUDOR</small><b id="printCodebtorName"></b><span id="printCodebtorIdentity"></span><span id="printCodebtorAddress"></span></div></section>
       <section class="print-hero"><p id="printProduct">Estás cotizando</p><strong id="printPayment">RD$0.00</strong><span id="printFrequency">Mensual · 12 meses</span><small id="printScheduleInfo">Primera cuota: —</small></section>
       <dl class="print-summary"><div><dt>Precio</dt><dd id="printPrice">RD$0.00</dd></div><div><dt>Inicial</dt><dd id="printDown">RD$0.00</dd></div><div><dt>Financiado</dt><dd id="printFinanced">RD$0.00</dd></div><div><dt>Interés</dt><dd id="printInterest">RD$0.00</dd></div><div><dt>Total del plan</dt><dd id="printTotal">RD$0.00</dd></div></dl>
       <section class="print-table-section" id="printPlansSection"><div class="print-section-head"><h2>Planes de pago</h2><span id="printRangeLabel">3 a 18 meses</span></div><table><thead><tr><th>Meses</th><th>Mensual</th><th>Quincenal</th><th>Semanal</th></tr></thead><tbody id="printPlansBody"></tbody></table></section>
       <section class="print-table-section" id="printAmortizationSection"><div class="print-section-head"><h2>Tabla de amortización</h2><span id="printAmortizationLabel"></span></div><table><thead><tr><th>Cuota</th><th>Vence</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="printAmortizationBody"></tbody></table></section>
       <p class="print-terms" id="printTerms">Cotización sujeta a validación y aprobación. Propuesta preparada con fines comerciales.</p>
+      <section class="print-validity"><span><i class="fa-solid fa-circle-check"></i> Cálculo verificado</span><strong id="printGoodFor">BUENO Y VÁLIDO POR RD$0.00</strong><small>Las partes confirman que revisaron las condiciones y el calendario incluidos en este documento.</small></section>
       <section class="print-signatures" aria-label="Firmas de aceptación">
-        <div class="signature-block company-signature">
-          <span class="signature-rule" aria-hidden="true"></span>
-          <small>Firma autorizada por</small>
-          <strong>M&amp;M INVERSIONES / VEGAMOTORS</strong>
-        </div>
         <div class="signature-block client-signature">
           <span class="signature-rule" aria-hidden="true"></span>
-          <small>Firma del cliente</small>
-          <strong>Conforme</strong>
+          <small>Firma del deudor</small>
+          <strong id="printDebtorSignature">Nombre del deudor</strong>
+        </div>
+        <div class="signature-block codebtor-signature" id="printCodebtorSignatureBlock" hidden>
+          <span class="signature-rule" aria-hidden="true"></span>
+          <small>Firma del codeudor</small>
+          <strong id="printCodebtorSignature">Nombre del codeudor</strong>
+        </div>
+        <div class="signature-block company-signature">
+          <span class="signature-rule" aria-hidden="true"></span>
+          <small>Firma autorizada</small>
+          <strong>M&amp;M INVERSIONES / VEGAMOTORS</strong>
         </div>
       </section>
     </section>
 
     <div class="print-modal" id="printModal" aria-hidden="true">
-      <section class="print-dialog" role="dialog" aria-modal="true" aria-labelledby="printDialogTitle">
-        <p>Propuesta comercial</p><h2 id="printDialogTitle">Preparar PDF e impresión</h2><span>Elige el contenido y en el diálogo del navegador selecciona “Guardar como PDF” para descargar una propuesta profesional.</span>
-        <div class="print-mode-picker" role="radiogroup" aria-label="Contenido a imprimir">
-          <label class="print-option active"><input type="radio" name="printMode" value="plans" checked><span><strong>Planes de pago</strong><small>Compara cuotas por plazo.</small></span></label>
-          <label class="print-option"><input type="radio" name="printMode" value="amortization"><span><strong>Tabla de amortización</strong><small>Capital, interés y balance.</small></span></label>
-        </div>
-        <div class="range-picker" id="printRangePicker"><label>Desde<select id="printPlanStart"></select></label><b>→</b><label>Hasta<select id="printPlanEnd"></select></label></div>
-        <section class="print-review" aria-label="Resumen para revisar antes de imprimir">
-          <span>Revisión antes de imprimir</span>
-          <strong id="printReviewProduct">Motocicleta</strong>
-          <div><small id="printReviewCustomer">Cliente: No especificado</small><b id="printReviewPayment">RD$0.00</b></div>
+      <section class="print-dialog plan-dialog" role="dialog" aria-modal="true" aria-labelledby="printDialogTitle" aria-describedby="printDialogDescription">
+        <header class="plan-dialog__header">
+          <div><p>Detalle del financiamiento</p><h2 id="printDialogTitle">Plan de pagos</h2><span id="printDialogDescription">Revisa el resumen y el calendario completo de cuotas antes de imprimir.</span></div>
+          <button class="plan-dialog__close" id="planDialogCloseBtn" type="button" aria-label="Cerrar plan de pagos"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </header>
+        <section class="plan-dialog__hero" aria-label="Cuota del plan">
+          <div><span id="planReviewProduct">Producto</span><small id="planReviewCustomer">Cliente: No especificado</small></div>
+          <div><small>Cuota seleccionada</small><strong id="planReviewPayment">RD$0.00</strong><span id="planReviewFrequency">Mensual · 12 meses</span></div>
         </section>
-        <p class="range-summary"><span id="printRangeSummary">Se imprimirán los planes de 3 a 18 meses.</span><b id="printPageEstimate">Aproximadamente 1 página</b></p>
-        <div class="dialog-actions"><button class="quiet-btn" id="cancelPrintBtn" type="button">Volver</button><button class="primary-btn" id="confirmPrintBtn" type="button"><i class="fa-solid fa-file-pdf"></i> PDF / imprimir</button></div>
+        <dl class="plan-dialog__summary" aria-label="Resumen del financiamiento">
+          <div><dt>Precio</dt><dd id="planReviewPrice">RD$0.00</dd></div>
+          <div><dt>Inicial</dt><dd id="planReviewDown">RD$0.00</dd></div>
+          <div><dt>Financiado</dt><dd id="planReviewFinanced">RD$0.00</dd></div>
+          <div><dt>Interés</dt><dd id="planReviewInterest">RD$0.00</dd></div>
+          <div><dt>Total del plan</dt><dd id="planReviewTotal">RD$0.00</dd></div>
+        </dl>
+        <div class="plan-dialog__tabs" role="tablist" aria-label="Vistas del financiamiento">
+          <button class="active" id="modalPlansTab" type="button" role="tab" aria-selected="true" aria-controls="modalPlansPanel"><i class="fa-regular fa-credit-card"></i><span><b>Planes de pago</b><small>Compara cuotas por plazo</small></span></button>
+          <button id="modalAmortizationTab" type="button" role="tab" aria-selected="false" aria-controls="modalAmortizationPanel"><i class="fa-solid fa-table-list"></i><span><b>Tabla de amortización</b><small>Capital, interés y balance</small></span></button>
+        </div>
+        <section class="plan-dialog__schedule" id="modalPlansPanel" role="tabpanel" aria-labelledby="modalPlansTab">
+          <div><h3>Planes disponibles</h3><span id="planOptionsLabel">Comparación por plazo y frecuencia</span></div>
+          <div class="plan-dialog__table-wrap"><table><thead><tr><th>Plazo</th><th>Mensual</th><th>Quincenal</th><th>Semanal</th></tr></thead><tbody id="planOptionsBody"></tbody></table></div>
+        </section>
+        <section class="plan-dialog__schedule" id="modalAmortizationPanel" role="tabpanel" aria-labelledby="modalAmortizationTab" hidden>
+          <div><h3 id="planScheduleTitle">Calendario completo</h3><span id="planReviewScheduleLabel">12 cuotas mensuales</span></div>
+          <div class="plan-dialog__table-wrap"><table><thead><tr><th>#</th><th>Vence</th><th>Pago</th><th>Capital</th><th>Interés</th><th>Balance</th></tr></thead><tbody id="planReviewBody"></tbody></table></div>
+        </section>
+        <footer class="plan-dialog__footer"><fieldset><legend>Contenido a imprimir</legend><label><input type="radio" name="planPrintMode" value="plans" checked><span>Planes de pago</span></label><label><input type="radio" name="planPrintMode" value="amortization"><span>Amortización</span></label></fieldset><div class="dialog-actions"><button class="quiet-btn plan-dialog__cancel" id="cancelPrintBtn" type="button">Cerrar</button><button class="primary-btn" id="confirmPrintBtn" type="button"><i class="fa-solid fa-print"></i> <span>Imprimir planes</span></button></div></footer>
       </section>
     </div>
 
+    <dialog class="private-promissory-dialog" id="privatePromissoryDialog" aria-labelledby="privatePromissoryDialogTitle">
+      <section class="private-promissory-shell">
+        <header class="private-promissory-dialog__header">
+          <div><p>Documento vinculado a la operación</p><h2 id="privatePromissoryDialogTitle">Pagaré bajo firma privada y tabla de amortización</h2><span>Los datos financieros y personales se reutilizan directamente de la cotización.</span></div>
+          <button class="icon-btn" id="closePrivatePromissoryBtn" type="button" aria-label="Cerrar documento"><i class="fa-solid fa-xmark"></i></button>
+        </header>
+        <div class="private-promissory-workspace">
+          <form class="private-promissory-settings" id="privatePromissorySettings" novalidate>
+            <div class="private-promissory-settings__title"><span><i class="fa-solid fa-building-columns"></i></span><div><b>Datos que faltan para formalizar</b><small>No se volverán a pedir los datos ya registrados en la operación.</small></div></div>
+            <label class="span-two">Nombre o razón social del acreedor<input name="creditorName" value="M&amp;M Inversiones / VegaMotors" required></label>
+            <label>Cédula o RNC del acreedor<input name="creditorId" required placeholder="Cédula o RNC real"></label>
+            <label>Fecha de suscripción<input name="subscriptionDate" type="date" required></label>
+            <label class="span-two">Domicilio del acreedor<input name="creditorAddress" required placeholder="Dirección completa"></label>
+            <label>Ciudad de suscripción<input name="subscriptionCity" required placeholder="Ej. La Vega"></label>
+            <label>Lugar o medio de pago<input name="paymentMethod" required placeholder="Ej. transferencia o caja"></label>
+            <label class="span-two">Origen real de la deuda<input name="debtOrigin" required></label>
+            <aside class="private-promissory-validation" id="privatePromissoryValidation" aria-live="polite"><i class="fa-solid fa-circle-info"></i><span>Completa los datos del acreedor para generar la versión final.</span></aside>
+            <button class="primary-btn" id="generatePrivatePromissoryBtn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Generar documento</button>
+          </form>
+          <div class="private-promissory-preview-wrap">
+            <div class="private-promissory-preview-empty" id="privatePromissoryEmpty"><i class="fa-regular fa-file-lines"></i><b>Vista previa del documento</b><span>Completa los datos pendientes y genera el pagaré.</span></div>
+            <section class="private-promissory-report" id="privatePromissoryReport" aria-label="Pagaré bajo firma privada" hidden></section>
+          </div>
+        </div>
+        <footer class="private-promissory-dialog__footer"><p><i class="fa-solid fa-scale-balanced"></i> Documento bajo firma privada sujeto a revisión jurídica. No se atribuye fuerza ejecutoria notarial.</p><button class="primary-btn" id="printPrivatePromissoryBtn" type="button" disabled><i class="fa-solid fa-print"></i> Imprimir documento</button></footer>
+      </section>
+    </dialog>
+
     <script src="vendor-docx.js"></script>
     <script src="vendor-xlsx-style.js"></script>
-    <script src="app.js"></script>
-    <script src="calculadora-express.js"></script>
+  <script src="document-engine/page-geometry.js?v=20261015-layout3"></script>
+  <script src="document-engine/document-blocks.js?v=20261015-layout6"></script>
+  <script src="document-engine/pagination-engine.js?v=20261015-layout5"></script>
+  <script src="document-engine/line-finisher.js?v=20261015-layout3"></script>
+  <script src="document-engine/document-layout-contract.js?v=20261015-layout5"></script>
+  <script src="pagare-notarial.js?v=20261015-layout6"></script>
+    <script src="preapplication-core.js?v=20261009-codeudor1"></script>
+    <script src="operation-core.js?v=20261013-1"></script>
+    <script src="operation-repository.js?v=20261013-1"></script>
+    <script src="product-rules.js?v=20261013-1"></script>
+    <script src="operation-calculators.js?v=20261013-1"></script>
+    <script src="collateral-evaluation.js?v=20261013-1"></script>
+    <script src="product-flows.js?v=20261013-1"></script>
+    <script src="document-center.js?v=20261013-1"></script>
+    <script src="app.js?v=20261012-quoteux1"></script>
+    <script src="pagare-privado.js?v=20261013-1"></script>
+    <script src="calculadora-express.js?v=20261005-dashboard"></script>
+    <script src="operation-workbench.js?v=20261013-1"></script>
     <script src="menu-acordeon.js"></script>
+    <script src="ultimate-ui.js?v=20261013-1"></script>
+    <script>
+      if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+      }
+    </script>
   </body>
 </html>
