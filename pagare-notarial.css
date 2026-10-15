@@ -70,7 +70,7 @@
 .notarial-print-page.notarial-font--times { font-family: "Times New Roman", Times, serif; }
 .notarial-print-page.notarial-font--georgia { font-family: Georgia, "Times New Roman", serif; }
 .notarial-print-page.notarial-font--arial { font-family: Arial, Helvetica, sans-serif; }
-.notarial-print-page.notarial-font--myriad { font-family: "Myriad Pro", "Segoe UI", Arial, sans-serif; }
+.notarial-print-page.notarial-font--myriad { font-family: "Myriad Pro", Arial, Helvetica, sans-serif; }
 .notarial-font--times .notarial-legal-copy { letter-spacing: .08em; }
 .notarial-font--georgia .notarial-legal-copy { letter-spacing: .06em; }
 .notarial-font--arial .notarial-legal-copy,

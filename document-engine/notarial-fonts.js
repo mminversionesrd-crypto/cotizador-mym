@@ -8,7 +8,7 @@
     times: Object.freeze({ className: "notarial-font--times", cssFamily: '"Times New Roman", Times, serif' }),
     georgia: Object.freeze({ className: "notarial-font--georgia", cssFamily: 'Georgia, "Times New Roman", serif' }),
     arial: Object.freeze({ className: "notarial-font--arial", cssFamily: 'Arial, Helvetica, sans-serif' }),
-    myriad: Object.freeze({ className: "notarial-font--myriad", cssFamily: '"Myriad Pro", "Segoe UI", Arial, sans-serif' })
+    myriad: Object.freeze({ className: "notarial-font--myriad", cssFamily: '"Myriad Pro", Arial, Helvetica, sans-serif' })
   });
 
   function selectNotarialFont(value) {

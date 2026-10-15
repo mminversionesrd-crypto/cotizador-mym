@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "finanpro-workbench-v2";
+const CACHE_NAME = "finanpro-workbench-v3";
 const APP_SHELL = [
   "./",
   "./index.html",

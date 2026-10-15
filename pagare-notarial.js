@@ -88,7 +88,7 @@
             <label>Fecha del acto <input name="actDate" type="date" required></label>
             <label>Municipio <input name="actCity" required value="La Vega"></label>
             <label>Provincia <select name="actProvince" required>${optionList(PROVINCES, "La Vega")}</select></label>
-            <label class="span-two">Tipografía del pagaré <select name="printFont" required><option value="courier">Courier New · estilo del original</option><option value="times">Times New Roman · clásico jurídico</option><option value="georgia">Georgia · formal y legible</option><option value="arial">Arial · limpio y moderno</option><option value="myriad">Myriad Pro · si está instalada; si no, Segoe UI</option></select></label>
+            <label class="span-two">Tipografía del pagaré <select name="printFont" required><option value="courier">Courier New · estilo del original</option><option value="times">Times New Roman · clásico jurídico</option><option value="georgia">Georgia · formal y legible</option><option value="arial">Arial · limpio y moderno</option><option value="myriad">Myriad Pro · si está instalada; si no, Arial</option></select></label>
           </div>
           <aside class="notarial-fixed-data"><i class="fa-solid fa-scale-balanced"></i><div><b>${escape(NOTARY.displayName)}</b><span>${escape(NOTARY.role)} · Colegiatura ${escape(NOTARY.license)}</span></div><small>Notaria y testigos precargados desde el modelo suministrado.</small></aside>
         </section>
