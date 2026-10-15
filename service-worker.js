@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "finanpro-workbench-v3";
+const CACHE_NAME = "finanpro-workbench-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,6 +18,15 @@ const APP_SHELL = [
   "./collateral-evaluation.js",
   "./document-center.js",
   "./app.js",
+  "./pagare-notarial.css",
+  "./pagare-notarial.js",
+  "./document-engine/page-geometry.js",
+  "./document-engine/document-blocks.js",
+  "./document-engine/pagination-engine.js",
+  "./document-engine/line-finisher.js",
+  "./document-engine/document-layout-contract.js",
+  "./document-engine/notarial-fonts.js",
+  "./escudo-notarial.png",
   "./LOGO%20M%26M.png",
   "./LOGO%20VEGAMOTORS.png"
 ];
@@ -35,8 +44,15 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(fetch(event.request).then((response) => {
-    const copy = response.clone();
-    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+    if (response.ok) {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+    }
     return response;
-  }).catch(() => caches.match(event.request).then((cached) => cached || caches.match("./index.html"))));
+  }).catch(async () => {
+    const cached = await caches.match(event.request, { ignoreSearch: true });
+    if (cached) return cached;
+    if (event.request.mode === "navigate") return (await caches.match("./index.html")) || Response.error();
+    return Response.error();
+  }));
 });
