@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "finanpro-workbench-v6";
+const CACHE_NAME = "finanpro-workbench-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -26,6 +26,7 @@ const APP_SHELL = [
   "./document-engine/line-finisher.js",
   "./document-engine/document-layout-contract.js",
   "./document-engine/notarial-fonts.js",
+  "./document-engine/notarial-debtors.js",
   "./escudo-notarial.png",
   "./LOGO%20M%26M.png",
   "./LOGO%20VEGAMOTORS.png"

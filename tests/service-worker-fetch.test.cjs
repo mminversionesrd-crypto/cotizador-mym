@@ -36,7 +36,7 @@ test('el modo sin conexión nunca entrega index.html en lugar de JavaScript', as
 test('el modo sin conexión conserva todos los archivos del motor notarial', async () => {
   const worker = workerHarness();
   const files = await worker.install();
-  for (const file of ['./pagare-notarial.js', './pagare-notarial.css', './document-engine/notarial-fonts.js', './document-engine/pagination-engine.js']) {
+  for (const file of ['./pagare-notarial.js', './pagare-notarial.css', './document-engine/notarial-fonts.js', './document-engine/notarial-debtors.js', './document-engine/pagination-engine.js']) {
     assert.equal(files.includes(file), true, `${file} debe estar precargado`);
   }
 });

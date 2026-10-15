@@ -41,7 +41,7 @@
     button.className = "workspace-choice workspace-choice--document workspace-choice--notarial";
     button.dataset.toolLabel = "Notarial";
     button.dataset.workspaceTarget = "notarial-promissory";
-    button.innerHTML = '<span><i class="fa-solid fa-stamp"></i></span><b>Pagaré notarial</b><small>Auténtico · un deudor</small><em>Preparar pagaré <i class="fa-solid fa-arrow-right"></i></em>';
+    button.innerHTML = '<span><i class="fa-solid fa-stamp"></i></span><b>Pagaré notarial</b><small>Auténtico · uno o dos deudores</small><em>Preparar pagaré <i class="fa-solid fa-arrow-right"></i></em>';
     menu.append(button);
 
     const workspace = document.createElement("section");
@@ -52,12 +52,12 @@
     workspace.innerHTML = `
       <header class="notarial-hero">
         <div class="notarial-seal"><img src="escudo-notarial.png" alt="Escudo de la República Dominicana"></div>
-        <div class="notarial-hero-copy"><div class="notarial-brandline"><b>M&amp;M Inversiones</b><i aria-hidden="true"></i><b>VegaMotors</b></div><p>Formalización notarial</p><h2>Pagaré notarial auténtico</h2><span>Primera plantilla aprobable: un deudor, basada en el documento notarial suministrado.</span></div>
+        <div class="notarial-hero-copy"><div class="notarial-brandline"><b>M&amp;M Inversiones</b><i aria-hidden="true"></i><b>VegaMotors</b></div><p>Formalización notarial</p><h2>Pagaré notarial auténtico</h2><span>Plantillas para un deudor o deudor principal con codeudor solidario, basadas en el modelo suministrado.</span></div>
         <div class="notarial-state"><i class="fa-solid fa-user-shield"></i><span>Sesión temporal<br><b>No guarda datos</b></span></div>
       </header>
       <nav class="notarial-progress" aria-label="Etapas del pagaré">
         <button class="is-active" type="button" data-notarial-step="1" aria-current="step" aria-controls="notarialPanelControl"><b>1</b><span><strong>Control</strong><small>Acto y folios</small></span></button>
-        <button type="button" data-notarial-step="2" aria-controls="notarialPanelPeople"><b>2</b><span><strong>Personas</strong><small>Acreedor y deudor</small></span></button>
+        <button type="button" data-notarial-step="2" aria-controls="notarialPanelPeople"><b>2</b><span><strong>Personas</strong><small>Comparecientes</small></span></button>
         <button type="button" data-notarial-step="3" aria-controls="notarialPanelTerms"><b>3</b><span><strong>Condiciones</strong><small>Capital y cuotas</small></span></button>
         <button type="button" data-notarial-step="4" aria-controls="notarialPanelReview"><b>4</b><span><strong>Revisión</strong><small>Validar e imprimir</small></span></button>
       </nav>
@@ -68,14 +68,14 @@
           <header><span>Plantilla del documento</span><b>Selecciona solo modalidades revisadas</b></header>
           <div>
             <button type="button" class="notarial-template-option is-active" data-notarial-variant="single" aria-current="true"><i class="fa-solid fa-user"></i><span><b>Un deudor</b><small>Disponible · modelo auténtico</small></span><em>Activa</em></button>
-            <button type="button" class="notarial-template-option" data-notarial-variant="double" disabled><i class="fa-solid fa-user-group"></i><span><b>Dos deudores</b><small>Se adaptará desde este modelo</small></span><em>Próxima</em></button>
+            <button type="button" class="notarial-template-option" data-notarial-variant="double"><i class="fa-solid fa-user-group"></i><span><b>Dos deudores</b><small>Principal + codeudor solidario</small></span><em>Elegir</em></button>
             <button type="button" class="notarial-template-option" data-notarial-variant="vehicle-single" disabled><i class="fa-solid fa-motorcycle"></i><span><b>Un deudor + vehículo</b><small>Cláusula y ficha de garantía</small></span><em>Próxima</em></button>
             <button type="button" class="notarial-template-option" data-notarial-variant="vehicle-double" disabled><i class="fa-solid fa-car-side"></i><span><b>Dos deudores + vehículo</b><small>Obligación y garantía conjuntas</small></span><em>Próxima</em></button>
           </div>
         </section>
         <aside class="notarial-operation-strip" data-notarial-operation-strip aria-label="Resumen vivo de la operación">
           <div><span>Acto</span><strong data-desk-summary="act">Sin número</strong><small data-desk-detail="folio">Folio pendiente</small></div>
-          <div><span>Deudor</span><strong data-desk-summary="debtor">Sin identificar</strong><small data-desk-detail="identity">Cédula pendiente</small></div>
+          <div><span data-debtor-count-label>Deudor</span><strong data-desk-summary="debtor">Sin identificar</strong><small data-desk-detail="identity">Cédula pendiente</small></div>
           <div><span>Capital</span><strong data-desk-summary="principal">RD$0.00</strong><small data-desk-detail="term">Sin plazo</small></div>
           <div class="is-accent"><span>Cuota estimada</span><strong data-desk-summary="payment">RD$0.00</strong><small data-desk-detail="frequency">Mensual</small></div>
         </aside>
@@ -94,7 +94,7 @@
         </section>
 
         <section class="notarial-section" id="notarialPanelPeople" data-notarial-panel="2" hidden>
-          <div class="notarial-section-heading"><span>02</span><div><p>Comparecientes</p><h3>Acreedor y deudor</h3></div></div>
+          <div class="notarial-section-heading"><span>02</span><div><p>Comparecientes</p><h3>Acreedor y deudores</h3></div></div>
           <fieldset class="creditor-selector">
             <legend>Selecciona el acreedor</legend>
             <label><input name="creditorKey" type="radio" value="jose" checked><span><i class="fa-solid fa-user-tie"></i><b>José Aníbal</b><small>Perfil completo del modelo</small></span></label>
@@ -120,6 +120,23 @@
             <label>Sector <input name="debtorSector" required placeholder="Sector o paraje"></label>
             <label>Ciudad <input name="debtorCity" required value="La Vega"></label>
             <label>Provincia <select name="debtorProvince" required>${optionList(PROVINCES, "La Vega")}</select></label>
+          </div>
+          <div data-codebtor-section hidden>
+            <div class="notarial-subheading"><span>Segundo deudor · codeudor solidario</span><small>Responderá junto al deudor principal por la obligación completa.</small></div>
+            <div class="application-fields four-columns">
+              <label class="span-two">Nombre completo <input name="codebtorName" placeholder="Nombre y apellidos"></label>
+              <label>Cédula <input name="codebtorId" inputmode="numeric" placeholder="000-0000000-0"></label>
+              <label>Tratamiento <select name="codebtorGender"><option value="male">Señor</option><option value="female">Señora</option></select></label>
+              <label>Nacionalidad <select name="codebtorNationality">${optionList(["Dominicano(a)", "Haitiano(a)", "Venezolano(a)", "Colombiano(a)", "Estadounidense", "Otro"], "Dominicano(a)")}</select></label>
+              <label>Estado civil <select name="codebtorCivilStatus">${optionList(["Soltero(a)", "Casado(a)", "Unión libre", "Divorciado(a)", "Viudo(a)"], "Soltero(a)")}</select></label>
+              <label>Ocupación <select name="codebtorOccupation">${optionList(["Empleado(a) privado(a)", "Empleado(a) público(a)", "Comerciante", "Empresario(a)", "Independiente", "Profesional", "Ama de casa", "Pensionado(a)", "Otra"], "Empleado(a) privado(a)")}</select></label>
+              <label>Otra ocupación <input name="codebtorOccupationOther" placeholder="Solo si elegiste Otra"></label>
+              <label class="span-two">Dirección o calle <input name="codebtorAddress" placeholder="Ej. Calle Principal"></label>
+              <label>Número de casa <input name="codebtorHouseNumber" placeholder="Ej. 24 o S/N"></label>
+              <label>Sector <input name="codebtorSector" placeholder="Sector o paraje"></label>
+              <label>Ciudad <input name="codebtorCity" value="La Vega"></label>
+              <label>Provincia <select name="codebtorProvince">${optionList(PROVINCES, "La Vega")}</select></label>
+            </div>
           </div>
         </section>
 
@@ -153,7 +170,7 @@
           <div class="notarial-review" aria-live="polite">
             <div><span>Acto y folios</span><strong data-review="control">Pendiente</strong></div>
             <div><span>Acreedor</span><strong data-review="creditor">José Aníbal Moronta Mejía</strong></div>
-            <div><span>Deudor</span><strong data-review="debtor">Pendiente</strong></div>
+            <div><span data-review-debtor-label>Deudor</span><strong data-review="debtor">Pendiente</strong></div>
             <div><span>Obligación</span><strong data-review="loan">Pendiente</strong></div>
           </div>
           <div class="notarial-warning"><i class="fa-solid fa-triangle-exclamation"></i><span><b>Borrador sujeto a revisión notarial.</b> El sistema prepara el texto y verifica las cifras; la notaria conserva el control del protocolo, la lectura, las firmas y la expedición.</span></div>
@@ -214,6 +231,7 @@
     const stageHelp = form.querySelector("[data-notarial-stage-help]");
     let currentPreviewPage = 1;
     let currentFormStep = 1;
+    let notarialVariant = "single";
     let previewTimer = 0;
     let previewRevision = 0;
     const creditorName = form.elements.creditorName;
@@ -221,6 +239,8 @@
     const creditorAddress = form.elements.creditorAddress;
 
     const value = (name) => String(form.elements[name]?.value || "").trim();
+    const hasCodebtor = () => notarialVariant === "double";
+    const codebtorFields = ["codebtorName", "codebtorId", "codebtorNationality", "codebtorCivilStatus", "codebtorOccupation", "codebtorAddress", "codebtorHouseNumber", "codebtorSector", "codebtorCity", "codebtorProvince"];
     const FORM_STAGES = {
       1: { name: "Control del acto", help: "Completa la identificación del instrumento.", fields: ["actNumber", "folioStart", "actDate", "actCity", "actProvince", "printFont"] },
       2: { name: "Comparecientes", help: "Identifica al acreedor y al deudor sin repetir datos.", fields: ["creditorName", "creditorId", "creditorAddress", "debtorName", "debtorId", "debtorNationality", "debtorCivilStatus", "debtorOccupation", "debtorAddress", "debtorHouseNumber", "debtorSector", "debtorCity", "debtorProvince"] },
@@ -228,7 +248,26 @@
       4: { name: "Revisión final", help: "Confirma el resumen y revisa el documento antes de imprimir.", fields: [] }
     };
     const fieldIsComplete = (name) => name === "disbursementConfirmed" ? form.elements[name].checked : Boolean(value(name));
-    const stageIsComplete = (step) => step === 4 ? !validate() : FORM_STAGES[step].fields.every(fieldIsComplete);
+    const stageIsComplete = (step) => step === 4 ? !validate() : FORM_STAGES[step].fields.every(fieldIsComplete) && (step !== 2 || !hasCodebtor() || codebtorFields.every(fieldIsComplete));
+
+    function selectVariant(variant) {
+      if (variant !== "single" && variant !== "double") return;
+      notarialVariant = variant;
+      form.querySelector("[data-codebtor-section]").hidden = !hasCodebtor();
+      form.querySelectorAll("[data-notarial-variant]").forEach((item) => {
+        if (item.disabled) return;
+        const active = item.dataset.notarialVariant === variant;
+        item.classList.toggle("is-active", active);
+        if (active) item.setAttribute("aria-current", "true"); else item.removeAttribute("aria-current");
+        item.querySelector("em").textContent = active ? "Activa" : "Elegir";
+      });
+      form.querySelector("[data-debtor-count-label]").textContent = hasCodebtor() ? "Deudores" : "Deudor";
+      form.querySelector("[data-review-debtor-label]").textContent = hasCodebtor() ? "Deudores" : "Deudor";
+      FORM_STAGES[2].help = hasCodebtor() ? "Identifica al deudor principal y al codeudor solidario." : "Identifica al acreedor y al deudor sin repetir datos.";
+      if (currentFormStep === 2) stageHelp.textContent = FORM_STAGES[2].help;
+      updateReview();
+      queueLivePreview();
+    }
 
     function setFormStep(requestedStep, focusHeading = false) {
       currentFormStep = Math.min(Math.max(Number(requestedStep) || 1, 1), 4);
@@ -351,12 +390,12 @@
       const result = calculate();
       form.querySelector('[data-review="control"]').textContent = value("actNumber") && value("folioStart") && value("folioEnd") ? `Acto ${value("actNumber")} · folios ${value("folioStart")}–${value("folioEnd")}` : "Pendiente";
       form.querySelector('[data-review="creditor"]').textContent = value("creditorName") || "Pendiente";
-      form.querySelector('[data-review="debtor"]').textContent = value("debtorName") || "Pendiente";
+      form.querySelector('[data-review="debtor"]').textContent = hasCodebtor() ? `${value("debtorName") || "Pendiente"} · ${value("codebtorName") || "Codeudor pendiente"}` : (value("debtorName") || "Pendiente");
       form.querySelector('[data-review="loan"]').textContent = result.principal && result.installments ? `${money(result.principal)} · ${result.installments} cuotas · ${modeLabel(result.mode)}` : "Pendiente";
       form.querySelector('[data-desk-summary="act"]').textContent = value("actNumber") ? `Acto ${value("actNumber")}` : "Sin número";
       form.querySelector('[data-desk-detail="folio"]').textContent = value("folioStart") ? `Desde folio ${value("folioStart")}` : "Folio pendiente";
-      form.querySelector('[data-desk-summary="debtor"]').textContent = value("debtorName") || "Sin identificar";
-      form.querySelector('[data-desk-detail="identity"]').textContent = value("debtorId") || "Cédula pendiente";
+      form.querySelector('[data-desk-summary="debtor"]').textContent = hasCodebtor() ? `${value("debtorName") || "Principal pendiente"} + ${value("codebtorName") || "Codeudor pendiente"}` : (value("debtorName") || "Sin identificar");
+      form.querySelector('[data-desk-detail="identity"]').textContent = hasCodebtor() ? "Deudor principal + codeudor solidario" : (value("debtorId") || "Cédula pendiente");
       form.querySelector('[data-desk-summary="principal"]').textContent = money(result.principal);
       form.querySelector('[data-desk-detail="term"]').textContent = result.installments ? `${result.installments} ${frequencyMeta().plural.toLowerCase()}` : "Sin plazo";
       form.querySelector('[data-desk-summary="payment"]').textContent = money(result.payment);
@@ -370,12 +409,18 @@
         creditorName: "nombre legal del acreedor", debtorName: "nombre del deudor", debtorId: "cédula del deudor", debtorNationality: "nacionalidad", debtorCivilStatus: "estado civil", debtorOccupation: "ocupación",
         debtorAddress: "dirección o calle", debtorHouseNumber: "número de casa", debtorSector: "sector", debtorCity: "ciudad", debtorProvince: "provincia", principal: "capital", rate: "tasa", installments: "cantidad de cuotas", disbursementDate: "fecha de desembolso", firstDueDate: "primera cuota", lateRate: "mora"
       };
+      if (hasCodebtor()) Object.assign(labels, {
+        codebtorName: "nombre del codeudor solidario", codebtorId: "cédula del codeudor solidario", codebtorNationality: "nacionalidad del codeudor", codebtorCivilStatus: "estado civil del codeudor", codebtorOccupation: "ocupación del codeudor", codebtorAddress: "dirección del codeudor", codebtorHouseNumber: "número de casa del codeudor", codebtorSector: "sector del codeudor", codebtorCity: "ciudad del codeudor", codebtorProvince: "provincia del codeudor"
+      });
       const missing = Object.keys(labels).filter((name) => !value(name));
       if (missing.length) return { field: missing[0], message: `Completa ${missing.map((name) => labels[name]).join(", ")}.` };
       if (String(value("debtorId")).replace(/\D/g, "").length !== 11) return { field: "debtorId", message: "La cédula del deudor debe tener 11 dígitos." };
+      if (hasCodebtor() && String(value("codebtorId")).replace(/\D/g, "").length !== 11) return { field: "codebtorId", message: "La cédula del codeudor debe tener 11 dígitos." };
+      if (hasCodebtor() && value("debtorId") === value("codebtorId")) return { field: "codebtorId", message: "El codeudor debe ser una persona distinta del deudor principal." };
       if (numeric(value("folioEnd")) < numeric(value("folioStart"))) return { field: "folioEnd", message: "El folio final no puede ser menor que el folio inicial." };
       if (numeric(value("principal")) <= 0 || numeric(value("installments")) < 1) return { field: "principal", message: "El capital y la cantidad de cuotas deben ser mayores que cero." };
       if (value("debtorOccupation") === "Otra" && !value("debtorOccupationOther")) return { field: "debtorOccupationOther", message: "Escribe la ocupación del deudor." };
+      if (hasCodebtor() && value("codebtorOccupation") === "Otra" && !value("codebtorOccupationOther")) return { field: "codebtorOccupationOther", message: "Escribe la ocupación del codeudor." };
       if (value("firstDueDate") < value("disbursementDate")) return { field: "firstDueDate", message: "La primera cuota no puede ser anterior al desembolso." };
       if (!form.elements.disbursementConfirmed.checked) return { field: "disbursementConfirmed", message: "Confirma que el capital fue desembolsado antes de preparar la versión final." };
       return null;
@@ -444,14 +489,18 @@
       });
       const result = calculate();
       const fontClass = FinanNotarialFonts.selectNotarialFont(value("printFont")).className;
-      const female = value("debtorGender") === "female";
-      const debtorTitle = female ? "la señora" : "el señor";
-      const debtorRole = female ? "LA DEUDORA" : "EL DEUDOR";
-      const nationality = gendered(value("debtorNationality"), female);
-      const civilStatus = gendered(value("debtorCivilStatus"), female);
-      const occupation = value("debtorOccupation") === "Otra" ? value("debtorOccupationOther") : gendered(value("debtorOccupation"), female);
-      const debtorAddress = `${value("debtorAddress")}, CASA NÚMERO ${value("debtorHouseNumber")}, SECTOR ${value("debtorSector")}, CIUDAD DE ${value("debtorCity")}, PROVINCIA ${value("debtorProvince")}, REPÚBLICA DOMINICANA`.toLocaleUpperCase("es-DO");
-      const debtorSignatures = `<div class="wide"><span></span><b>${escape(value("debtorName")).toUpperCase()}</b><small>${debtorRole.replace("LA ", "").replace("EL ", "")}</small></div>`;
+      const person = (prefix) => {
+        const isWoman = value(`${prefix}Gender`) === "female";
+        return {
+          name: value(`${prefix}Name`), id: value(`${prefix}Id`), gender: isWoman ? "female" : "male",
+          nationality: gendered(value(`${prefix}Nationality`), isWoman),
+          civilStatus: gendered(value(`${prefix}CivilStatus`), isWoman),
+          occupation: value(`${prefix}Occupation`) === "Otra" ? value(`${prefix}OccupationOther`) : gendered(value(`${prefix}Occupation`), isWoman),
+          address: `${value(`${prefix}Address`)}, CASA NÚMERO ${value(`${prefix}HouseNumber`)}, SECTOR ${value(`${prefix}Sector`)}, CIUDAD DE ${value(`${prefix}City`)}, PROVINCIA ${value(`${prefix}Province`)}, REPÚBLICA DOMINICANA`
+        };
+      };
+      const parties = FinanNotarialDebtors.composeDebtorParties({ principal: person("debtor"), codebtor: hasCodebtor() ? person("codebtor") : null });
+      const debtorSignatures = parties.signatures.map(({ name, role }) => `<div class="${hasCodebtor() ? "" : "wide"}"><span></span><b>${escape(name)}</b><small>${escape(role)}</small></div>`).join("");
       const frequency = frequencyMeta();
       const termUnits = { mes: ["MES", "MESES"], quincena: ["QUINCENA", "QUINCENAS"], semana: ["SEMANA", "SEMANAS"] };
       const termUnit = termUnits[frequency.unit]?.[result.installments === 1 ? 0 : 1] || "PERÍODOS";
@@ -461,7 +510,7 @@
         : `mediante <strong>${integerWords(result.installments)} (${String(result.installments).padStart(2, "0")}) CUOTAS</strong> ascendentes a <strong>${amountWords(result.payment)} (${money(result.payment)})</strong>, cuotas <strong>IGUALES, ${escape(frequency.plural).toLocaleUpperCase("es-DO")} Y CONSECUTIVAS</strong>`;
       const basis = result.mode === "declining" ? "sobre saldo insoluto" : result.mode === "bullet" ? "sobre el capital pendiente hasta su vencimiento" : "sobre saldo absoluto";
       const latePenalty = `<strong class="notarial-no-break">${integerWords(numeric(value("lateRate")))} (${numeric(value("lateRate")).toFixed(0)}%) POR CIENTO MENSUAL</strong>`;
-      const fourthClause = `<strong data-notarial-article>CUARTO:</strong> Queda entendido, y así lo declara y acepta <strong>EL DEUDOR</strong>, que, en caso de incumplimiento en el pago de cualquier cuota <strong>${escape(frequency.singular).toLocaleUpperCase("es-DO")}</strong>, perderá de pleno derecho el beneficio del término, lo cual facultará a <strong>EL ACREEDOR</strong> para reclamar el total de la deuda;<span data-notarial-break> así como los accesorios de un ${latePenalty} sobre la suma vencida;</span>`;
+      const fourthClause = `<strong data-notarial-article>CUARTO:</strong> ${parties.fourthClause} <strong>${escape(frequency.singular).toLocaleUpperCase("es-DO")}</strong>, ${parties.fourthConsequence} <strong>EL ACREEDOR</strong> para reclamar el total de la deuda;<span data-notarial-break> así como los accesorios de un ${latePenalty} sobre la suma vencida;</span>`;
       const confirmedDisbursement = form.elements.disbursementConfirmed.checked;
       const debtOrigin = confirmedDisbursement
         ? `con ocasión de <strong>${escape(value("loanPurpose").toLocaleUpperCase("es-DO"))}</strong>, cuyo capital fue desembolsado en fecha <strong>${escape(dateWords(value("disbursementDate")))}</strong>`
@@ -469,7 +518,7 @@
       const termOrigin = confirmedDisbursement
         ? `a partir del desembolso efectuado en fecha <strong>${escape(dateWords(value("disbursementDate")))}</strong>`
         : `a partir del desembolso, cuya realización permanece <strong>PENDIENTE DE CONFIRMACIÓN</strong>`;
-      const legalHtml = `En la provincia de <strong>${escape(value("actProvince").toLocaleUpperCase("es-DO"))}</strong>, República Dominicana, a los <strong>${escape(dateWords(value("actDate")))}</strong>. Por ante mí, <strong>${escape(NOTARY.legalName)}</strong>, ${escape(NOTARY.role)}, inscrita en el Colegio Dominicano de Notarios bajo el No. <strong>${escape(NOTARY.license)}</strong>, portadora de la cédula de identidad y electoral marcada con el número <strong>${escape(NOTARY.id)}</strong>, con mi estudio abierto en el <strong>${escape(NOTARY.office).toLocaleUpperCase("es-DO")}</strong>, República Dominicana. En presencia de los señores <strong>${escape(WITNESSES[0].name)}</strong> y <strong>${escape(WITNESSES[1].name)}</strong>, dominicanos, mayores de edad, solteros, portadores de las cédulas de identidad y electorales marcadas con los números <strong>${escape(WITNESSES[0].id)}</strong> y <strong>${escape(WITNESSES[1].id)}</strong>, domiciliados y residentes en <strong>${escape(WITNESSES[0].address).toLocaleUpperCase("es-DO")}</strong> y <strong>${escape(WITNESSES[1].address).toLocaleUpperCase("es-DO")}</strong>, respectivamente, de esta ciudad de La Vega; testigos instrumentales libres de tachas exigidas por la ley. <strong>HAN COMPARECIDO LIBRE Y VOLUNTARIAMENTE:</strong> De una parte, el señor <strong>${escape(value("creditorName").toLocaleUpperCase("es-DO"))}</strong>, dominicano, mayor de edad, soltero, empresario, domiciliado en <strong>${escape(value("creditorAddress").toLocaleUpperCase("es-DO"))}</strong>, portador de la cédula de identidad y electoral número <strong>${escape(value("creditorId"))}</strong>, quien en lo adelante se denominará <strong>EL ACREEDOR</strong>; y de la otra parte, ${debtorTitle} <strong>${escape(value("debtorName").toLocaleUpperCase("es-DO"))}</strong>, <strong>${escape(nationality.toLocaleUpperCase("es-DO"))}</strong>, mayor de edad, <strong>${escape(civilStatus.toLocaleUpperCase("es-DO"))}</strong>, <strong>${escape(occupation.toLocaleUpperCase("es-DO"))}</strong>, identificado${female ? "a" : ""} con la cédula de identidad y electoral marcada con el número <strong>${escape(value("debtorId"))}</strong>, domiciliado${female ? "a" : ""} y residente en <strong>${escape(debtorAddress)}</strong>, quien en lo adelante se denominará <strong>${debtorRole}</strong>. Quien me ha <strong>DECLARADO LO SIGUIENTE:</strong> <strong data-notarial-article>PRIMERO:</strong> Que <strong>${debtorRole}</strong> declara y reconoce ser deudor${female ? "a" : ""} personal, pur${female ? "a" : "o"}, simple y sin condición de ninguna especie a favor de <strong>EL ACREEDOR</strong>, por la suma de <strong>${escape(amountWords(result.principal))} (${money(result.principal)})</strong>, ${debtOrigin}; <strong data-notarial-article>SEGUNDO:</strong> Que, para seguridad de los valores adeudados a <strong>EL ACREEDOR</strong>, <strong>${debtorRole}</strong> consiente suscribir el presente pagaré notarial a favor de la primera parte; <strong data-notarial-article>TERCERO:</strong> Que los valores que <strong>${debtorRole} RECONOCE ADEUDAR</strong> a <strong>EL ACREEDOR</strong> son productivos de un <strong>${escape(periodicRate).toLocaleUpperCase("es-DO")}</strong>, <strong>${escape(basis).toLocaleUpperCase("es-DO")}</strong>, pagaderos ${paymentText}, en un término de <strong>${integerWords(result.installments)} (${String(result.installments).padStart(2, "0")}) ${termUnit}</strong> ${termOrigin}, sin necesidad de puesta en mora o advertencia ulterior en tal sentido; ${fourthClause} <strong data-notarial-article>QUINTO:</strong> Que, para seguridad de la suma adeudada, <strong>${debtorRole}</strong> compromete <strong>TODOS SUS BIENES UNIVERSALES HASTA LA TOTAL CANCELACIÓN DE LA DEUDA, RENUNCIANDO DESDE AHORA Y PARA SIEMPRE, DE MANERA FORMAL, DEFINITIVA Y EXPRESA, AL BENEFICIO DE EXCUSIÓN</strong>; <strong data-notarial-article>SEXTO:</strong> Que las partes han decidido dar fe pública a su otorgamiento, conforme a las disposiciones legales que resulten aplicables, sin que este sistema garantice su aceptación judicial; <strong data-notarial-article>SÉPTIMO:</strong> Que las partes hacen formal elección de domicilio y residencia en las direcciones anteriormente señaladas. Las declaraciones contenidas en el presente acto fueron realizadas de manera personal, libre y voluntaria por los comparecientes ante mí, quienes han firmado junto a mí el presente acto una vez que hemos leído en alta voz su contenido y comprobado que constituye la fiel transcripción de la declaración de voluntad hecha por ellos. Por todo lo cual rubricamos el presente acto en cada una de sus fojas, y yo certifico y doy fe.<span class="notarial-closing-rule" aria-hidden="true"></span>`;
+      const legalHtml = `En la provincia de <strong>${escape(value("actProvince").toLocaleUpperCase("es-DO"))}</strong>, República Dominicana, a los <strong>${escape(dateWords(value("actDate")))}</strong>. Por ante mí, <strong>${escape(NOTARY.legalName)}</strong>, ${escape(NOTARY.role)}, inscrita en el Colegio Dominicano de Notarios bajo el No. <strong>${escape(NOTARY.license)}</strong>, portadora de la cédula de identidad y electoral marcada con el número <strong>${escape(NOTARY.id)}</strong>, con mi estudio abierto en el <strong>${escape(NOTARY.office).toLocaleUpperCase("es-DO")}</strong>, República Dominicana. En presencia de los señores <strong>${escape(WITNESSES[0].name)}</strong> y <strong>${escape(WITNESSES[1].name)}</strong>, dominicanos, mayores de edad, solteros, portadores de las cédulas de identidad y electorales marcadas con los números <strong>${escape(WITNESSES[0].id)}</strong> y <strong>${escape(WITNESSES[1].id)}</strong>, domiciliados y residentes en <strong>${escape(WITNESSES[0].address).toLocaleUpperCase("es-DO")}</strong> y <strong>${escape(WITNESSES[1].address).toLocaleUpperCase("es-DO")}</strong>, respectivamente, de esta ciudad de La Vega; testigos instrumentales libres de tachas exigidas por la ley. <strong>HAN COMPARECIDO LIBRE Y VOLUNTARIAMENTE:</strong> De una parte, el señor <strong>${escape(value("creditorName").toLocaleUpperCase("es-DO"))}</strong>, dominicano, mayor de edad, soltero, empresario, domiciliado en <strong>${escape(value("creditorAddress").toLocaleUpperCase("es-DO"))}</strong>, portador de la cédula de identidad y electoral número <strong>${escape(value("creditorId"))}</strong>, quien en lo adelante se denominará <strong>EL ACREEDOR</strong>; y de la otra parte, ${parties.appearance} <strong data-notarial-article>PRIMERO:</strong> ${parties.firstClause} <strong>${escape(amountWords(result.principal))} (${money(result.principal)})</strong>, ${debtOrigin}; ${parties.solidarityClause || ""} <strong data-notarial-article>SEGUNDO:</strong> ${parties.secondClause} <strong data-notarial-article>TERCERO:</strong> ${parties.thirdClause} <strong>${escape(periodicRate).toLocaleUpperCase("es-DO")}</strong>, <strong>${escape(basis).toLocaleUpperCase("es-DO")}</strong>, pagaderos ${paymentText}, en un término de <strong>${integerWords(result.installments)} (${String(result.installments).padStart(2, "0")}) ${termUnit}</strong> ${termOrigin}, sin necesidad de puesta en mora o advertencia ulterior en tal sentido; ${fourthClause} <strong data-notarial-article>QUINTO:</strong> ${parties.fifthClause} <strong data-notarial-article>SEXTO:</strong> Que las partes han decidido dar fe pública a su otorgamiento, conforme a las disposiciones legales que resulten aplicables, sin que este sistema garantice su aceptación judicial; <strong data-notarial-article>SÉPTIMO:</strong> Que las partes hacen formal elección de domicilio y residencia en las direcciones anteriormente señaladas. Las declaraciones contenidas en el presente acto fueron realizadas de manera personal, libre y voluntaria por los comparecientes ante mí, quienes han firmado junto a mí el presente acto una vez que hemos leído en alta voz su contenido y comprobado que constituye la fiel transcripción de la declaración de voluntad hecha por ellos. Por todo lo cual rubricamos el presente acto en cada una de sus fojas, y yo certifico y doy fe.<span class="notarial-closing-rule" aria-hidden="true"></span>`;
       const signaturesHtml = `<section class="notarial-signatures">${debtorSignatures}<div><span></span><b>${escape(WITNESSES[0].name)}</b><small>Testigo instrumental</small></div><div><span></span><b>${escape(WITNESSES[1].name)}</b><small>Testigo instrumental</small></div><div class="wide"><span></span><b>${escape(value("creditorName")).toUpperCase()}</b><small>ACREEDOR</small></div><div class="wide notary"><span></span><b>${escape(NOTARY.legalName)}</b><small>Abogada Notaria · Matrícula No. ${escape(NOTARY.license)}</small></div></section>`;
       const source = document.createElement("p");
       source.innerHTML = legalHtml;
@@ -733,6 +782,9 @@
       form.elements.actProvince.value = "La Vega";
       form.elements.debtorCity.value = "La Vega";
       form.elements.debtorProvince.value = "La Vega";
+      form.elements.codebtorCity.value = "La Vega";
+      form.elements.codebtorProvince.value = "La Vega";
+      selectVariant("single");
       syncCreditor(); updateCalculation();
       status.className = "application-status";
       status.textContent = "Completa las cuatro secciones para preparar el pagaré.";
@@ -743,7 +795,9 @@
 
     form.elements.creditorKey.forEach((radio) => radio.addEventListener("change", syncCreditor));
     form.elements.debtorId.addEventListener("input", (event) => { event.target.value = cedula(event.target.value); });
-    const uppercaseFields = new Set(["debtorName", "debtorAddress", "debtorHouseNumber", "debtorSector", "debtorCity", "debtorOccupationOther"]);
+    form.elements.codebtorId.addEventListener("input", (event) => { event.target.value = cedula(event.target.value); });
+    form.querySelectorAll("[data-notarial-variant]:not(:disabled)").forEach((item) => item.addEventListener("click", () => selectVariant(item.dataset.notarialVariant)));
+    const uppercaseFields = new Set(["debtorName", "debtorAddress", "debtorHouseNumber", "debtorSector", "debtorCity", "debtorOccupationOther", "codebtorName", "codebtorAddress", "codebtorHouseNumber", "codebtorSector", "codebtorCity", "codebtorOccupationOther"]);
     form.addEventListener("input", (event) => {
       if (uppercaseFields.has(event.target.name)) event.target.value = event.target.value.toLocaleUpperCase("es-DO");
       updateCalculation(); updateReview();
