@@ -66,6 +66,17 @@
 .notarial-actions aside { display: flex; gap: 8px; }
 .notarial-actions .application-status { grid-column: 1 / -1; margin: 0; }
 .notarial-print-report { display: none; }
+.notarial-print-page.notarial-font--courier { font-family: "Courier New", Courier, monospace; }
+.notarial-print-page.notarial-font--times { font-family: "Times New Roman", Times, serif; }
+.notarial-print-page.notarial-font--georgia { font-family: Georgia, "Times New Roman", serif; }
+.notarial-print-page.notarial-font--arial { font-family: Arial, Helvetica, sans-serif; }
+.notarial-print-page.notarial-font--myriad { font-family: "Myriad Pro", "Segoe UI", Arial, sans-serif; }
+.notarial-font--times .notarial-legal-copy { letter-spacing: .08em; }
+.notarial-font--georgia .notarial-legal-copy { letter-spacing: .06em; }
+.notarial-font--arial .notarial-legal-copy,
+.notarial-font--myriad .notarial-legal-copy { letter-spacing: .03em; }
+.notarial-print-report .notarial-legal-copy p { orphans: 1; widows: 1; }
+.notarial-print-help { grid-column: 1 / -1; display: block; color: #637d8d; font-size: .68rem; }
 [data-second-debtor][hidden] { display: none !important; }
 
 @media (max-width: 850px) {
@@ -245,13 +256,6 @@
 .notarial-print-report .notarial-page-break-hyphen { white-space: nowrap; }
 .notarial-print-report.is-measuring { position: fixed; top: 0; left: -10000px; display: block !important; visibility: hidden; width: var(--notarial-content-width, 7.26in); color: #111; background: #fff; pointer-events: none; }
 .notarial-print-report.is-measuring .notarial-print-page { position: relative; display: flex; flex-direction: column; width: 100%; height: var(--notarial-content-height, 10.5in); box-sizing: border-box; overflow: visible; color: #111; background: #fff; }
-.notarial-print-report.is-measuring .notarial-font--courier { font-family: "Courier New", Courier, monospace; }
-.notarial-print-report.is-measuring .notarial-font--times { font-family: "Times New Roman", Times, serif; }
-.notarial-print-report.is-measuring .notarial-font--georgia { font-family: Georgia, "Times New Roman", serif; }
-.notarial-print-report.is-measuring .notarial-font--arial { font-family: Arial, Helvetica, sans-serif; }
-.notarial-print-report.is-measuring .notarial-font--times .notarial-legal-copy { letter-spacing: .08em; }
-.notarial-print-report.is-measuring .notarial-font--georgia .notarial-legal-copy { letter-spacing: .06em; }
-.notarial-print-report.is-measuring .notarial-font--arial .notarial-legal-copy { letter-spacing: .03em; }
 .notarial-print-report.is-measuring .notarial-print-header { display: grid; grid-template-rows: 50px auto auto auto; align-content: start; gap: 2px; min-height: 108px; margin: 0 0 10px; text-align: center; }
 .notarial-print-report.is-measuring .notarial-print-header img { display: block; width: 52px; height: 52px; margin: 0 auto; object-fit: contain; }
 .notarial-print-report.is-measuring .notarial-print-header h1 { margin: 0; font-family: "Brush Script MT", "Segoe Script", cursive; font-size: 21pt; font-weight: 500; line-height: 1.25; }
@@ -501,13 +505,6 @@
     page-break-inside: avoid;
   }
   body[data-print-target="document-notarial-promissory"] .notarial-print-page:last-child { break-after: auto; }
-  .notarial-print-page.notarial-font--courier { font-family: "Courier New", Courier, monospace; }
-  .notarial-print-page.notarial-font--times { font-family: "Times New Roman", Times, serif; }
-  .notarial-print-page.notarial-font--georgia { font-family: Georgia, "Times New Roman", serif; }
-  .notarial-print-page.notarial-font--arial { font-family: Arial, Helvetica, sans-serif; }
-  .notarial-print-page.notarial-font--times .notarial-legal-copy { letter-spacing: .08em; }
-  .notarial-print-page.notarial-font--georgia .notarial-legal-copy { letter-spacing: .06em; }
-  .notarial-print-page.notarial-font--arial .notarial-legal-copy { letter-spacing: .03em; }
   .notarial-print-page * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .notarial-print-header { display: grid !important; grid-template-rows: 50px auto auto auto; align-content: start; gap: 2px; min-height: 108px !important; margin: 0 0 10px !important; padding: 0 !important; text-align: center; background: #fff; break-inside: avoid; page-break-inside: avoid; }
   .notarial-print-header img { display: block; width: 52px; height: 52px; margin: 0 auto; object-fit: contain; }
@@ -517,8 +514,8 @@
   .notarial-print-page > h2 { margin: 0 0 8px; padding: 0; border: 0; color: #000; background: none; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; line-height: 1.2; text-align: center; }
   .notarial-control-line { margin: 0 0 6px; color: #000; font-size: 8.6pt; font-weight: 800; line-height: 1.2; text-align: center; }
   .notarial-control-line small { display: block; margin-top: 2px; color: #222; font-size: 7.2pt; font-weight: 700; letter-spacing: .08em; }
-  .notarial-legal-copy { color: #111; font-size: 10pt; line-height: 1.4; text-align: justify; text-align-last: left; text-justify: inter-word; text-wrap: wrap; hyphens: none; }
-  .notarial-legal-copy p { margin: 0; orphans: 3; widows: 3; }
+  .notarial-legal-copy { color: #111; font-size: 10pt; line-height: 1.4; text-align: justify; text-align-last: left; text-wrap: wrap; hyphens: none; }
+  .notarial-legal-copy p { margin: 0; }
   .notarial-print-page--flows-on .notarial-legal-copy > p:first-child { text-align-last: left; }
   .notarial-legal-copy strong { font-weight: 900; }
   .notarial-line-fill { white-space: nowrap; }

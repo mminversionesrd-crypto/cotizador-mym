@@ -88,7 +88,7 @@
             <label>Fecha del acto <input name="actDate" type="date" required></label>
             <label>Municipio <input name="actCity" required value="La Vega"></label>
             <label>Provincia <select name="actProvince" required>${optionList(PROVINCES, "La Vega")}</select></label>
-            <label class="span-two">Tipografía del pagaré <select name="printFont" required><option value="courier">Courier New · estilo del original</option><option value="times">Times New Roman · clásico jurídico</option><option value="georgia">Georgia · formal y legible</option><option value="arial">Arial · limpio y moderno</option></select></label>
+            <label class="span-two">Tipografía del pagaré <select name="printFont" required><option value="courier">Courier New · estilo del original</option><option value="times">Times New Roman · clásico jurídico</option><option value="georgia">Georgia · formal y legible</option><option value="arial">Arial · limpio y moderno</option><option value="myriad">Myriad Pro · si está instalada; si no, Segoe UI</option></select></label>
           </div>
           <aside class="notarial-fixed-data"><i class="fa-solid fa-scale-balanced"></i><div><b>${escape(NOTARY.displayName)}</b><span>${escape(NOTARY.role)} · Colegiatura ${escape(NOTARY.license)}</span></div><small>Notaria y testigos precargados desde el modelo suministrado.</small></aside>
         </section>
@@ -168,6 +168,7 @@
           <div><i class="fa-solid fa-lock"></i><span><b>Datos temporales</b><small>La información se elimina al limpiar o cerrar esta página.</small></span></div>
           <aside><button class="quiet-btn" type="button" data-notarial-clear><i class="fa-solid fa-eraser"></i> Limpiar</button><button class="primary-btn" type="button" data-notarial-print><i class="fa-solid fa-print"></i> Revisar e imprimir</button></aside>
           <p class="application-status" data-notarial-status aria-live="polite">Completa las cuatro secciones para preparar el pagaré.</p>
+          <small class="notarial-print-help">Al imprimir: papel Carta, escala 100 % y encabezados/pies del navegador desactivados.</small>
         </section>
       </form>
       </div>
@@ -214,6 +215,7 @@
     let currentPreviewPage = 1;
     let currentFormStep = 1;
     let previewTimer = 0;
+    let previewRevision = 0;
     const creditorName = form.elements.creditorName;
     const creditorId = form.elements.creditorId;
     const creditorAddress = form.elements.creditorAddress;
@@ -427,7 +429,11 @@
 
     function queueLivePreview() {
       window.clearTimeout(previewTimer);
-      previewTimer = window.setTimeout(refreshLivePreview, 90);
+      const revision = ++previewRevision;
+      previewTimer = window.setTimeout(async () => {
+        await FinanNotarialFonts.waitForNotarialFont(document.fonts, value("printFont")).catch(() => {});
+        if (revision === previewRevision) refreshLivePreview();
+      }, 90);
     }
 
     function renderPrint() {
@@ -437,7 +443,7 @@
         surface.style.setProperty("--notarial-content-height", `${geometry.contentHeightIn}in`);
       });
       const result = calculate();
-      const fontClass = ({ courier: "notarial-font--courier", times: "notarial-font--times", georgia: "notarial-font--georgia", arial: "notarial-font--arial" })[value("printFont")] || "notarial-font--courier";
+      const fontClass = FinanNotarialFonts.selectNotarialFont(value("printFont")).className;
       const female = value("debtorGender") === "female";
       const debtorTitle = female ? "la señora" : "el señor";
       const debtorRole = female ? "LA DEUDORA" : "EL DEUDOR";
@@ -751,7 +757,7 @@
     backButton.addEventListener("click", () => setFormStep(currentFormStep - 1, true));
     nextButton.addEventListener("click", () => setFormStep(currentFormStep + 1, true));
     form.querySelector("[data-notarial-clear]").addEventListener("click", reset);
-    form.querySelector("[data-notarial-print]").addEventListener("click", () => {
+    form.querySelector("[data-notarial-print]").addEventListener("click", async () => {
       const problem = validate();
       if (problem) {
         status.className = "application-status is-error";
@@ -762,6 +768,7 @@
         target?.focus();
         return;
       }
+      await FinanNotarialFonts.waitForNotarialFont(document.fonts, value("printFont")).catch(() => {});
       if (!renderPrint()) {
         status.className = "application-status is-error";
         status.textContent = "No fue posible paginar el documento sin riesgo de cortar información. Revisa los datos antes de imprimir.";
