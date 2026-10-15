@@ -249,9 +249,7 @@
 }
 
 /* Motor de medición: replica el área Carta imprimible fuera de pantalla antes de abrir la vista previa. */
-.notarial-print-report .notarial-continued { display: flex; align-items: center; gap: 10px; width: 100%; white-space: nowrap; }
-.notarial-print-report .notarial-continued::before,
-.notarial-print-report .notarial-continued::after { content: ""; flex: 1 1 auto; min-width: 24px; border-top: 1px solid #111; }
+.notarial-print-report .notarial-continued { display: block; width: 100%; height: 0; margin: 0 !important; padding: 0; overflow: hidden; line-height: 0; }
 .notarial-print-report .notarial-line-fill { white-space: nowrap; letter-spacing: inherit; }
 .notarial-print-report .notarial-page-break-hyphen { white-space: nowrap; }
 .notarial-print-report.is-measuring { position: fixed; top: 0; left: -10000px; display: block !important; visibility: hidden; width: var(--notarial-content-width, 7.26in); color: #111; background: #fff; pointer-events: none; }
@@ -268,9 +266,6 @@
 .notarial-print-report.is-measuring .notarial-legal-copy p { margin: 0; }
 .notarial-print-report.is-measuring .notarial-print-page--flows-on .notarial-legal-copy > p:first-child { text-align-last: left; }
 .notarial-print-report.is-measuring .notarial-legal-copy strong { font-weight: 900; }
-.notarial-print-report.is-measuring .notarial-continued { display: flex; align-items: center; gap: 10px; width: 100%; margin: 8px 0 0 !important; font-size: 10pt; font-weight: 900; letter-spacing: .02em !important; text-align: center; text-align-last: center; white-space: nowrap; }
-.notarial-print-report.is-measuring .notarial-continued::before,
-.notarial-print-report.is-measuring .notarial-continued::after { content: ""; flex: 1 1 auto; min-width: 24px; border-top: 1px solid #111; }
 .notarial-print-report.is-measuring .notarial-signatures { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8mm 42px; align-content: start; flex: 0 0 auto; margin: 6mm 0 0; padding: 0 20px; box-sizing: border-box; }
 .notarial-print-report.is-measuring .notarial-signatures > div { text-align: center; }
 .notarial-print-report.is-measuring .notarial-signatures .wide { grid-column: 1 / -1; width: 48%; justify-self: center; }
@@ -494,6 +489,7 @@
     display: flex;
     flex-direction: column;
     width: var(--notarial-content-width, 7.26in);
+    margin-inline: auto;
     min-height: 0;
     height: var(--notarial-content-height, 9.9in);
     box-sizing: border-box;
@@ -519,11 +515,7 @@
   .notarial-print-page--flows-on .notarial-legal-copy > p:first-child { text-align-last: left; }
   .notarial-legal-copy strong { font-weight: 900; }
   .notarial-line-fill { white-space: nowrap; }
-  .notarial-legal-copy .notarial-continued { display: flex; align-items: center; gap: 10px; width: 100%; font-size: 10pt; font-weight: 900; letter-spacing: .02em !important; text-align: center; text-align-last: center; white-space: nowrap; }
-  .notarial-legal-copy .notarial-continued::before,
-  .notarial-legal-copy .notarial-continued::after { content: ""; flex: 1 1 auto; min-width: 24px; border-top: 1px solid #111; }
   .notarial-print-page--first { padding-bottom: 0; }
-  .notarial-print-page--first .notarial-continued { position: static; margin: 8px 0 0; padding: 0; background: #fff; }
   .notarial-print-page--continuation .notarial-control-line { margin-top: 2px; }
   .notarial-signatures { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8mm 42px; align-content: start; flex: 0 0 auto; margin: 6mm 0 0; padding: 0 20px; box-sizing: border-box; break-inside: avoid; page-break-inside: avoid; }
   .notarial-signatures > div { text-align: center; }

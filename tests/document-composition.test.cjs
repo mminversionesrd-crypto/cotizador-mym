@@ -24,6 +24,21 @@ test("la medición y la impresión usan el mismo ancho y tamaño de texto legibl
   assert.match(css, /\.notarial-legal-copy \{[^}]*font-size: 11pt/);
 });
 
+test("las hojas intermedias continúan sin aviso visible ni renglón reservado", () => {
+  const script = fs.readFileSync(path.join(__dirname, "../pagare-notarial.js"), "utf8");
+  const css = fs.readFileSync(path.join(__dirname, "../pagare-notarial.css"), "utf8");
+  assert.doesNotMatch(script, /SIGUE AL DORSO|CONTIN[ÚU]A AL DORSO/i);
+  assert.match(css, /\.notarial-print-report \.notarial-continued \{[^}]*height: 0/);
+  assert.doesNotMatch(css, /\.notarial-continued::before|\.notarial-continued::after/);
+});
+
+test("la hoja notarial se centra dentro de márgenes laterales simétricos", () => {
+  const geometry = letterPageGeometry();
+  const css = fs.readFileSync(path.join(__dirname, "../pagare-notarial.css"), "utf8");
+  assert.equal(geometry.marginLeftIn, geometry.marginRightIn);
+  assert.match(css, /body\[data-print-target="document-notarial-promissory"\] \.notarial-print-page \{[^}]*margin-inline: auto/);
+});
+
 test("los artículos conservan su texto y el cierre no incorpora decoración", () => {
   const blocks = composeNotarialBlocks([
     { text: "Comparecieron las partes. " },

@@ -108,7 +108,7 @@ const { chromium } = require("playwright");
     assert.equal(await report.locator(".notarial-print-page:not(:last-child).notarial-print-page--flows-on").count(), previewPageCount - 1, "las hojas anteriores deben conservar la continuidad del texto");
     const continuationAlignment = await report.locator(".notarial-print-page:not(:last-child) .notarial-legal-copy > p:first-child").evaluateAll((paragraphs) => paragraphs.map((paragraph) => getComputedStyle(paragraph).textAlignLast));
     assert.equal(continuationAlignment.every((alignment) => alignment !== "justify"), true, "la última línea de cada hoja intermedia no debe estirarse");
-    assert.equal(Number(await report.getAttribute("data-first-page-free-space")) <= 90, true, "la primera hoja debe aprovechar su área legal antes de continuar al dorso");
+    assert.equal(Number(await report.getAttribute("data-first-page-free-space")) <= 90, true, "la primera hoja debe aprovechar su área legal antes de continuar en la siguiente");
     const orphanOrdinals = await report.locator(".notarial-print-page:not(:last-child)").evaluateAll((pages) => pages.map((sheet) => {
       const copy = sheet.querySelector(".notarial-legal-copy > p:first-child").cloneNode(true);
       copy.querySelectorAll(".notarial-line-fill").forEach((fill) => fill.remove());
@@ -117,6 +117,7 @@ const { chromium } = require("playwright");
     assert.equal(orphanOrdinals.some(Boolean), false, "ningún ordinal debe quedar solo al pie de una hoja");
     assert.equal(await report.locator(".notarial-signatures").count(), 1, "las firmas notariales deben permanecer juntas");
     const legalText = await report.locator(".notarial-legal-copy").allInnerTexts();
+    assert.doesNotMatch(legalText.join(" "), /SIGUE AL DORSO|CONTIN[ÚU]A AL DORSO/i, "la continuidad no debe imprimir avisos de dorso");
     const previewText = await workspace.locator("[data-preview-pages] .notarial-legal-copy").allInnerTexts();
     assert.deepEqual(previewText, legalText, "la vista previa y la impresión deben usar exactamente el mismo texto jurídico");
     assert.equal(await report.locator("[data-page-label]").count(), 0, "el pagaré impreso no debe mostrar PÁGINA X DE Y");
@@ -127,23 +128,23 @@ const { chromium } = require("playwright");
     await page.emulateMedia({ media: "print" });
     const continuationRule = await report.locator(".notarial-continued").first().evaluate((element) => {
       const own = getComputedStyle(element);
-      const before = getComputedStyle(element, "::before");
-      const after = getComputedStyle(element, "::after");
       return {
         display: own.display,
-        beforeGrow: before.flexGrow,
-        afterGrow: after.flexGrow,
-        beforeBorder: before.borderTopStyle,
-        afterBorder: after.borderTopStyle
+        height: element.getBoundingClientRect().height,
+        text: element.textContent
       };
     });
     assert.deepEqual(continuationRule, {
-      display: "flex",
-      beforeGrow: "1",
-      afterGrow: "1",
-      beforeBorder: "solid",
-      afterBorder: "solid"
-    }, "SIGUE AL DORSO debe completar ambos lados con líneas flexibles");
+      display: "block",
+      height: 0,
+      text: ""
+    }, "la marca de continuidad debe ser invisible y no reservar un renglón");
+    const centeredPage = await report.locator(".notarial-print-page").first().evaluate((sheet) => {
+      const page = sheet.getBoundingClientRect();
+      const printable = sheet.parentElement.getBoundingClientRect();
+      return Math.abs((page.left - printable.left) - (printable.right - page.right));
+    });
+    assert.equal(centeredPage <= 1, true, "el área impresa debe centrarse entre ambos márgenes");
 
     const closing = await report.locator(".notarial-print-page").last().evaluate((sheet) => {
       const paragraph = sheet.querySelector(".notarial-legal-copy > p:first-child");
@@ -186,8 +187,8 @@ const { chromium } = require("playwright");
       script: [...document.scripts].find((item) => item.src.includes("pagare-notarial.js"))?.src || "",
       style: [...document.styleSheets].map((item) => item.href || "").find((href) => href.includes("pagare-notarial.css")) || ""
     }));
-    assert.match(assets.script, /v=20261015-layout6/, "el JavaScript notarial debe invalidar la versión anterior");
-    assert.match(assets.style, /v=20261015-layout6/, "los estilos notariales deben invalidar la versión anterior");
+    assert.match(assets.script, /v=20261015-print10/, "el JavaScript notarial debe invalidar la versión anterior");
+    assert.match(assets.style, /v=20261015-print10/, "los estilos notariales deben invalidar la versión anterior");
 
     const pageCount = await report.locator(".notarial-print-page").count();
     assert.equal(pageCount >= 1, true, "el pagaré debe producir al menos una hoja carta");

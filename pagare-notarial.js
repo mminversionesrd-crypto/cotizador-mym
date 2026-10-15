@@ -499,7 +499,7 @@
       const continuation = () => {
         const node = document.createElement("p");
         node.className = "notarial-continued";
-        node.textContent = "SIGUE AL DORSO";
+        node.setAttribute("aria-hidden", "true");
         return node;
       };
       const createPage = (index, withContinuation = true) => {
