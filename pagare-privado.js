@@ -181,5 +181,16 @@
     document.body.dataset.printTarget = "private-promissory";
     window.print();
   });
-  window.addEventListener("afterprint", () => { if (document.body.dataset.printTarget === "private-promissory") delete document.body.dataset.printTarget; });
+  // Chromium recorta los documentos multipágina dentro de un diálogo modal.
+  // Sacarlo de la capa modal permite que se impriman todas las hojas.
+  let restoreModalAfterPrint = false;
+  window.addEventListener("beforeprint", () => {
+    if (document.body.dataset.printTarget !== "private-promissory") return;
+    restoreModalAfterPrint = dialog.open;
+    if (dialog.open) dialog.close();
+  });
+  window.addEventListener("afterprint", () => {
+    if (document.body.dataset.printTarget === "private-promissory") delete document.body.dataset.printTarget;
+    if (restoreModalAfterPrint) { restoreModalAfterPrint = false; dialog.showModal(); }
+  });
 })();

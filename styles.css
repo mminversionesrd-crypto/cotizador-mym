@@ -2216,3 +2216,13 @@ tbody tr:nth-child(even) td { background: #fbfdff; }
     page-break-inside: avoid;
   }
 }
+/* Espacio de firma reservado sin expulsarlo de la cotización Carta. */
+@media print {
+  body[data-print-target="quote"] .print-hero { padding: 3px 0 5px; }
+  body[data-print-target="quote"] .print-hero strong { font-size: 1.7rem; margin: 2px 0; }
+  body[data-print-target="quote"] .print-report th,
+  body[data-print-target="quote"] .print-report td { padding-top: 1px; padding-bottom: 1px; }
+  body[data-print-target="quote"] .print-summary { margin: 5px 0; }
+  body[data-print-target="quote"] .print-parties { margin: 5px 0; }
+  body[data-print-target="quote"] .print-signatures { padding-top: 12px; }
+}

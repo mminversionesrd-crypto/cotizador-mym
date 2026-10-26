@@ -42,8 +42,8 @@
   workspace.hidden = true;
   workspace.innerHTML = `
     <header class="operation-hero">
-      <div><span class="operation-hero__eyebrow"><i class="fa-solid fa-circle-nodes"></i> Expediente temporal conectado</span><h2>Compra, venta y financiamiento</h2><p>Una sola operación alimenta evaluación, garantías, documentos, entrega y control.</p></div>
-      <div class="operation-hero__reference"><small>Referencia activa</small><strong id="operationReference"></strong><span id="operationSaveState"><i></i> Guardado en esta sesión</span></div>
+      <div><span class="operation-hero__eyebrow"><i class="fa-solid fa-circle-nodes"></i> Expediente conectado</span><h2>Compra, venta y financiamiento</h2><p>Una sola operación alimenta evaluación, garantías, documentos, entrega y control.</p></div>
+      <div class="operation-hero__reference"><small>Referencia activa</small><strong id="operationReference"></strong><span id="operationSaveState"><i></i> Guardado en este navegador</span></div>
     </header>
     <div class="operation-commandbar">
       <div><button type="button" data-operation-new><i class="fa-regular fa-file"></i> Nueva</button><button type="button" data-operation-duplicate><i class="fa-regular fa-copy"></i> Duplicar</button></div>
@@ -137,7 +137,7 @@
   function renderSummary() {
     workspace.querySelector("#operationReference").textContent = operation.reference;
     workspace.querySelector("#operationSaveState").classList.toggle("is-pending", dirty);
-    workspace.querySelector("#operationSaveState").innerHTML = `<i></i> ${dirty ? "Cambios sin exportar" : "Guardado en esta sesión"}`;
+    workspace.querySelector("#operationSaveState").innerHTML = `<i></i> ${dirty ? "Cambios pendientes de guardar" : "Guardado · " + new Date(operation.updatedAt).toLocaleTimeString("es-DO")}`;
     const completion = Flows.completion(operation.productType, operation);
     workspace.querySelector("#operationReadiness").textContent = `${completion.percent}% listo`;
     workspace.querySelector("#operationReadinessBar").style.width = `${completion.percent}%`;
@@ -211,7 +211,7 @@
     dirty = true; persist(); renderForm();
   }
   function setNotice(message = "", type = "") { const notice = workspace.querySelector("#operationNotice"); notice.textContent = message; notice.dataset.type = type; }
-  function persist() { Repository.save(operation); }
+  function persist() { try { operation = Repository.save(operation); dirty = false; setNotice("Guardado en este navegador.", "success"); } catch(error) { dirty = true; setNotice(error.message + " Exporta el expediente para conservarlo.", "error"); } }
   function reset(type = "personal_loan") { operation = Core.create(type); dirty = false; persist(); setNotice("Nueva operación preparada.", "success"); renderForm(); }
   function download() {
     const blob = new Blob([Repository.export(operation)], { type: "application/json" });
@@ -229,6 +229,7 @@
 
   const originalSelect = window.selectCotizadorWorkspace;
   function openWorkbench() {
+    operation = Repository.load() || operation;
     originalSelect?.("application");
     document.querySelectorAll(".workspace").forEach((item) => { item.hidden = item !== workspace; });
     document.querySelector("#workspaceMenu").hidden = true;
@@ -243,6 +244,7 @@
   menuButton.addEventListener("click", openWorkbench);
   document.querySelector("#workspaceHomeBtn")?.addEventListener("click", () => { workspace.hidden = true; });
   window.addEventListener("beforeunload", (event) => { if (!dirty) return; event.preventDefault(); event.returnValue = ""; });
+  window.OperationWorkbench = { open(reference) { Repository.activate(reference); operation = Repository.load(); window.selectCotizadorWorkspace("operations"); }, reload() { operation = Repository.load() || operation; renderForm(); } };
   renderForm();
 })();
 

@@ -178,3 +178,6 @@
   body[data-print-target="private-promissory"] .private-promissory-page--recognition .private-promissory-manuals { margin-top: auto !important; padding-top: 16px; break-inside: avoid; page-break-inside: avoid; }
   body[data-print-target="private-promissory"] .private-promissory-page:last-child { break-after: auto; page-break-after: auto; }
 }
+@media print {
+  body[data-print-target="private-promissory"] #privatePromissoryDialog { overflow: visible; max-height: none; }
+}

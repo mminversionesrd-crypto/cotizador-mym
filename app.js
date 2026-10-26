@@ -1672,6 +1672,7 @@ window.selectCotizadorWorkspace = selectWorkspace;
   function clearApplication() {
     form.reset();
     Object.keys(specificValues).forEach((key) => delete specificValues[key]);
+    specificFields.innerHTML = "";
     delete state.applicationReference;
     selectType("personal");
     updateFinancialSummary();
@@ -2370,6 +2371,7 @@ window.selectCotizadorWorkspace = selectWorkspace;
     clearApplication();
     setApplicationStep(0, { scroll: false });
   });
+  window.FinancingApplication = { resetForOperation(type) { form.reset(); specificFields.innerHTML = ""; Object.keys(specificValues).forEach(key => delete specificValues[key]); selectType(type || "personal"); setApplicationStep(0, {scroll:false}); } };
   renderSpecificFields();
   updateFinancialSummary();
   updateLoanEstimate();
@@ -2384,7 +2386,7 @@ window.selectCotizadorWorkspace = selectWorkspace;
   const form = document.querySelector("#evaluationForm");
   if (!form) return;
 
-  const status = document.querySelector("#evaluationStatus");
+  const status = document.querySelector("#evaluationVisitStatus");
   const hasCoDebtor = form.elements.namedItem("hasCoDebtor");
   const coDebtorFields = document.querySelector("#coDebtorFields");
   const coDebtorBureauFields = document.querySelector("#coDebtorBureauFields");
@@ -3658,7 +3660,7 @@ function initializeLegacyPreApplication() {
       const preview = document.querySelector(`#${previewId}`);
       if (!file) { photos[key] = ""; preview.hidden = true; preview.removeAttribute("src"); return; }
       const reader = new FileReader();
-      reader.onload = () => { photos[key] = String(reader.result); preview.src = photos[key]; preview.hidden = false; };
+      reader.onload = () => { if (input.files?.[0] !== file) return; photos[key] = String(reader.result); preview.src = photos[key]; preview.hidden = false; };
       reader.readAsDataURL(file);
     });
   }
@@ -3671,13 +3673,13 @@ function initializeLegacyPreApplication() {
     if (!calculation) messages.push("Revisa el monto, la tasa y el plazo.");
     const hasCoDebtor = field("preHasCoDebtor").checked;
     const people = core.validateApplication({ applicant: readParty("applicant"), hasCoDebtor, coDebtor: readParty("coDebtor") });
-    Object.keys(people.errors.applicant).forEach((key) => markError(partyNames.applicant[key]));
-    Object.keys(people.errors.coDebtor).forEach((key) => markError(partyNames.coDebtor[key]));
-    if (!people.valid) messages.push("Revisa los datos del solicitante y del codeudor.");
+    Object.keys(people.applicant).forEach((key) => markError(partyNames.applicant[key]));
+    Object.keys(people.coDebtor).forEach((key) => markError(partyNames.coDebtor[key]));
+    if (Object.keys(people.applicant).length || Object.keys(people.coDebtor).length) messages.push("Revisa los datos del solicitante y del codeudor.");
     if (!photos.applicant) { markError("preApplicantIdPhoto"); messages.push("Anexa la cédula del solicitante."); }
     if (hasCoDebtor && !photos.coDebtor) { markError("preCoDebtorIdPhoto"); messages.push("Anexa la cédula del codeudor."); }
     const decision = core.validateDecision({ decision: value("preDecision"), observations: value("preDecisionObservations") });
-    if (!decision.valid) { messages.push(Object.values(decision.errors)[0]); if (decision.errors.observations) markError("preDecisionObservations"); }
+    if (decision) { messages.push(decision); if (value("preDecision") === "Aprobado con observaciones") markError("preDecisionObservations"); }
     if (!value("preDecisionOfficer")) { markError("preDecisionOfficer"); messages.push("Indica quién realizó la evaluación."); }
     return [...new Set(messages)];
   }
@@ -3689,7 +3691,7 @@ function initializeLegacyPreApplication() {
     const decision = value("preDecision");
     report.innerHTML = `<article class="preapplication-v3-print-sheet">
       <header><div class="preapplication-v3-print-brand"><img src="LOGO%20M%26M.png" alt="M&M Inversiones"><div><small>Centro de financiamiento · uso interno</small><h1>PRE-SOLICITUD DE CRÉDITO</h1></div></div><p><b>${escapeHtml(value("preReference"))}</b><span>${escapeHtml(value("preDate"))}</span><span>${escapeHtml(value("preAdvisor"))}</span></p></header>
-      <section class="preapplication-v3-print-operation"><div><small>Operación</small><b>${escapeHtml(value("preOperationType"))}</b></div><div class="purpose"><small>Destino</small><b>${escapeHtml(value("prePurpose"))}</b></div><div><small>Monto</small><b>${formatMoney(calculation.amount)}</b></div><div><small>Tasa / plazo</small><b>${escapeHtml(value("preRate"))}% · ${escapeHtml(value("preTerm"))} meses</b></div><div class="payment"><small>Cuota estimada*</small><b>${formatMoney(calculation.installment)}</b></div><p>*Interés simple mensual. Resultado sujeto a revisión y cambios. Intereses: ${formatMoney(calculation.interest)} · Total: ${formatMoney(calculation.total)}</p></section>
+      <section class="preapplication-v3-print-operation"><div><small>Operación</small><b>${escapeHtml(value("preOperationType"))}</b></div><div class="purpose"><small>Destino</small><b>${escapeHtml(value("prePurpose"))}</b></div><div><small>Monto</small><b>${formatMoney(calculation.principal)}</b></div><div><small>Tasa / plazo</small><b>${escapeHtml(value("preRate"))}% · ${escapeHtml(value("preTerm"))} meses</b></div><div class="payment"><small>Cuota estimada*</small><b>${formatMoney(calculation.installment)}</b></div><p>*Interés simple mensual. Resultado sujeto a revisión y cambios. Intereses: ${formatMoney(calculation.interest)} · Total: ${formatMoney(calculation.total)}</p></section>
       <div class="preapplication-v3-print-people${hasCoDebtor ? "" : " is-single"}"><section><h2>Solicitante</h2>${infoRows(applicant)}</section>${hasCoDebtor ? `<section><h2>Codeudor</h2>${infoRows(coDebtor)}</section>` : ""}</div>
       <div class="preapplication-v3-print-ids${hasCoDebtor ? "" : " is-single"}"><figure><img src="${photos.applicant}" alt="Cédula del solicitante"><figcaption>Cédula del solicitante</figcaption></figure>${hasCoDebtor ? `<figure><img src="${photos.coDebtor}" alt="Cédula del codeudor"><figcaption>Cédula del codeudor</figcaption></figure>` : ""}</div>
       <footer><div class="preapplication-v3-print-decision"><small>Resultado de evaluación</small><b>${escapeHtml(decision)}</b><p>${escapeHtml(value("preDecisionObservations") || "Sin observaciones adicionales.")}</p></div><div class="preapplication-v3-print-signature"><span></span><small>Evaluado por</small><b>${escapeHtml(value("preDecisionOfficer"))}</b></div></footer>
@@ -3705,6 +3707,7 @@ function initializeLegacyPreApplication() {
     field("preDate").value = new Date().toISOString().slice(0, 10); field("preRate").value = "3"; clearErrors(); makeReference(); toggleCoDebtor(); updateCalculation(); status.className = "application-status"; status.textContent = "Formulario limpio. Los datos no se guardan en el navegador.";
   }
 
+  window.FinancingPresolicitud = { refresh: updateCalculation, validate };
   field("preDate").value = new Date().toISOString().slice(0, 10);
   field("preRate").value = "3";
   makeReference(); toggleCoDebtor(); updateCalculation();

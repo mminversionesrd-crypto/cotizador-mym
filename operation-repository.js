@@ -1,45 +1,15 @@
-"use strict";
-
-(function installOperationRepository(globalScope) {
-  const STORAGE_KEY = "mm-financing-operation-v1";
-  const fallbackValues = new Map();
-  const fallbackStorage = {
-    getItem: (key) => fallbackValues.get(key) ?? null,
-    setItem: (key, value) => fallbackValues.set(key, String(value)),
-    removeItem: (key) => fallbackValues.delete(key)
-  };
-  function validate(operation) {
-    if (!operation || typeof operation !== "object") throw new Error("El archivo no contiene una operación válida.");
-    if (operation.schemaVersion !== 1) throw new Error("La versión del expediente no es compatible.");
-    if (!operation.reference || !operation.productType) throw new Error("El expediente no contiene referencia o producto.");
-    return operation;
-  }
-  function createRepository(storage = globalScope.sessionStorage || fallbackStorage) {
-    return {
-      load() {
-        const raw = storage.getItem(STORAGE_KEY);
-        if (!raw) return null;
-        try { return validate(JSON.parse(raw)); } catch { return null; }
-      },
-      save(operation) {
-        const valid = validate(operation);
-        storage.setItem(STORAGE_KEY, JSON.stringify(valid));
-        return valid;
-      },
-      clear() { storage.removeItem(STORAGE_KEY); },
-      export(operation) { return JSON.stringify(validate(operation), null, 2); },
-      import(raw) {
-        let parsed;
-        try { parsed = JSON.parse(String(raw || "")); } catch { throw new Error("El archivo JSON no se puede leer."); }
-        const valid = validate(parsed);
-        storage.setItem(STORAGE_KEY, JSON.stringify(valid));
-        return valid;
-      }
-    };
-  }
-  const singleton = createRepository();
-  const api = { createRepository, load: singleton.load, save: singleton.save, clear: singleton.clear, export: singleton.export, import: singleton.import };
-  if (typeof module !== "undefined" && module.exports) module.exports = api;
-  globalScope.OperationRepository = api;
-})(typeof window !== "undefined" ? window : globalThis);
-
+'use strict';
+(function(root){
+ const KEY='mm-financing-crm-v2',OLD='mm-financing-operation-v1';const clone=v=>JSON.parse(JSON.stringify(v));
+ const products=new Set(['personal_loan','commercial_loan','vehicle_secured_loan','mortgage_secured_loan','motorcycle_cash_sale','motorcycle_financing','smartphone_financing','appliance_financing']);
+ function safe(v){if(v&&typeof v==='object'){for(const k of Object.keys(v)){if(['__proto__','constructor','prototype'].includes(k))throw Error('El archivo contiene campos no permitidos.');safe(v[k])}}}
+ function validate(o){safe(o);if(!o||typeof o!=='object'||Array.isArray(o))throw Error('El archivo no contiene una operación válida.');if(o.schemaVersion!==1)throw Error('La versión del expediente no es compatible.');if(typeof o.reference!=='string'||!o.reference.trim()||!products.has(o.productType))throw Error('Referencia o producto no válido.');if(!o.people||typeof o.people!=='object'||!o.people.customer||typeof o.people.customer!=='object'||Array.isArray(o.people.customer)||!o.proposal||typeof o.proposal!=='object'||Array.isArray(o.proposal))throw Error('Faltan datos del expediente.');if(o.crm){if(typeof o.crm!=='object'||Array.isArray(o.crm)||!['presolicitud','evaluation','decision','approved','formalization','completed','rejected','cancelled','archived'].includes(o.crm.stage)||!Array.isArray(o.crm.history))throw Error('Historial o etapa no válido.');for(const h of o.crm.history)if(!h||typeof h!=='object'||typeof h.at!=='string')throw Error('Historial no válido.')}for(const key of ['principal','price','downPayment','term','monthlyRate'])if(o.proposal[key]!==undefined&&o.proposal[key]!==''&&(!Number.isFinite(Number(o.proposal[key]))||Number(o.proposal[key])<0))throw Error('Propuesta financiera no válida.');return o}
+ function database(d){if(!d||d.schemaVersion!==2||!Array.isArray(d.operations))throw Error('Respaldo no compatible.');const ids=new Set;for(const o of d.operations){validate(o);if(ids.has(o.reference))throw Error('Referencias duplicadas.');ids.add(o.reference)}if(d.active!==null&&!ids.has(d.active))throw Error('Expediente activo no válido.');return d}
+ function createRepository(storage){if(!storage){try{storage=root.localStorage}catch{throw Error('El navegador no permite guardar expedientes.')}}
+ function read(){const raw=storage.getItem(KEY);if(raw){try{return database(JSON.parse(raw))}catch{throw Error('No se pudo leer la base local. Conserva los datos y recupera un respaldo.')}}let old=storage.getItem(OLD);if(!old&&storage===root.localStorage){try{old=root.sessionStorage?.getItem(OLD)}catch{}}if(old){let op;try{op=validate(JSON.parse(old))}catch{throw Error('No se pudo migrar el expediente anterior.')}const d={schemaVersion:2,active:op.reference,operations:[op]};write(d);return d}return {schemaVersion:2,active:null,operations:[]}}
+ function write(d){database(d);storage.setItem(KEY,JSON.stringify(d));root.dispatchEvent?.(new Event('operations:changed'));return d}
+ const api={load(){const d=read();return clone(d.operations.find(o=>o.reference===d.active)||null)},list(){return clone(read().operations)},save(o){validate(o);const d=read(),i=d.operations.findIndex(v=>v.reference===o.reference);const next=clone(o);if(i>=0&&next.people?.customer?.fullName!==d.operations[i].people?.customer?.fullName&&next.people?.customer?.firstNames===d.operations[i].people?.customer?.firstNames&&next.people?.customer?.lastNames===d.operations[i].people?.customer?.lastNames){delete next.people.customer.firstNames;delete next.people.customer.lastNames}if(i>=0&&['approved','formalization','completed'].includes(d.operations[i].crm?.stage)&&JSON.stringify([d.operations[i].people,d.operations[i].proposal,d.operations[i].evaluation,d.operations[i].collateral,d.operations[i].productType])!==JSON.stringify([next.people,next.proposal,next.evaluation,next.collateral,next.productType])){next.crm={...(next.crm||{}),stage:'evaluation',approvedAmount:0,completedAmount:0,history:[...(next.crm?.history||[]),{type:'revision',at:new Date().toISOString(),actor:'Control de cambios',note:'Los datos del expediente cambiaron; requiere nueva evaluación y decisión.'}]}}if(i<0)d.operations.push(next);else d.operations[i]=next;d.active=o.reference;write(d);return clone(next)},activate(id){const d=read();if(!d.operations.some(o=>o.reference===id))throw Error('Expediente no encontrado.');d.active=id;write(d);return api.load()},clear(){const d=read();d.active=null;write(d)},export(o){return JSON.stringify(validate(o),null,2)},import(raw){let o;try{o=JSON.parse(raw)}catch{throw Error('El archivo JSON no se puede leer.')}validate(o);const previous=read().operations.find(x=>x.reference===o.reference);if(previous&&JSON.stringify(previous)!==JSON.stringify(o))throw Error('Ya existe una versión diferente de este expediente. Conserva un respaldo antes de sustituirlo.');return api.save(o)},rawBackup(){return storage.getItem(KEY)||JSON.stringify(read(),null,2)},backup(){return JSON.stringify(read(),null,2)},restore(raw,options={}){let d;try{d=JSON.parse(raw)}catch{throw Error('El archivo JSON no se puede leer.')}database(d);let current;try{current=read()}catch{const raw=storage.getItem(KEY);if(raw)storage.setItem(KEY+'-recovery-'+Date.now(),raw);current={schemaVersion:2,active:null,operations:[]}}const map=new Map(current.operations.map(o=>[o.reference,o]));for(const o of d.operations){const existing=map.get(o.reference);if(existing&&JSON.stringify(existing)!==JSON.stringify(o)&&!options.replaceExisting)throw Error('El respaldo contiene una versión diferente de '+o.reference+'. Importa ese expediente por separado para revisarlo.');map.set(o.reference,o)}write({schemaVersion:2,active:current.active||d.active,operations:[...map.values()]});return api.list()}};return api}
+ const memory=new Map;const fallback={getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v),removeItem:k=>memory.delete(k)};
+ let singleton;try{singleton=createRepository(root.localStorage||fallback)}catch{singleton=createRepository({getItem(){throw Error('Almacenamiento local bloqueado.')} ,setItem(){throw Error('Almacenamiento local bloqueado.')}})}
+ const api={createRepository,...singleton};if(typeof module!=='undefined')module.exports=api;root.OperationRepository=api;
+})(typeof window!=='undefined'?window:globalThis);

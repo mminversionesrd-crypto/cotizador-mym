@@ -1,7 +1,16 @@
 "use strict";
 
-const CACHE_NAME = "finanpro-workbench-v7";
+const CACHE_NAME = "mym-financiamiento-home-v14-vfx";
 const APP_SHELL = [
+  "./financing-crm.js",
+  "./financing-crm-core.js",
+  "./financing-crm.css",
+  "./financing-form-bridge.js",
+  "./bank-dashboard.js",
+  "./bank-dashboard.css",
+  "./system-home.css",
+  "./system-home.js",
+  "./system-navigation.js",
   "./",
   "./index.html",
   "./styles.css",

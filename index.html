@@ -7,15 +7,18 @@
     <title>Cotizador M&M</title>
     <link rel="manifest" href="app.webmanifest">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=20261012-quoteux1">
+    <link rel="stylesheet" href="styles.css?v=20261026-vfx3">
   <link rel="stylesheet" href="pagare-notarial.css?v=20261015-print10">
     <link rel="stylesheet" href="menu-empresarial.css?v=20261012-quoteux1">
     <link rel="stylesheet" href="calculadora-express.css?v=20261005-dashboard2">
     <link rel="stylesheet" href="quote-reference.css?v=20261012-reference1">
-    <link rel="stylesheet" href="pagare-privado.css?v=20261013-1">
+    <link rel="stylesheet" href="pagare-privado.css?v=20261026-print1">
     <link rel="stylesheet" href="ultimate-ui.css?v=20261013-1">
     <link rel="stylesheet" href="operation-workbench.css?v=20261013-1">
-  </head>
+    <link rel="stylesheet" href="system-home.css?v=20261026-vfx3">
+  <link rel="stylesheet" href="bank-dashboard.css?v=20261022-crm1">
+<link rel="stylesheet" href="financing-crm.css?v=20261022-crm1">
+</head>
   <body>
     <a class="skip-link" href="#workspaceMenu">Saltar al contenido principal</a>
     <main class="app-shell">
@@ -579,7 +582,7 @@
               <section class="evaluation-upload" id="coDebtorPhotoSection" aria-labelledby="coDebtorIdPhotoTitle" hidden><div><i class="fa-regular fa-id-card"></i><h3 id="coDebtorIdPhotoTitle">Cédula frontal del codeudor</h3></div><label class="upload-drop"><input name="coDebtorIdPhoto" type="file" accept="image/*"><img id="coDebtorIdPreview" alt="Vista previa de cédula del codeudor" hidden><span><i class="fa-solid fa-cloud-arrow-up"></i><b>Subir foto frontal</b><small>JPG, PNG o WEBP</small></span></label></section>
             </aside>
           </div>
-          <section class="evaluation-actions"><label class="consent-check"><input name="evaluationConsent" type="checkbox" required><span>Confirmo que esta información fue levantada durante la visita presencial de evaluación.</span></label><div><button class="quiet-btn" id="clearEvaluationBtn" type="button"><i class="fa-solid fa-eraser"></i> Limpiar</button><button class="primary-btn" id="printEvaluationBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir ficha</button></div><p class="application-status" id="evaluationStatus" aria-live="polite">Completa la ficha para preparar la evaluación.</p></section>
+          <section class="evaluation-actions"><label class="consent-check"><input name="evaluationConsent" type="checkbox" required><span>Confirmo que esta información fue levantada durante la visita presencial de evaluación.</span></label><div><button class="quiet-btn" id="clearEvaluationBtn" type="button"><i class="fa-solid fa-eraser"></i> Limpiar</button><button class="primary-btn" id="printEvaluationBtn" type="button"><i class="fa-solid fa-print"></i> Imprimir ficha</button></div><p class="application-status" id="evaluationVisitStatus" aria-live="polite">Completa la ficha para preparar la evaluación.</p></section>
         </form>
       </section>
     </main>
@@ -749,16 +752,16 @@
   <script src="pagare-notarial.js?v=20261015-double1"></script>
     <script src="preapplication-core.js?v=20261009-codeudor1"></script>
     <script src="operation-core.js?v=20261013-1"></script>
-    <script src="operation-repository.js?v=20261013-1"></script>
+    <script src="operation-repository.js?v=20261022-crm1"></script>
     <script src="product-rules.js?v=20261013-1"></script>
     <script src="operation-calculators.js?v=20261013-1"></script>
     <script src="collateral-evaluation.js?v=20261013-1"></script>
     <script src="product-flows.js?v=20261013-1"></script>
     <script src="document-center.js?v=20261013-1"></script>
-    <script src="app.js?v=20261012-quoteux1"></script>
-    <script src="pagare-privado.js?v=20261013-1"></script>
+    <script src="app.js?v=20261022-crm1"></script>
+    <script src="pagare-privado.js?v=20261026-print1"></script>
     <script src="calculadora-express.js?v=20261005-dashboard"></script>
-    <script src="operation-workbench.js?v=20261013-1"></script>
+    <script src="operation-workbench.js?v=20261022-crm1"></script>
     <script src="menu-acordeon.js"></script>
     <script src="ultimate-ui.js?v=20261013-1"></script>
     <script>
@@ -766,5 +769,11 @@
         navigator.serviceWorker.register("./service-worker.js").catch(() => {});
       }
     </script>
-  </body>
+  <script src="system-navigation.js?v=20261022-crm1"></script>
+<script src="financing-crm-core.js?v=20261022-crm1"></script>
+<script src="financing-crm.js?v=20261022-crm1"></script>
+<script src="financing-form-bridge.js?v=20261022-crm1"></script>
+<script src="bank-dashboard.js?v=20261022-crm1"></script>
+<script src="system-home.js?v=20261026-vfx3"></script>
+</body>
 </html>
