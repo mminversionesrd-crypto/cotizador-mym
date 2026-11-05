@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles.css?v=20261026-vfx3">
   <link rel="stylesheet" href="pagare-notarial.css?v=20261015-print10">
     <link rel="stylesheet" href="menu-empresarial.css?v=20261012-quoteux1">
-    <link rel="stylesheet" href="calculadora-express.css?v=20261005-dashboard2">
+    <link rel="stylesheet" href="calculadora-express.css?v=20261105-term-visibility">
     <link rel="stylesheet" href="quote-reference.css?v=20261012-reference1">
     <link rel="stylesheet" href="pagare-privado.css?v=20261026-print1">
     <link rel="stylesheet" href="ultimate-ui.css?v=20261013-1">
@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="system-home.css?v=20261026-vfx3">
   <link rel="stylesheet" href="bank-dashboard.css?v=20261022-crm1">
 <link rel="stylesheet" href="financing-crm.css?v=20261022-crm1">
-</head>
+<link rel="stylesheet" href="document-management.css?v=20261027-footer4">
+<link rel="stylesheet" href="document-engine/optimal-print.css?v=20261104-optimal-6"></head>
   <body>
     <a class="skip-link" href="#workspaceMenu">Saltar al contenido principal</a>
     <main class="app-shell">
@@ -95,14 +96,14 @@
           </label>
           <label class="express-field express-field--amount">
             <span>Monto o precio</span>
-            <span class="express-money-input"><b>RD$</b><input id="expressAmount" type="number" min="0" step="500" value="60000" required inputmode="decimal"></span>
+            <span class="express-money-input"><b>RD$</b><input id="expressAmount" type="number" min="0" step="0.01" value="60000" required inputmode="decimal"></span>
           </label>
           <label class="express-field express-field--down">
             <span>Inicial</span>
-            <span class="express-money-input"><b>RD$</b><input id="expressDownPayment" type="number" min="0" step="500" value="10000" required inputmode="decimal"></span>
+            <span class="express-money-input"><b>RD$</b><input id="expressDownPayment" type="number" min="0" step="0.01" value="10000" required inputmode="decimal"></span>
           </label>
           <label class="express-field">
-            <span>Plazo en meses</span>
+            <span id="expressMonthLabel">Plazo en meses</span>
             <input id="expressTerm" type="number" min="1" max="60" step="1" value="12" required inputmode="numeric">
           </label>
           <label class="express-field">
@@ -127,6 +128,8 @@
           <span class="express-result__meta" id="expressPaymentMeta">12 pagos · Total RD$0.00</span>
           <small id="expressInterest">Interés total: RD$0.00</small>
         </output>
+        <button class="express-calculator__submit" id="expressPrintAmortization" type="button"><i class="fa-solid fa-print" aria-hidden="true"></i> Imprimir amortización</button>
+        <div id="documentPrint-express-amortization" hidden></div>
         <p class="express-calculator__note" id="expressCalculatorNote"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Estimación con tasa simple mensual. No incluye cargos, seguros ni gastos legales.</p>
       </section>
 
@@ -268,7 +271,7 @@
             <section class="condition-block condition-block--schedule" aria-labelledby="scheduleBlockTitle">
               <div class="condition-block__heading"><div><i class="fa-regular fa-calendar"></i><span><b id="scheduleBlockTitle">Calendario del plan</b><small>Escribe el plazo o utiliza un atajo</small></span></div><em id="termRangeNote">Permitido: 6 a 36 meses</em></div>
               <div class="term-date-grid">
-                <label>Plazo en meses <span class="term-input"><input id="termSelect" type="number" min="6" max="36" step="1" value="12" inputmode="numeric" aria-label="Plazo en meses"><b>meses</b></span></label>
+                <label id="quoteMonthsField">Plazo en meses <span class="term-input"><input id="termSelect" type="number" min="6" max="36" step="1" value="12" inputmode="numeric" aria-label="Plazo en meses"><b>meses</b></span></label>
                 <label>Primera cuota <input id="firstPaymentDate" type="date"></label>
               </div>
               <div class="quick-terms"><span>Atajos rápidos</span><div class="term-picker" id="termPicker"></div></div>
@@ -758,9 +761,9 @@
     <script src="collateral-evaluation.js?v=20261013-1"></script>
     <script src="product-flows.js?v=20261013-1"></script>
     <script src="document-center.js?v=20261013-1"></script>
-    <script src="app.js?v=20261022-crm1"></script>
+    <script src="app.js?v=20261105-weekly"></script>
     <script src="pagare-privado.js?v=20261026-print1"></script>
-    <script src="calculadora-express.js?v=20261005-dashboard"></script>
+    <script src="calculadora-express.js?v=20261105-weekly"></script>
     <script src="operation-workbench.js?v=20261022-crm1"></script>
     <script src="menu-acordeon.js"></script>
     <script src="ultimate-ui.js?v=20261013-1"></script>
@@ -769,11 +772,15 @@
         navigator.serviceWorker.register("./service-worker.js").catch(() => {});
       }
     </script>
-  <script src="system-navigation.js?v=20261022-crm1"></script>
+  <script src="system-navigation.js?v=20261027-footer4"></script>
 <script src="financing-crm-core.js?v=20261022-crm1"></script>
 <script src="financing-crm.js?v=20261022-crm1"></script>
 <script src="financing-form-bridge.js?v=20261022-crm1"></script>
 <script src="bank-dashboard.js?v=20261022-crm1"></script>
-<script src="system-home.js?v=20261026-vfx3"></script>
-</body>
+<script src="document-management-core.js?v=20261027-footer4"></script>
+<script src="document-management-finance.js?v=20261027-footer4"></script>
+<script src="document-management-templates.js?v=20261027-footer4"></script>
+<script src="document-management.js?v=20261027-footer4"></script>
+<script src="system-home.js?v=20261027-footer4"></script>
+<script src="document-engine/print-style-bundle.js?v=20261104-optimal-6"></script><script src="document-engine/print-profiles.js?v=20261104-optimal-6"></script><script src="document-engine/optimal-print.js?v=20261104-optimal-6"></script></body>
 </html>

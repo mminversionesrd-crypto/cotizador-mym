@@ -171,3 +171,6 @@
 @media print {
   .express-calculator { display: none !important; }
 }
+
+/* Only the term control for the selected frequency is visible. */
+#expressTerm[hidden], #expressWeeks[hidden], #quoteMonthsField[hidden] { display: none !important; }

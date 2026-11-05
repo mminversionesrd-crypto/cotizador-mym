@@ -367,13 +367,18 @@ function rulesFor(product = els.productName.value) {
   return state.productRules[product] || DEFAULT_PRODUCT_RULES[product];
 }
 
+const WEEKLY_TERMS = [13, 16, 20, 24, 28, 32].map(weeks => weeks / 4);
+const quoteTermLabel = (months, frequency = state.frequency) => frequency === "weekly" ? `${months * 4} semanas` : `${months} meses`;
+
 function allowedTerms(product = els.productName.value) {
+  if (state.frequency === "weekly") return WEEKLY_TERMS;
   const rules = rulesFor(product);
   return TERMS.filter((term) => term >= rules.minTerm && term <= rules.maxTerm);
 }
 
 function featuredTerms(product = els.productName.value) {
   const allowed = allowedTerms(product);
+  if (state.frequency === "weekly") return allowed;
   const preferred = FEATURED_TERMS.filter((term) => allowed.includes(term));
   if (preferred.length >= 3) return preferred;
   const anchors = [allowed[0], allowed[Math.floor((allowed.length - 1) / 2)], allowed.at(-1)];
@@ -631,7 +636,7 @@ function validateQuote(quote) {
   const minimumDown = quote.price * (quote.rules.minDown / 100);
   if (quote.price <= 0) issues.push("Indica un precio mayor que cero.");
   if (quote.down < minimumDown) suggestions.push(`Inicial sugerida para este producto: ${money(minimumDown)} (${quote.rules.minDown}%). Puedes imprimir la cotización sin inicial.`);
-  if (!allowedTerms().includes(quote.term)) issues.push(`El plazo debe estar entre ${quote.rules.minTerm} y ${quote.rules.maxTerm} meses.`);
+  if (!allowedTerms().includes(quote.term)) issues.push(state.frequency === "weekly" ? "Selecciona uno de los plazos semanales disponibles." : `El plazo debe estar entre ${quote.rules.minTerm} y ${quote.rules.maxTerm} meses.`);
   if (numberValue(els.monthlyRate) > 100) issues.push("La tasa no puede exceder 100%.");
   if (!quote.firstPaymentDate) issues.push("Selecciona la fecha de la primera cuota.");
   return { valid: issues.length === 0, issues, suggestions, minimumDown };
@@ -643,10 +648,13 @@ function paymentForTerm(quote, term, frequencyKey) {
 
 function renderAllTermButtons() {
   const rules = rulesFor();
-  els.termPicker.innerHTML = featuredTerms().map((term) => `<button class="choice-chip ${term === state.term ? "active" : ""}" type="button" data-term="${term}">${term}</button>`).join("");
+  els.termPicker.innerHTML = featuredTerms().map((term) => `<button class="choice-chip ${term === state.term ? "active" : ""}" type="button" data-term="${term}">${state.frequency === "weekly" ? quoteTermLabel(term) : term}</button>`).join("");
+  const weekly = state.frequency === "weekly";
+  document.getElementById("quoteMonthsField").hidden = weekly;
+  els.termSelect.disabled = weekly;
   els.termSelect.min = String(rules.minTerm);
   els.termSelect.max = String(rules.maxTerm);
-  els.termRangeNote.textContent = `Permitido: ${rules.minTerm} a ${rules.maxTerm} meses`;
+  els.termRangeNote.textContent = weekly ? "Selecciona un plazo en semanas" : `Permitido: ${rules.minTerm} a ${rules.maxTerm} meses`;
   els.termSelect.value = String(state.term);
 }
 
@@ -688,14 +696,14 @@ function renderRecommendedPlans(quote) {
     const benefit = term === 12 ? "Pago más rápido" : term === 15 ? "Mejor equilibrio" : "Cuota más baja";
     const savings = Math.max(0, referencePlan.interest - plan.interest);
     const savingsText = term === referenceTerm ? "Referencia de menor cuota" : `Ahorra ${money(savings)} en interés`;
-    return `<article class="plan-card ${selected ? "selected" : ""} ${highlight}" data-term="${term}" tabindex="0" role="button" aria-label="Elegir plan de ${term} meses">
+    return `<article class="plan-card ${selected ? "selected" : ""} ${highlight}" data-term="${term}" tabindex="0" role="button" aria-label="Elegir plan de ${quoteTermLabel(term)}">
       <span class="plan-select"><i class="fa-solid fa-check"></i></span>
-      <div><span class="plan-badge">${term === 15 ? "Recomendado" : benefit}</span><h3>${term} meses</h3><p>Total: ${money(plan.total)} · Interés: ${money(plan.interest)}<br>${savingsText}</p></div>
+      <div><span class="plan-badge">${term === 15 ? "Recomendado" : benefit}</span><h3>${quoteTermLabel(term)}</h3><p>Total: ${money(plan.total)} · Interés: ${money(plan.interest)}<br>${savingsText}</p></div>
       <div class="plan-payment"><span>Cuota ${quote.frequency.sentence}</span><strong>${money(plan.payment)}</strong></div>
     </article>`;
   }).join("");
-  els.planComparisonInfo.textContent = `Comparación con ${referenceTerm} meses: paga antes para reducir el interés total.`;
-  els.availableTermsLabel.textContent = `Disponibles de ${quote.rules.minTerm} a ${quote.rules.maxTerm} meses`;
+  els.planComparisonInfo.textContent = `Comparación con ${quoteTermLabel(referenceTerm)}: paga antes para reducir el interés total.`;
+  els.availableTermsLabel.textContent = state.frequency === "weekly" ? "Plazos semanales disponibles" : `Disponibles de ${quote.rules.minTerm} a ${quote.rules.maxTerm} meses`;
 }
 
 function renderValidation(quote) {
@@ -808,14 +816,14 @@ function renderScreen() {
   els.heroFrequencyLabel.textContent = quote.frequency.sentence;
   els.heroPayment.textContent = money(quote.payment);
   els.heroFrequency.textContent = quote.frequency.sentence;
-  els.heroTerm.textContent = `${quote.term} meses`;
+  els.heroTerm.textContent = `${quoteTermLabel(quote.term)}`;
   els.summaryPrice.textContent = money(quote.price);
   els.summaryDown.textContent = money(quote.down);
   els.summaryFinanced.textContent = money(quote.financed);
   els.formFinancedAmount.textContent = money(quote.financed);
   els.summaryInterest.textContent = money(quote.interest);
   els.summaryTotal.textContent = money(quote.total);
-  els.sidebarTerm.textContent = `${quote.term} meses`;
+  els.sidebarTerm.textContent = `${quoteTermLabel(quote.term)}`;
   els.sidebarRate.textContent = `${numberValue(els.monthlyRate).toFixed(2)}%`;
   els.sidebarRateFrequency.textContent = quote.frequency.sentence;
   els.sideSummaryTerm.textContent = String(quote.term);
@@ -830,7 +838,7 @@ function renderScreen() {
   els.reviewAmount.textContent = money(quote.price);
   els.reviewDown.textContent = `${money(quote.down)} · ${downPercent}%`;
   els.reviewFinanced.textContent = money(quote.financed);
-  els.reviewTerm.textContent = `${quote.term} meses · ${quote.frequency.label}`;
+  els.reviewTerm.textContent = `${quoteTermLabel(quote.term)} · ${quote.frequency.label}`;
   els.reviewRate.textContent = `${numberValue(els.monthlyRate)}% · ${rateType.shortLabel}`;
   els.reviewCustomer.textContent = quote.customer || "No especificado";
   els.reviewCustomerId.textContent = quote.customerId || "No especificada";
@@ -845,7 +853,7 @@ function renderScreen() {
   if (quote.extra > 0) chargeParts.push(`Adicional ${money(quote.extra)}`);
   els.reviewCharges.textContent = chargeParts.join(" · ") || "Sin cargos";
   els.controlAmountValue.textContent = money(quote.financed);
-  els.controlTermsValue.textContent = `${quote.term} meses · ${quote.frequency.label}`;
+  els.controlTermsValue.textContent = `${quoteTermLabel(quote.term)} · ${quote.frequency.label}`;
   els.controlStatus.classList.toggle("is-warning", !quote.validation.valid);
   els.controlStatusValue.textContent = quote.validation.valid ? "Listo" : "Revisar";
   els.calendarNote.textContent = `${quote.installments} pagos ${quote.frequency.plural}: del ${formatDueDate(quote.firstPaymentDate)} al ${formatDueDate(quote.schedule.at(-1)?.dueDate)}.`;
@@ -867,7 +875,7 @@ function renderPrintReport(quote) {
   els.printDate.textContent = dateText();
   els.printProduct.textContent = `Estás cotizando: ${quote.product}`;
   els.printPayment.textContent = money(quote.payment);
-  els.printFrequency.textContent = `${quote.frequency.label} · ${quote.term} meses`;
+  els.printFrequency.textContent = `${quote.frequency.label} · ${quoteTermLabel(quote.term)}`;
   els.printScheduleInfo.textContent = `Primera cuota: ${formatDueDate(quote.firstPaymentDate)} · ${quote.rateType.shortLabel}`;
   els.printPrice.textContent = money(quote.price);
   els.printDown.textContent = money(quote.down);
@@ -889,7 +897,7 @@ function renderPrintReport(quote) {
   els.planReviewProduct.textContent = quote.product;
   els.planReviewCustomer.textContent = `Cliente: ${customer}`;
   els.planReviewPayment.textContent = money(quote.payment);
-  els.planReviewFrequency.textContent = `${quote.frequency.label} · ${quote.term} meses`;
+  els.planReviewFrequency.textContent = `${quote.frequency.label} · ${quoteTermLabel(quote.term)}`;
   els.planReviewPrice.textContent = money(quote.price);
   els.planReviewDown.textContent = money(quote.down);
   els.planReviewFinanced.textContent = money(quote.financed);
@@ -898,7 +906,7 @@ function renderPrintReport(quote) {
   const terms = allowedTerms();
   const planRows = terms.map((term) => {
     const selected = term === quote.term ? "selected-row" : "";
-    return `<tr class="${selected}"><td>${term} meses</td><td>${money(paymentForTerm(quote, term, "monthly"))}</td><td>${money(paymentForTerm(quote, term, "biweekly"))}</td><td>${money(paymentForTerm(quote, term, "weekly"))}</td></tr>`;
+    return `<tr class="${selected}"><td>${quoteTermLabel(term)}</td><td>${money(paymentForTerm(quote, term, "monthly"))}</td><td>${money(paymentForTerm(quote, term, "biweekly"))}</td><td>${money(paymentForTerm(quote, term, "weekly"))}</td></tr>`;
   }).join("");
   els.planOptionsBody.innerHTML = planRows;
   els.printPlansBody.innerHTML = planRows;
@@ -970,7 +978,8 @@ function resetQuote() {
 }
 
 function selectTerm(term) {
-  const selectedTerm = Math.round(Number(term) || 0);
+  const selectedTerm = state.frequency === "weekly" ? Number(term) : Math.round(Number(term) || 0);
+  if (state.frequency === "weekly" && !WEEKLY_TERMS.includes(selectedTerm)) return;
   state.term = selectedTerm;
   state.quoteEdited = true;
   renderScreen();
@@ -1051,13 +1060,20 @@ els.termPicker.addEventListener("click", (event) => {
 });
 // El campo manual y los atajos comparten el mismo estado del plazo.
 const syncSelectedTerm = () => selectTerm(els.termSelect.value);
-els.termSelect.addEventListener("input", syncSelectedTerm);
 els.termSelect.addEventListener("change", syncSelectedTerm);
 els.frequencyPicker.addEventListener("click", (event) => {
   const button = event.target.closest("[data-frequency]");
   if (!button) return;
   state.quoteEdited = true;
-  state.frequency = button.dataset.frequency;
+  const next = button.dataset.frequency;
+  if (next === state.frequency) return;
+  if (next === "weekly") state.monthlyTermBeforeWeekly = state.term;
+  const wasWeekly = state.frequency === "weekly";
+  state.frequency = next;
+  if (wasWeekly) state.term = state.monthlyTermBeforeWeekly ?? state.term;
+  const terms = allowedTerms();
+  if (!terms.includes(state.term)) state.term = next === "weekly" ? terms[0] : terms.includes(12) ? 12 : terms[0];
+  renderAllTermButtons();
   renderScreen();
 });
 els.recommendedPlans.addEventListener("click", (event) => {

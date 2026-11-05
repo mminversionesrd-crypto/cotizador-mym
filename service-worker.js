@@ -1,7 +1,19 @@
 "use strict";
 
-const CACHE_NAME = "mym-financiamiento-home-v14-vfx";
+const CACHE_NAME = "mym-financiamiento-home-v28-term-visibility";
 const APP_SHELL = [
+  "./cotizacion-motocicletas.html",
+  "./cotizacion-motocicletas.css",
+  "./cotizacion-motocicletas.js",
+  "./document-engine/print-profiles.js?v=20261104-optimal-6",
+  "./document-engine/optimal-print.js?v=20261104-optimal-6",
+  "./document-engine/print-style-bundle.js?v=20261104-optimal-6",
+  "./document-engine/optimal-print.css?v=20261104-optimal-6",
+  "./document-management-core.js",
+  "./document-management-finance.js",
+  "./document-management-templates.js",
+  "./document-management.js",
+  "./document-management.css",
   "./financing-crm.js",
   "./financing-crm-core.js",
   "./financing-crm.css",
