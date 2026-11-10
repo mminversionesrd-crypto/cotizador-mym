@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "mym-financiamiento-home-v28-term-visibility";
+const CACHE_NAME = "mym-financiamiento-home-v32-office";
 const APP_SHELL = [
   "./cotizacion-motocicletas.html",
   "./cotizacion-motocicletas.css",
@@ -22,6 +22,10 @@ const APP_SHELL = [
   "./bank-dashboard.css",
   "./system-home.css",
   "./system-home.js",
+  "./system-home.js?v=20261110-office",
+  "./performance-core.js",
+  "./performance.js",
+  "./performance.css",
   "./system-navigation.js",
   "./",
   "./index.html",
